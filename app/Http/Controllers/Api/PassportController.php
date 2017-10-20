@@ -26,6 +26,7 @@ class PassportController extends Controller
                 'form_params' => [
                     'grant_type' => 'password',
                     'client_id' => 2,
+                    //请替换为你自己的client_secret
                     'client_secret' => 'BNlQGuTuazGQTzFXeNrR9LXJNvjM0i5Q4KHtaNoX',
                     'username' => $request->get('email'),
                     'password' =>  $request->get('password'),
@@ -50,6 +51,7 @@ class PassportController extends Controller
                 'grant_type' => 'refresh_token',
                 'refresh_token' => $refreshToken,
                 'client_id' => 2,
+                //请替换为你自己的client_secret
                 'client_secret' =>'xNDzH4ekjKZskMPYcjTdwKOeNwtfqIBABWUHvzEi',
                 'scope' => '*',
             ],
