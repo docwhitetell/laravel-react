@@ -24,16 +24,6 @@ class UserController extends Controller
         }
 
         public function getCurrentUser(Request $request){
-          /*  $client=$this->getUserClient();
-            $clientIp=$request->header('referer');
-            $log=new Logs();
-            $log->action='getCurrentUser';
-            $log->action_ip=$clientIp;
-            $log->user_client=$client;
-
-            if($log->save()){
-                $request->user()->logs()->attach($log->id);
-            }*/
             return $request->user();
         }
 

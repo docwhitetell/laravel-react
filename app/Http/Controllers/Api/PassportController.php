@@ -22,24 +22,18 @@ class PassportController extends Controller
             // 认证通过...
             //$this->cleanExpiresAccessToken();
             //$this->cleanExpiresRefreshToken();
-            $response = $http->post('http://mylaravel.com/oauth/token', [
+            $response = $http->post(env('APP_URL').'/oauth/token', [
                 'form_params' => [
                     'grant_type' => 'password',
                     'client_id' => 2,
-                    'client_secret' => 'OBf1Vzdb5Nbaqo8ovTYZsrxb5397wsW0gIk0qIE9',
+                    'client_secret' => 'BNlQGuTuazGQTzFXeNrR9LXJNvjM0i5Q4KHtaNoX',
                     'username' => $request->get('email'),
                     'password' =>  $request->get('password'),
                     'scope' => '*',
                 ],
             ]);
             $data=json_decode((string) $response->getBody(), true);
-            $access_token=$data['access_token'];
-            $refresh_token=$data['refresh_token'];
-            $expires_in=$data['expires_in'];
-            //setcookie('access_token',$access_token,120,'/','localhost',false,false);
             return response()->json(['success'=>true,'token'=>$data]);
-            //return response()->json(['success'=>true],200)->withCookie('access_token',$access_token,120);
-            //return json_decode((string) $response->getBody(), true);
         }else{
             return response()->json(['error'=>'email or password not match!'],200);
         }

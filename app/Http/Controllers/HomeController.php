@@ -2,10 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Logs;
 use Illuminate\Http\Request;
-use Illuminate\Database\Eloquent\Relations\Concerns\InteractsWithPivotTable;
-use Jenssegers\Agent\Agent;
 
 class HomeController extends Controller
 {
@@ -24,24 +21,8 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $agent=new Agent();
-        $platform=$agent->platform();
-        $client=$agent->device().' '.$agent->platform().' '.$agent->version($platform);
-
-        $isDesk=$agent->isDesktop();
-
-        $browser=$agent->browser().' '.$agent->version($agent->browser());
-        $res='client:'.$client.' browser:'.$browser;
-
-        $ip=$request->header('referer');
-
-
-
-
-
-
         return view('home');
     }
 }

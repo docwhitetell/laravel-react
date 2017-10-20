@@ -15,8 +15,6 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/users', function (){
-    $data=\App\User::paginate(5);
-    return response()->json(['data'=>$data],200);
-});
-
+Route::get('/',function (){
+    return view('welcome');
+} );

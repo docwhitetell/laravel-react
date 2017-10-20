@@ -7,67 +7,52 @@ import Checkbox from 'material-ui/Checkbox';
 import styles from './login.css'
 import axios from 'axios'
 import Cookies from 'js-cookie'
-const LoginForm=({app,login,dispatch})=>{
-    const state={
-        email:"",
-        password:"",
-        remember:false,
-        domain:'localhost:8000'
+
+const LoginForm = ({app, login, dispatch}) => {
+    const state = {
+        email: "",
+        password: "",
+        remember: false,
+        domain: 'localhost:8000'
     }
-    const handleInputOnchange=(e)=>{
-        const inputType=e.target.getAttribute('name')
-        switch (inputType){
+    const handleInputOnchange = (e) => {
+        const inputType = e.target.getAttribute('name')
+        switch (inputType) {
             case 'email':
-                state.email=e.target.value
+                state.email = e.target.value
                 break
             case 'password':
-                state.password=e.target.value
+                state.password = e.target.value
                 break
             case 'remember':
-                state.remember=!state.remember
+                state.remember = !state.remember
                 break
             default:
         }
     }
-    const handleSubmit=(e)=>{
+    const handleSubmit = (e) => {
         e.preventDefault()
-        const url=e.target.getAttribute('action')
-        //const data=new FormData()
-        //data.append('email',state.email)
-        //data.append('password',state.password)
+        const url = e.target.getAttribute('action')
         dispatch({
-            type:'login/login',
-            payload:state
+            type: 'login/login',
+            payload: state
         })
-     /*   axios({
-            url:url,
-            method:'post',
-            data:state
-        }).then(res=>{
-            console.log(res)
-            Cookies.set('access_token', res.data.access_token, { expires: 7, path: '/' });
-            Cookies.set('refresh_token', res.data.refresh_token, { expires: 7, path: '/' });
-            Cookies.set('expires_in', res.data.expires_in, { expires: 7, path: '/' });
-          dispatch({
-              type:'login/loginSuccess'
-          })
-        })*/
     }
-    const queryUser=()=>{
-        if(Cookies('access_token')){
+    const queryUser = () => {
+        if (Cookies('access_token')) {
             axios({
-                url:'http://mylaravel.com/api/current-user',
-                method:'get',
+                url: 'http://mylaravel.com/api/current-user',
+                method: 'get',
                 headers: {
-                    'Accept':'application/json',
+                    'Accept': 'application/json',
                     'X-Requested-With': 'XMLHttpRequest',
-                    'Authorization':'Bearer '+Cookies('access_token')
+                    'Authorization': 'Bearer ' + Cookies('access_token')
                 },
-            }).then(res=>{
+            }).then(res => {
                 console.log(res)
                 dispatch({
-                    type:'app/currentUser',
-                    payload:res.data
+                    type: 'app/currentUser',
+                    payload: res.data
                 })
             })
         }
@@ -102,9 +87,9 @@ const LoginForm=({app,login,dispatch})=>{
                     <p>
                         <span className={styles.remember}>Remember ?</span>
                         <Checkbox
-                        name="remember"
-                        onChange={handleInputOnchange}
-                    />
+                            name="remember"
+                            onChange={handleInputOnchange}
+                        />
                     </p>
 
                     <Button type="submit" raised color="accent" className={styles.submitButton}>
@@ -116,4 +101,4 @@ const LoginForm=({app,login,dispatch})=>{
     )
 }
 
-export default connect(({app,login,dispatch})=>({app,login,dispatch}))(LoginForm)
+export default connect(({app, login, dispatch}) => ({app, login, dispatch}))(LoginForm)
