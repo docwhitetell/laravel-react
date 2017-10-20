@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use GuzzleHttp;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Passport\Client;
 use Laravel\Passport\Token;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Cookie;
@@ -22,12 +23,13 @@ class PassportController extends Controller
             // 认证通过...
             //$this->cleanExpiresAccessToken();
             //$this->cleanExpiresRefreshToken();
+            $passwordClient=Client::find(2);
             $response = $http->post(env('APP_URL').'/oauth/token', [
                 'form_params' => [
                     'grant_type' => 'password',
-                    'client_id' => 2,
+                    'client_id' => $passwordClient->id,
                     //请替换为你自己的client_secret
-                    'client_secret' => 'BNlQGuTuazGQTzFXeNrR9LXJNvjM0i5Q4KHtaNoX',
+                    'client_secret' => $passwordClient->secret,
                     'username' => $request->get('email'),
                     'password' =>  $request->get('password'),
                     'scope' => '*',
@@ -46,13 +48,14 @@ class PassportController extends Controller
     public function refresh(Request $request){
         $refreshToken=$request->get('refresh');
         $http = new GuzzleHttp\Client;
+        $passwordClient=Client::find(2);
         $response = $http->post(env('APP_URL').'/oauth/token', [
             'form_params' => [
                 'grant_type' => 'refresh_token',
                 'refresh_token' => $refreshToken,
                 'client_id' => 2,
                 //请替换为你自己的client_secret
-                'client_secret' =>'xNDzH4ekjKZskMPYcjTdwKOeNwtfqIBABWUHvzEi',
+                'client_secret' =>$passwordClient->secret,
                 'scope' => '*',
             ],
         ]);

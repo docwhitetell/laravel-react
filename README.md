@@ -4,7 +4,7 @@ laravel (PHP) for backend， react for front
 下载项目文件 <br/>
 git clone https://github.com/docwhitetell/laravel-react.git
 
-复制.env.example 改名成 .env 同时修改APP_URL为你本地设置的项目地址,配置database
+复制.env.example 改名成 .env 同时修改APP_URL为你本地设置的项目地址,配置database<br/>
 1.安装laravel依赖<br/>
 composer install<br/>
 
@@ -17,9 +17,10 @@ php artisan migrate<br/>
 4.安装passport相关<br/>
 php artisan passport:install --force<br/>
 
-5.进入app\http\Controller\Api\PassportController<br/>
-    **修改  client_secret 为数据库中你刚刚生成的密码客户端的 secret字段的值，默认生成的密码模式授权客户端id为2**
-    
+5.由于这个demo应用只需要Oauth中相对简易的密码授权模式，<br/>
+登录成功后使用了默认生成的密码客户端发放access_token，如需使用其他方式的授权方式，<br/>
+自行修改 App\Http\Controller\Api\PassportController中发放access_token的方式<br/>
+   
 6.命令行进入front-antd目录<br/>
 npm install <br/>
 
