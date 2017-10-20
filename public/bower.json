@@ -1,0 +1,17 @@
+{
+  "name": "bower",
+  "authors": [
+    "yuhaoming <510559413@qq.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
