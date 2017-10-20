@@ -44,7 +44,7 @@ class PassportController extends Controller
     }
     /*处理 api登录 */
 
-    /* 带上refresh_token 刷新 access_token */
+    /* 带上refresh_token 刷新 access_token      */
     public function refresh(Request $request){
         $refreshToken=$request->get('refresh');
         $http = new GuzzleHttp\Client;

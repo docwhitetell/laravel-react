@@ -31,4 +31,5 @@ npm install <br/>
 npm start
 
 
-请开始享受 Laravel 以及 基于React全家桶封装的dva框架带来的前后端分离的完整简单应用demo。
+9.在开始体验React构建的前端应用之前，请先在你本地配置的laravel项目中注册账号，<br/>
+然后就可以开始享受 Laravel 以及 基于React全家桶封装的dva框架带来的前后端分离的完整简单应用demo。
