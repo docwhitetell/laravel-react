@@ -1,20 +1,16 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
-
-import Editor, { Editable } from 'ory-editor-core'
-
-import image from 'ory-editor-plugins-image'
-import 'ory-editor-plugins-image/lib/index.css'
-
-const editor = new Editor({
-    plugins: {
-        content: [image]
+import {Editor, EditorState} from 'draft-js';
+class MyEditor extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {editorState: EditorState.createEmpty()};
+        this.onChange = (editorState) => this.setState({editorState});
     }
-})
-
-const EditorPage=()=>{
-    return (
-        <Editable editor={editor} />
-    )
+    render() {
+        return (
+            <Editor editorState={this.state.editorState} onChange={this.onChange} />
+        );
+    }
 }
-export default EditorPage
+
+export default MyEditor

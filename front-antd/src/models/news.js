@@ -17,8 +17,7 @@ export default {
 
     effects: {
         *getNewsdata({payload},{put,call,select}){
-            const res=yield call(mockQuery,{url:config.mockApi.news,query:{pageSize:6,page:1}})
-            //console.log(res)
+            const res=yield call(mockQuery,{url:config.mockApi.news,query:{pageSize:6,page:payload}})
             if(res.status===200){
                 yield put({
                     type:'updateState',
@@ -30,7 +29,6 @@ export default {
 
     reducers: {
         'updateState'(state,payload){
-            console.log(payload)
             return {
                 ...state,
                 list:payload.payload.data,

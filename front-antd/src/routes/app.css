@@ -1,0 +1,21 @@
+.menuItem h3{
+    font-size: 14px;
+    color:#424242;
+    text-indent: 1rem;
+}
+.secondMenuItem h3{
+    font-size: 12px;
+    color:#424242;
+    text-indent:3rem;
+}
+.ant-menu-horizontal:hover .ant-menu-submenu-horizontal{
+    border-bottom: none !important;
+}
+
+
+header .ant-menu li{
+    border-bottom: none !important;
+}
+header .ant-menu:hover li{
+    border-bottom: none !important;
+}

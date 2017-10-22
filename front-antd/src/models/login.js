@@ -11,12 +11,16 @@ export default {
     },
 
     subscriptions: {
-
+        setup ({ dispatch }) {
+            dispatch({ type: 'checkLogin' })
+        },
     },
 
     effects: {
-        *loginSuccess({payload},{put,call,select}){
-            yield put(routerRedux.push('/dashboard'))
+        *checkLogin({payload},{put,call,select}){
+            if(Cookies('access_token')){
+                yield put(routerRedux.push('/dashboard'))
+            }
         },
         * login ({
                      payload,
@@ -34,6 +38,9 @@ export default {
                 Cookies.set('access_token', res.data.token.access_token, { expires: 7, path: '/' });
                 Cookies.set('refresh_token', res.data.token.refresh_token, { expires: 7, path: '/' });
                 Cookies.set('expires_in', res.data.token.expires_in, { expires: 7, path: '/' });
+                yield put({
+                    type:'app/query'
+                })
                 yield put(routerRedux.push('/dashboard'))
             }
             //JSON.parse(data)

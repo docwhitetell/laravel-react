@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'dva';
+import { withRouter } from 'dva/router'
 import { withStyles } from 'material-ui/styles';
 import {Link} from 'react-router-dom'
 import Drawer from 'material-ui/Drawer';
@@ -16,12 +17,18 @@ import List , { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 import Collapse from 'material-ui/transitions/Collapse';
 import ExpandLess from 'material-ui-icons/ExpandLess';
 import ExpandMore from 'material-ui-icons/ExpandMore';
+
+import { Menu, Icon } from 'antd';
+const SubMenu = Menu.SubMenu;
+const MenuItemGroup = Menu.ItemGroup;
+
+
 import Cookies from 'js-cookie'
-import style2 from './Layout.css'
+import style2 from './app.css'
 
 const drawerWidth = 240;
 
-
+let lastHref
 const styles = theme => ({
     root: {
         width: '100%',
@@ -41,6 +48,9 @@ const styles = theme => ({
         [theme.breakpoints.up('md')]: {
             width: `calc(100% - ${drawerWidth}px)`,
         },
+    },
+    toolbar:{
+        position:'relative'
     },
     navIconHide: {
         [theme.breakpoints.up('md')]: {
@@ -64,12 +74,34 @@ const styles = theme => ({
         },
     },
 });
-const ResponsiveDrawer=({app,dispatch,children,classes,theme})=> {
+const ResponsiveDrawer=({app,dispatch,children,classes,theme,loading,location})=> {
     const {dropDown1 ,mobileOpen}=app
+
+    let { pathname } = location
+    pathname = pathname.startsWith('/') ? pathname : `/${pathname}`
+    const href = window.location.href
 
     function handleClick(){
         dispatch({
             type:'app/dropdownShowHide',
+        })
+    }
+    function handleUserDropDown(e) {
+        dispatch({
+            type:'app/userDropdown',
+            payload:e.target,
+        })
+    }
+    function handleUserDropDownClose() {
+        dispatch({
+            type:'app/userDropdownClose',
+        })
+    }
+    function handleUserLogout() {
+        Cookies.remove('access_token')
+        Cookies.remove('refresh_token')
+        dispatch({
+            type:'app/logout'
         })
     }
     const handleDrawerToggle = () => {
@@ -77,57 +109,52 @@ const ResponsiveDrawer=({app,dispatch,children,classes,theme})=> {
             type:'app/drawerShowHide',
         })
     };
-    if(app.user && Cookies('access_token')){
-
-    }
-    else{
-        dispatch({
-            type:'app/queryUser',
-            payload:app.user
-        })
-    }
-
-        const drawer = (
-            <div>
-                <div className={classes.drawerHeader} />
-                <Divider/>
-                <List subheader={<ListSubheader>Dashboard</ListSubheader>}>
-                    <Link to="/dashboard">
-                        <ListItem button>
-                            <ListItemText primary="Dashboard" className={style2.menuItem} />
-                        </ListItem>
-                    </Link>
-                    <Link to="/user">
-                        <ListItem button>
-                            <ListItemText primary="User" className={style2.menuItem}  />
-                        </ListItem>
-                    </Link>
-                    <Link to="/news">
-                        <ListItem button>
-                            <ListItemText primary="News" className={style2.menuItem}  />
-                        </ListItem>
-                    </Link>
-                    <ListItem button key={0} onClick={ handleClick }>
-                        <ListItemText primary="Collapse" className={style2.menuItem}  />
-                        {dropDown1 ? <ExpandLess /> : <ExpandMore />}
+    const drawer = (
+        <div>
+            <div className={classes.drawerHeader}/>
+            <Divider/>
+            <List subheader={<ListSubheader>Dashboard</ListSubheader>}>
+                <Link to="/dashboard">
+                    <ListItem button>
+                        <ListItemText primary="Dashboard" className={style2.menuItem}/>
                     </ListItem>
-                    <Collapse in={dropDown1} transitionDuration="auto" unmountOnExit>
-                        <Link to="/editor">
-                            <ListItem button>
-                                <ListItemText className={style2.secondMenuItem} style={{fontSize:'14px'}} primary="Editor"  />
-                            </ListItem>
-                        </Link>
-                    </Collapse>
-                </List>
-            </div>
-        );
+                </Link>
+                <Link to="/user">
+                    <ListItem button>
+                        <ListItemText primary="User" className={style2.menuItem}/>
+                    </ListItem>
+                </Link>
+                <Link to="/news">
+                    <ListItem button>
+                        <ListItemText primary="News" className={style2.menuItem}/>
+                    </ListItem>
+                </Link>
+                <ListItem button key={0} onClick={handleClick}>
+                    <ListItemText primary="Collapse" className={style2.menuItem}/>
+                    {dropDown1 ? <ExpandLess/> : <ExpandMore/>}
+                </ListItem>
+                <Collapse in={dropDown1} transitionDuration="auto" unmountOnExit>
+                    <Link to="/editor">
+                        <ListItem button>
+                            <ListItemText className={style2.secondMenuItem} style={{fontSize: '14px'}}
+                                          primary="Editor"/>
+                        </ListItem>
+                    </Link>
+                </Collapse>
+            </List>
+        </div>
+    );
 
-
+    if(pathname==='/' || pathname==='/login'){
+        return (<div className={classes.root} style={{minHeight:'100vh'}}>
+            {children}
+        </div>)
+    }else{
         return (
             <div className={classes.root}>
                 <div className={classes.appFrame}>
                     <AppBar className={classes.appBar}>
-                        <Toolbar>
+                        <Toolbar className={classes.toolbar}>
                             <IconButton
                                 color="contrast"
                                 aria-label="open drawer"
@@ -139,6 +166,20 @@ const ResponsiveDrawer=({app,dispatch,children,classes,theme})=> {
                             <Typography type="title" color="inherit" noWrap>
                                 Material-Design
                             </Typography>
+                            {app.user!==null &&
+                            <div style={{position: 'absolute', right: '20px'}}>
+                                <Menu
+                                    mode="horizontal"
+                                    style={{backgroundColor:'#3f51b5',borderBottom:'none'}}
+                                    onClick={handleUserLogout}
+                                    theme="light"
+                                >
+                                    <SubMenu title={<span style={{color:'#ffffff'}}><Icon type="user" />{app.user.name}</span>}>
+                                            <Menu.Item key="logout" >lougou</Menu.Item>
+                                    </SubMenu>
+                                </Menu>
+                            </div>
+                            }
                         </Toolbar>
                     </AppBar>
                     <Hidden mdUp implementation="css">
@@ -178,11 +219,12 @@ const ResponsiveDrawer=({app,dispatch,children,classes,theme})=> {
                 </footer>
             </div>
         );
+    }
+
 
 }
 
 ResponsiveDrawer.propTypes = {
-
 };
 
-export default connect(({app,dispatch})=>({app,dispatch}))(withStyles(styles, { withTheme: true })(ResponsiveDrawer));
+export default withRouter(connect(({app})=>({app}))(withStyles(styles, { withTheme: true })(ResponsiveDrawer)));

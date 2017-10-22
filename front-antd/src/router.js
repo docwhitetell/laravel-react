@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Router, Route, Switch, Redirect,routerRedux } from 'dva/router';
-
+import Layout from './routes/app'
 import dynamic from 'dva/dynamic';
 
 const {ConnectedRouter}=routerRedux
@@ -45,22 +45,24 @@ function RouterConfig({ history ,app}) {
         }
     ]
   return (
-    <ConnectedRouter history={history}>
-      <Switch>
-          {
-              routes.map(({ path, ...dynamics }, key) => (
-                  <Route key={key}
-                         exact
-                         path={path}
-                         component={dynamic({
-                             app,
-                             ...dynamics,
-                         })}
-                  />
-              ))
-          }
-      </Switch>
-    </ConnectedRouter>
+      <ConnectedRouter history={history}>
+          <Layout>
+              <Switch>
+                  {
+                      routes.map(({path, ...dynamics}, key) => (
+                          <Route key={key}
+                                 exact
+                                 path={path}
+                                 component={dynamic({
+                                     app,
+                                     ...dynamics,
+                                 })}
+                          />
+                      ))
+                  }
+              </Switch>
+          </Layout>
+      </ConnectedRouter>
   );
 }
 

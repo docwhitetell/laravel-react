@@ -3,7 +3,6 @@ import {Link} from 'react-router-dom'
 import {connect} from 'dva'
 import {Pagination} from 'antd'
 import { withStyles } from 'material-ui/styles';
-import Layout from '../../components/material/layout/Layout'
 import BreadCrumb from '../../components/material/components/BreadCrumb/BreadCrumb'
 import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
 import Button from 'material-ui/Button';
@@ -38,15 +37,23 @@ const styles = {
 };
 
 class News extends React.Component{
-    queryNews=()=>{
+    queryNews=(page)=>{
         const {dispatch}=this.props
         dispatch({
-            type:'news/getNewsdata'
+            type:'news/getNewsdata',
+            payload:page
         })
     }
-    onChange=()=>{}
+    pageOnChange=(current)=>{
+        //console.log(current)
+        const {dispatch}=this.props
+        dispatch({
+            type:'news/getNewsdata',
+            payload:current
+        })
+    }
     componentDidMount() {
-        this.queryNews()
+        this.queryNews(1)
     }
     render(){
         const {classes,news}=this.props
@@ -66,7 +73,7 @@ class News extends React.Component{
         ];
 
         return(
-            <Layout>
+            <div>
                 <BreadCrumb data={breadcrumbNameMap}/>
 
                 <Grid container spacing={24} style={{margin:'0 auto',maxWidth:1200}}>
@@ -100,9 +107,9 @@ class News extends React.Component{
                             </CardActions>
                         </Card>
                     </Grid>)) }
-                    <Pagination className={classes.pagination} showQuickJumper defaultCurrent={news.current} total={news.total} onChange={this.onChange} />
+                    <Pagination className={classes.pagination} showQuickJumper defaultCurrent={news.current} total={news.total} onChange={this.pageOnChange} />
                 </Grid>
-            </Layout>
+            </div>
         )
     }
 

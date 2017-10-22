@@ -1,7 +1,6 @@
 import React from 'react'
 
 import {Link} from 'react-router-dom'
-import Layout from '../../components/material/layout/Layout'
 import { Breadcrumb, Icon } from 'antd'
 import UserTable from '../../components/material/components/usertable/UserTable'
 import BreadCrumb from '../../components/material/components/BreadCrumb/BreadCrumb'
@@ -21,10 +20,10 @@ const User=()=>{
         }
     ];
     return(
-        <Layout>
+        <div>
             <BreadCrumb data={breadcrumbNameMap}/>
             <UserTable/>
-        </Layout>
+        </div>
     )
 }
 export default User

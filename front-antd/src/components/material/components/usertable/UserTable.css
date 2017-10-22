@@ -3,14 +3,14 @@
     margin: 20px;
     padding: 10px;
     min-height: 400px;
+    position: relative;
 }
 
 .addButton{
     margin-bottom: 10px;
 }
 .dialog{
-    position: relative;
-    width: 300px;
+
 }
 .mask{
     position: absolute;
