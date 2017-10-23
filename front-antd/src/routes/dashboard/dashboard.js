@@ -12,7 +12,7 @@ import {LineChart, Line,
 
 import Slider from 'react-slick'
 
-import BreadCrumb from '../../components/material/components/BreadCrumb/BreadCrumb'
+import BreadCrumb from '../../components/BreadCrumb/BreadCrumb'
 
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'

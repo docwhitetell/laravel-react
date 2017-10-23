@@ -25,27 +25,45 @@ export default {
             email:null,
             password:null,
             password_confirmation:null,
-        }
+        },
+
+
+        order: 'asc',
+        orderBy: 'calories',
+        selected: [],
+       /* data: [].sort((a, b) => (a.created_at < b.created_at ? -1 : 1)),*/
+        data:[],
+        page: 1,
+        rowsPerPage: 5,
+        total:0,
+        last_page:null,
     },
 
     subscriptions: {
-
+        setup ({ dispatch }) {
+            dispatch({ type: 'getUserList',payload:{page:1,rowsPerPage:5} })
+        },
     },
 
     effects: {
         *getUserList({payload},{put,call,select}){
             const accessToken=Cookies('access_token')
-            yield put({type:'loading'})
+          /*  yield put({type:'loading'})*/
             console.log(payload)
-            const res=yield call(query, {url:config.api.userList,token:accessToken,page:payload?payload.current:1})
+            const params=payload
+            const res=yield call(query, {url:config.api.userList,token:accessToken,params})
                 if(res.status===200){
-                    console.log(res)
-                    yield put({type:'updateState',payload:res.data})
+                    //console.log(res)
+                    const {current_page,data,total,last_page}=res.data
+                    const newState={
+                        data:data,total:total,page:current_page,last_page:last_page
+                    }
+                    //yield put({type:'update',payload:res.data})
+                    yield put({type:'update',payload:newState})
             }
         },
         *deleteUser({payload},{put,call,select}){
             const accessToken=Cookies('access_token')
-            console.log(payload)
             const res=yield call(query, {url:payload.href,token:accessToken})
 
             yield put({type:'getUserList',payload:{current:payload.current}})
@@ -56,7 +74,6 @@ export default {
             const res=yield call(post, {url:config.api.addUser,token:accessToken,data:payload})
             yield put({type:'dialogLoading'})
             if(res.data.error===true){
-                console.log(res.data)
                 yield put({type:'updateErrorMsg',payload:res.data.msg})
             }
             if(res.data.status===true){
@@ -65,11 +82,27 @@ export default {
                 })
                 yield put({type:'showOrHideDialog'})
             }
-
+        },
+        *changeRowsPerPage({payload},{put,call,select}){
+            yield put({
+                type:'update',
+                payload
+            })
+            yield put({
+                type:'getUserList',
+                payload
+            })
         }
     },
 
     reducers: {
+        'update'(state,payload){
+            const newState=payload.payload
+            return{
+                ...state,
+                ...newState
+            }
+        },
         'loading'(state){
             return{
                 ...state,

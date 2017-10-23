@@ -69,7 +69,7 @@ const styles = theme => ({
         overflow:'hidden',
         marginTop: 56,
         [theme.breakpoints.up('sm')]: {
-            minHeight: 'calc(100vh - 64px)',
+            minHeight: 'calc(100vh - 64px - 60px)',
             marginTop: 64,
         },
     },
@@ -175,7 +175,7 @@ const ResponsiveDrawer=({app,dispatch,children,classes,theme,loading,location})=
                                     theme="light"
                                 >
                                     <SubMenu title={<span style={{color:'#ffffff'}}><Icon type="user" />{app.user.name}</span>}>
-                                            <Menu.Item key="logout" >lougou</Menu.Item>
+                                            <Menu.Item key="logout" >Logout</Menu.Item>
                                     </SubMenu>
                                 </Menu>
                             </div>

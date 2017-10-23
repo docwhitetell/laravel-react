@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom'
 import {connect} from 'dva'
 import {Pagination} from 'antd'
 import { withStyles } from 'material-ui/styles';
-import BreadCrumb from '../../components/material/components/BreadCrumb/BreadCrumb'
+import BreadCrumb from '../../components/BreadCrumb/BreadCrumb'
 import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';

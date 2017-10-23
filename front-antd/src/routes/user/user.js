@@ -1,10 +1,7 @@
 import React from 'react'
+import UserTable from '../../components/usertable/index'
 
-import {Link} from 'react-router-dom'
-import { Breadcrumb, Icon } from 'antd'
-import UserTable from '../../components/material/components/usertable/UserTable'
-import BreadCrumb from '../../components/material/components/BreadCrumb/BreadCrumb'
-const User=()=>{
+const User=({users,dispatch})=>{
     const breadcrumbNameMap = [
         {
             path:'/',
@@ -21,7 +18,6 @@ const User=()=>{
     ];
     return(
         <div>
-            <BreadCrumb data={breadcrumbNameMap}/>
             <UserTable/>
         </div>
     )

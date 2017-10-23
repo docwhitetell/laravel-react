@@ -4,7 +4,7 @@ import {connect} from 'dva'
 import styles from './UserTable.css'
 import axios from 'axios';
 import Cookies from 'js-cookie'
-import config from '../../../../utils/config'
+import config from '../../utils/config'
 import Button from 'material-ui/Button';
 import {  CircularProgress } from 'material-ui/Progress';
 import Dialog, {

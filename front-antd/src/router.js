@@ -24,24 +24,20 @@ function RouterConfig({ history ,app}) {
         {
             path:'/dashboard',
             models:()=>[import('./models/dashboard')],
-            component:()=>import('./routes/material/dashboard')
+            component:()=>import('./routes/dashboard/dashboard')
         },
         {
             path:'/user',
             models:()=>[import('./models/users')],
-            component:()=>import('./routes/material/user')
+            component:()=>import('./routes/user/user')
         },{
             path:'/news',
             models:()=>[import('./models/news')],
-            component:()=>import('./routes/material/news')
-        },
-        {
-            path:'/test',
-            component:()=>import('./routes/material/test')
+            component:()=>import('./routes/news/news')
         },
         {
             path:'/editor',
-            component:()=>import('./routes/material/editor')
+            component:()=>import('./routes/editor/editor')
         }
     ]
   return (

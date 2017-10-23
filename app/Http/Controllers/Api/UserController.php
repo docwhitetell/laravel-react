@@ -14,8 +14,9 @@ class UserController extends Controller
     /* CommonFunc 封装有一系列通用功能函数 */
         use CommonFunc;
         public function getAllUser(Request $request){
+            $pagesize=$request->get('rowsPerPage');
             $this->createLog('get all user',$request->user());
-            return User::orderBy('created_at', 'desc')->paginate(8);
+            return User::orderBy('created_at', 'desc')->paginate($pagesize);
         }
         public function deleteUser($id,Request $request){
             $user=User::find($id);
@@ -27,7 +28,6 @@ class UserController extends Controller
                 return response()->json(['action'=>'delete','status'=>false],200);
             }
         }
-
         public function getCurrentUser(Request $request){
             return $request->user();
         }

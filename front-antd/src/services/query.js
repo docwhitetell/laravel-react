@@ -10,7 +10,7 @@ export async function query(data) {
                 'Authorization':'Bearer '+data.token
             },
             params:{
-                page:data.page
+                ...data.params
             },
         })
 
