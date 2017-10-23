@@ -14,7 +14,7 @@ export default {
         loading:false,
 
         pagination: {
-            pageSize:5
+            pageSize:5,
         },
         dialogopen: false,
         selectedRowKeys: [], // Check here to configure the default column
@@ -36,16 +36,19 @@ export default {
         *getUserList({payload},{put,call,select}){
             const accessToken=Cookies('access_token')
             yield put({type:'loading'})
+            console.log(payload)
             const res=yield call(query, {url:config.api.userList,token:accessToken,page:payload?payload.current:1})
                 if(res.status===200){
+                    console.log(res)
                     yield put({type:'updateState',payload:res.data})
             }
         },
         *deleteUser({payload},{put,call,select}){
             const accessToken=Cookies('access_token')
-            const res=yield call(query, {url:payload,token:accessToken})
+            console.log(payload)
+            const res=yield call(query, {url:payload.href,token:accessToken})
 
-            yield put({type:'getUserList'})
+            yield put({type:'getUserList',payload:{current:payload.current}})
         },
         *addUser({payload},{put,call,select}){
             yield put({type:'dialogLoading'})
@@ -86,7 +89,8 @@ export default {
                 loading:false,
                 pagination:{
                     total:payload.payload.total,
-                    pageSize:payload.payload.per_page
+                    pageSize:payload.payload.per_page,
+                    current:payload.payload.current_page
                 }
             }
         },

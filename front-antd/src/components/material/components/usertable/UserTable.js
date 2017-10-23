@@ -4,6 +4,7 @@ import {connect} from 'dva'
 import styles from './UserTable.css'
 import axios from 'axios';
 import Cookies from 'js-cookie'
+import config from '../../../../utils/config'
 import Button from 'material-ui/Button';
 import {  CircularProgress } from 'material-ui/Progress';
 import Dialog, {
@@ -42,10 +43,11 @@ class UserTable extends React.Component{
         this.getUser()
     }
     deleteUser=(href)=>{
-        const {dispatch}=this.props
+        const {users,dispatch}=this.props
+        const current=users.pagination.current
         dispatch({
             type:'users/deleteUser',
-            payload:href
+            payload:{href,current}
         })
     }
     getUser=()=>{
@@ -79,7 +81,7 @@ class UserTable extends React.Component{
                                 const link=e.target.getAttribute('href')
                                 this.deleteUser(link)
                             }
-                        }  href={'http://mylaravel.com/api/user/delete/' + item.id}>Delete</a>
+                        }  href={config.api.deleteUser+item.id}>Delete</a>
                     </div>
                 )
             }

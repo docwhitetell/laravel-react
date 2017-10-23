@@ -81,7 +81,7 @@ class RegisterForm extends React.Component {
        const classes=styles
         return (
             <div className={classes.container}>
-                <form action="http://mylaravel.com/api/register" onSubmit={this.handleFormSubmit}>
+                <form onSubmit={this.handleFormSubmit}>
                     <FormControl className={classes.formControl} fullWidth>
                         <TextField
                             margin="dense"

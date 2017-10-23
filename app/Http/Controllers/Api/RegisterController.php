@@ -16,7 +16,7 @@ class RegisterController extends Controller
     public function register(Request $request){
         //
         $errors=$this->validator($request->all())->errors();
-        if($errors){
+        if(count($errors)!==0){
             return response()->json(['error'=>true,'msg'=>$errors],200);
         }
         else{

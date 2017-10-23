@@ -8,17 +8,22 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Jenssegers\Agent\Agent;
 
-
+use App\Http\Controllers\Api\CommonController as CommonFunc;
 class UserController extends Controller
 {
+    /* CommonFunc 封装有一系列通用功能函数 */
+        use CommonFunc;
         public function getAllUser(Request $request){
-            return User::paginate(8);
+            $this->createLog('get all user',$request->user());
+            return User::orderBy('created_at', 'desc')->paginate(8);
         }
-        public function deleteUser($id){
+        public function deleteUser($id,Request $request){
             $user=User::find($id);
             if($user->delete()){
+                $this->createLog('delete user',$request->user(),$id,'User');
                 return response()->json(['action'=>'delete','status'=>true],200);
             }else{
+                $this->createLog('delete user',$request->user(),$id,'User',false);
                 return response()->json(['action'=>'delete','status'=>false],200);
             }
         }
@@ -27,16 +32,4 @@ class UserController extends Controller
             return $request->user();
         }
 
-        public function getUserClient(){
-            $agent=new Agent();
-            $platform=$agent->platform();
-            $client=$agent->device().' '.$agent->platform().' '.$agent->version($platform);
-            $isDesk=$agent->isDesktop();
-            $browser=$agent->browser().' '.$agent->version($agent->browser());
-            $res='client:'.$client.' browser:'.$browser;
-            return $res;
-        }
-        public function getUserIp(){
-
-        }
 }
