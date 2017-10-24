@@ -23,7 +23,6 @@ class RegisterForm extends React.Component {
     }
     handleInputChange=(e)=>{
         const key=e.target.getAttribute('name')
-        //console.log( `${key}`+':'+e.target.value)
         switch(key){
             case 'name':
                 this.setState({

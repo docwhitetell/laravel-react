@@ -8,7 +8,8 @@ import IconButton from 'material-ui/IconButton';
 import Tooltip from 'material-ui/Tooltip';
 import DeleteIcon from 'material-ui-icons/Delete';
 import FilterListIcon from 'material-ui-icons/FilterList';
-
+import Button from 'material-ui/Button';
+import AddIcon from 'material-ui-icons/Add';
 
 const toolbarStyles = theme => ({
     root: {
@@ -36,32 +37,47 @@ const toolbarStyles = theme => ({
 });
 
 let EnhancedTableToolbar = props => {
-    const { numSelected, classes } = props;
-
+    const {selected, numSelected,dispatch, classes } = props;
+    const userDelete=()=>{
+        dispatch({
+            type:'users/deleteUser',
+            payload:selected
+        })
+    }
+    const userAdd=()=>{
+        dispatch({
+            type:'users/showOrHideDialog',
+        })
+    }
     return (
         <Toolbar
             className={classNames(classes.root, {
                 [classes.highlight]: numSelected > 0,
             })}
         >
+            <div className={classes.title} style={{marginRight:20}}>
+                <Button fab color="accent" aria-label="add" className={classes.button} style={{width:'40px',height:'40px'}} onClick={userAdd}>
+                    <AddIcon />
+                </Button>
+            </div>
             <div className={classes.title}>
                 {numSelected > 0 ? (
                     <Typography type="subheading">{numSelected} selected</Typography>
                 ) : (
-                    <Typography type="title">Nutrition</Typography>
+                    <Typography type="title">Users</Typography>
                 )}
             </div>
             <div className={classes.spacer} />
-            <div className={classes.actions}>
+            <div className={classes.actions} >
                 {numSelected > 0 ? (
                     <Tooltip title="Delete">
-                        <IconButton aria-label="Delete">
+                        <IconButton aria-label="Delete" onClick={userDelete}>
                             <DeleteIcon />
                         </IconButton>
                     </Tooltip>
                 ) : (
                     <Tooltip title="Filter list">
-                        <IconButton aria-label="Filter list">
+                        <IconButton aria-label="Filter list" onClick={()=>{console.log('filter')}}>
                             <FilterListIcon />
                         </IconButton>
                     </Tooltip>

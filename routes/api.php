@@ -24,4 +24,4 @@ Route::post('/login', 'Api\PassportController@login');
 Route::post('/register', 'Api\RegisterController@register');
 
 
-Route::middleware(['auth:api','cors'])->get('/user/delete/{id}', 'Api\UserController@deleteUser');
+Route::middleware(['auth:api','cors'])->get('/user/delete', 'Api\UserController@deleteUser');

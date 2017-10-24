@@ -1,0 +1,36 @@
+.cardRow{
+    margin: 20px auto;
+    width: 96%;
+}
+.card{
+    display: flex;
+    padding: 0 20px;
+}
+.icon{
+    text-align: center;
+    line-height: 100px;
+    font-size:54px;
+}
+.icontext{
+    color: #424242;
+    font-size:24px;
+}
+.cardLeft{
+   flex:2;
+    height: 100px;
+}
+.cardRight{
+    flex:3;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+}
+.crTitle{
+    color: #424242;
+    font-size: 28px;
+}
+.crNum{
+    color: #424242;
+    font-size: 16px;
+}

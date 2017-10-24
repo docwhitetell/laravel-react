@@ -14,7 +14,6 @@ const columnData = [
     { id: 'name', numeric: false, disablePadding: false, label: 'Name' },
     { id: 'email', numeric: false, disablePadding: false, label: 'email' },
     { id: 'created_at', numeric: false, disablePadding: false, label: 'Created_at' },
-    { id: 'action', numeric: false, disablePadding: false, label: 'action' },
 ];
 
 

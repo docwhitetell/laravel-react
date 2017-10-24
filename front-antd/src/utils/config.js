@@ -17,7 +17,7 @@ module.exports = {
         userInfo:'http://www.gitbase.com/api/current-user',
         userList:'http://www.gitbase.com/api/user',
         addUser:'http://www.gitbase.com/api/register',
-        deleteUser:'http://www.gitbase.com/api/user/delete/'
+        deleteUser:'http://www.gitbase.com/api/user/delete'
     },
     mockApi:{
         news:'http://localhost:8000/mock/news',

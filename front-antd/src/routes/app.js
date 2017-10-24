@@ -153,7 +153,7 @@ const ResponsiveDrawer=({app,dispatch,children,classes,theme,loading,location})=
         return (
             <div className={classes.root}>
                 <div className={classes.appFrame}>
-                    <AppBar className={classes.appBar}>
+                    <AppBar className={classes.appBar} color="accent">
                         <Toolbar className={classes.toolbar}>
                             <IconButton
                                 color="contrast"
@@ -170,7 +170,7 @@ const ResponsiveDrawer=({app,dispatch,children,classes,theme,loading,location})=
                             <div style={{position: 'absolute', right: '20px'}}>
                                 <Menu
                                     mode="horizontal"
-                                    style={{backgroundColor:'#3f51b5',borderBottom:'none'}}
+                                    style={{backgroundColor:'rgb(255, 64, 129)',borderBottom:'none'}}
                                     onClick={handleUserLogout}
                                     theme="light"
                                 >

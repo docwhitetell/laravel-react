@@ -3,6 +3,7 @@ import {routerRedux} from 'dva/router'
 import {query} from '../services/query'
 import Cookies from 'js-cookie'
 import config from '../utils/config'
+import queryString from 'query-string'
 export default {
 
     namespace: 'app',
@@ -14,9 +15,26 @@ export default {
         test:false,
         anchorEl: null,
         open: false,
+
+        locationPathname: '',
+        locationQuery: {},
     },
 
     subscriptions: {
+        setupHistory ({ dispatch, history }) {
+            history.listen((location) => {
+        /*        if(location.pathname==='/user'){
+                    dispatch({ type: 'users/getUserList',payload:{page:1,rowsPerPage:10} })
+                }*/
+                dispatch({
+                    type: 'updateState',
+                    payload: {
+                        locationPathname: location.pathname,
+                        locationQuery: queryString.parse(location.search),
+                    },
+                })
+            })
+        },
 
         setup ({ dispatch }) {
             dispatch({ type: 'query' })
@@ -47,6 +65,12 @@ export default {
     },
 
     reducers: {
+        updateState (state, { payload }) {
+            return {
+                ...state,
+                ...payload,
+            }
+        },
         'dropdownShowHide'(state,payload) {
             console.log(payload)
             return {

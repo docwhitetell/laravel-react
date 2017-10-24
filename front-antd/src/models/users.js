@@ -1,6 +1,6 @@
 import dva from 'dva'
 import {routerRedux} from 'dva/router'
-
+import queryString from 'query-string'
 import Cookies from 'js-cookie'
 import config from '../utils/config'
 import {query} from '../services/query'
@@ -10,16 +10,8 @@ export default {
     namespace: 'users',
 
     state: {
-        user_data:[].sort((a, b) => (a.id < b.id ? -1 : 1)),
-        loading:false,
-
-        pagination: {
-            pageSize:5,
-        },
         dialogopen: false,
-        selectedRowKeys: [], // Check here to configure the default column
         dialogLoading:false,
-
         error:{
             name:null,
             email:null,
@@ -27,58 +19,67 @@ export default {
             password_confirmation:null,
         },
 
-
         order: 'asc',
         orderBy: 'calories',
         selected: [],
-       /* data: [].sort((a, b) => (a.created_at < b.created_at ? -1 : 1)),*/
         data:[],
         page: 1,
-        rowsPerPage: 5,
+        rowsPerPage: 10,
         total:0,
         last_page:null,
     },
 
     subscriptions: {
-        setup ({ dispatch }) {
-            dispatch({ type: 'getUserList',payload:{page:1,rowsPerPage:5} })
+        setup ({ dispatch, history }) {
+            history.listen((location) => {
+                if (location.pathname === '/user') {
+                    const payload = location.query || { page: 1, rowsPerPage: 10 }
+                    dispatch({
+                        type: 'getUserList',
+                        payload,
+                    })
+                }
+            })
         },
     },
 
     effects: {
         *getUserList({payload},{put,call,select}){
+            yield put({type:'loading'})
+            /*获取state*/
             const accessToken=Cookies('access_token')
-          /*  yield put({type:'loading'})*/
-            console.log(payload)
-            const params=payload
-            const res=yield call(query, {url:config.api.userList,token:accessToken,params})
+            const res=yield call(query, {url:config.api.userList,token:accessToken,payload})
                 if(res.status===200){
                     //console.log(res)
                     const {current_page,data,total,last_page}=res.data
                     const newState={
-                        data:data,total:total,page:current_page,last_page:last_page
+                        data:data,total:total,page:current_page,last_page:last_page,
                     }
-                    //yield put({type:'update',payload:res.data})
                     yield put({type:'update',payload:newState})
             }
+
         },
         *deleteUser({payload},{put,call,select}){
+            /*获取全局state*/
+            const { users } = yield (select(_ => _))
             const accessToken=Cookies('access_token')
-            const res=yield call(query, {url:payload.href,token:accessToken})
-
-            yield put({type:'getUserList',payload:{current:payload.current}})
+            const params={users:payload}
+            /*发起删除异步请求*/
+            const res=yield call(query, {url:config.api.deleteUser,token:accessToken,params})
+            /*删除成功后刷新数据*/
+            yield put({type:'getUserList',payload:{page:users.page,rowsPerPage:users.rowsPerPage}})
         },
         *addUser({payload},{put,call,select}){
-            yield put({type:'dialogLoading'})
+          /*  yield put({type:'dialogLoading'})*/
             const accessToken=Cookies('access_token')
             const res=yield call(post, {url:config.api.addUser,token:accessToken,data:payload})
-            yield put({type:'dialogLoading'})
+          /*  yield put({type:'dialogLoading'})*/
             if(res.data.error===true){
                 yield put({type:'updateErrorMsg',payload:res.data.msg})
             }
             if(res.data.status===true){
                 yield put({
-                    type:'getUserList',
+                    type:'getUserList',payload:{ page: 1, rowsPerPage: 10 }
                 })
                 yield put({type:'showOrHideDialog'})
             }
@@ -106,25 +107,13 @@ export default {
         'loading'(state){
             return{
                 ...state,
-                loading:true
+                loading:!state.loading
             }
         },
         'dialogLoading'(state){
             return{
                 ...state,
                 dialogLoading:!state.dialogLoading
-            }
-        },
-        'updateState'(state,payload){
-            return {
-                ...state,
-                user_data:payload.payload.data,
-                loading:false,
-                pagination:{
-                    total:payload.payload.total,
-                    pageSize:payload.payload.per_page,
-                    current:payload.payload.current_page
-                }
             }
         },
         'showOrHideDialog'(state){

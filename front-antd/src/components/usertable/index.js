@@ -1,6 +1,5 @@
 import React from 'react';
 import {connect} from 'dva'
-import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import keycode from 'keycode';
@@ -15,9 +14,16 @@ import Table, {
 import Paper from 'material-ui/Paper';
 import Checkbox from 'material-ui/Checkbox';
 
+import RegisterForm from '../registerform/RegisterForm'
+import Dialog, {
+    DialogContent,
+    DialogTitle,
+} from 'material-ui/Dialog';
+
 import EnhancedTableToolbar from './tableToolBar'
 import EnhancedTableHead from './tableHead'
 
+import CirLoading from '../loading/CirLoading'
 let counter = 0;
 function createData(name, calories, fat, carbs, protein) {
     counter += 1;
@@ -28,13 +34,18 @@ function createData(name, calories, fat, carbs, protein) {
 const styles = theme => ({
     root: {
         width: '96%',
-        margin:'20px auto'
+        margin:'20px auto',
+        position:'relative'
     },
     table: {
         width: '100%',
     },
     tableWrapper: {
         overflowX: 'auto',
+    },
+    tbody:{
+        minHeight:400,
+       /* display:'table'*/
     },
 });
 
@@ -122,8 +133,6 @@ class EnhancedTable extends React.Component {
 
     handleChangePage = (event, page) => {
         const {users,dispatch}=this.props
-        console.log(page)
-        console.log(users.page)
         let newState;
         if(page+1<=users.last_page){
             newState={
@@ -150,15 +159,27 @@ class EnhancedTable extends React.Component {
         })
     };
 
+    handleDialogOpenOrHide=()=>{
+        const {dispatch}=this.props
+        dispatch({
+            type:'users/showOrHideDialog'
+        })
+    }
+
     isSelected = id => this.props.users.selected.indexOf(id) !== -1;
 
     render() {
-        const {users,dispatch, classes } = this.props;
+        const {users,loading,dispatch, classes } = this.props;
+        console.log(loading )
+        const props={}
+        props.numSelected=users.selected.length
+        props.selected=users.selected
+        props.dispatch=dispatch
         return (
             <Paper className={classes.root}>
-                <EnhancedTableToolbar numSelected={users.selected.length} />
+                <EnhancedTableToolbar {...props}/>
                 <div className={classes.tableWrapper}>
-                    <Table className={classes.table}>
+                    <Table className={classes.table} style={{minHeight:400}}>
                         <EnhancedTableHead
                             numSelected={users.selected.length}
                             order={users.order}
@@ -167,7 +188,7 @@ class EnhancedTable extends React.Component {
                             onRequestSort={this.handleRequestSort}
                             rowCount={users.total}
                         />
-                        <TableBody>
+                        <TableBody className={classes.tbody}>
                             {users.data.map(n => {
                                 const isSelected = this.isSelected(n.id);
                                 return (
@@ -188,7 +209,6 @@ class EnhancedTable extends React.Component {
                                         <TableCell>{n.name}</TableCell>
                                         <TableCell>{n.email}</TableCell>
                                         <TableCell>{n.created_at}</TableCell>
-                                        <TableCell>delete</TableCell>
                                     </TableRow>
                                 );
                             })}
@@ -206,6 +226,14 @@ class EnhancedTable extends React.Component {
                         </TableFooter>
                     </Table>
                 </div>
+
+                <CirLoading loading={loading.global}/>
+                <Dialog open={users.dialogopen} onRequestClose={this.handleDialogOpenOrHide} className={classes.dialog}>
+                    <DialogTitle>Add New User</DialogTitle>
+                    <DialogContent>
+                        <RegisterForm/>
+                    </DialogContent>
+                </Dialog>
             </Paper>
         );
     }
@@ -215,4 +243,4 @@ EnhancedTable.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default connect(({users})=>({users}))(withStyles(styles)(EnhancedTable));
+export default connect(({users,loading})=>({users,loading}))(withStyles(styles)(EnhancedTable));

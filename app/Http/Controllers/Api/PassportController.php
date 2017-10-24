@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Cookie;
 class PassportController extends Controller
 {
-
     public function loginform(){
         return response()->json(['data'=>'123'],200);
     }
@@ -21,8 +20,8 @@ class PassportController extends Controller
         $http = new GuzzleHttp\Client;
         if (Auth::attempt(['email' => $request->get('email'), 'password' => $request->get('password')])) {
             // 认证通过...
-            //$this->cleanExpiresAccessToken();
-            //$this->cleanExpiresRefreshToken();
+            $this->cleanExpiresAccessToken();
+            $this->cleanExpiresRefreshToken();
             $passwordClient=Client::find(2);
             $response = $http->post(env('APP_URL').'/oauth/token', [
                 'form_params' => [

@@ -18,15 +18,27 @@ class UserController extends Controller
             $this->createLog('get all user',$request->user());
             return User::orderBy('created_at', 'desc')->paginate($pagesize);
         }
-        public function deleteUser($id,Request $request){
-            $user=User::find($id);
-            if($user->delete()){
-                $this->createLog('delete user',$request->user(),$id,'User');
+        public function deleteUser(Request $request){
+            $usersId=$request->get('users');
+            $users=[];
+
+            for($i=0;$i<count($usersId);$i++){
+                $users[]=(int)$usersId[$i];
+            }
+            if(User::destroy($users)){
+                $this->createLog('delete user',$request->user());
                 return response()->json(['action'=>'delete','status'=>true],200);
             }else{
-                $this->createLog('delete user',$request->user(),$id,'User',false);
+                $this->createLog('delete user',$request->user(),null,null,false);
                 return response()->json(['action'=>'delete','status'=>false],200);
             }
+            //return response()->json($users,200);
+            //dd($users);
+           /* if($user->delete()){
+
+            }else{
+
+            }*/
         }
         public function getCurrentUser(Request $request){
             return $request->user();
