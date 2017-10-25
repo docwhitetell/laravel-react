@@ -36,13 +36,21 @@ let banner=Mock.mock({
         }
     ]
 })
+let NumberCard=[
+    {icon:'pay-circle-o',color:'#00E676',number:Mock.Random.integer(2000,5000),title:'Online Review'},
+    {icon:'team',color:'#03A9F4',number:Mock.Random.integer(2000,5000),title:'New Customers'},
+    {icon:'message',color:'#E91E63',number:Mock.Random.integer(2000,5000),title:'Active Projects'},
+    {icon:'shopping-cart',color:'#7E57C2',number:Mock.Random.integer(2000,5000),title:'Referrals'},
+]
+
 module.exports={
     [`GET /mock/dashboard`](req,res){
         res.status(200).json({
             nd:negative_data.dashboard,
             pd:positive_data.dashboard,
             ud:userdata,
-            bd:banner.data
+            bd:banner.data,
+            numberCard:NumberCard
         })
     }
 }

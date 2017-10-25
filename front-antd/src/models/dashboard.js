@@ -7,16 +7,23 @@ export default {
     namespace: 'dashboard',
 
     state: {
-        data:{
             nd:[],
             pd:[],
             ud:[],
             bd:[],
-        },
+            numberCard:[],
     },
 
     subscriptions: {
-
+        setup ({ dispatch, history }) {
+            history.listen((location) => {
+                if (location.pathname === '/dashboard') {
+                    dispatch({
+                        type: 'getData',
+                    })
+                }
+            })
+        },
     },
 
     effects: {
@@ -36,12 +43,7 @@ export default {
         'updateState'(state,payload){
             return {
                 ...state,
-                data:{
-                    nd:payload.payload.nd,
-                    pd:payload.payload.pd,
-                    ud:payload.payload.ud,
-                    bd:payload.payload.bd,
-                }
+                ...payload.payload
             }
         }
     },

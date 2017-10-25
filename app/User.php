@@ -30,4 +30,7 @@ class User extends Authenticatable
     public function logs(){
         return $this->belongsToMany('App\Models\Logs','users_logs','user_id','log_id');
     }
+    public function notes(){
+        return $this->belongsToMany('App\Models\Notes','users_notes','user_id','note_id');
+    }
 }

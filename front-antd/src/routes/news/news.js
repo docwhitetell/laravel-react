@@ -3,23 +3,25 @@ import {Link} from 'react-router-dom'
 import {connect} from 'dva'
 import {Pagination} from 'antd'
 import { withStyles } from 'material-ui/styles';
-import BreadCrumb from '../../components/BreadCrumb/BreadCrumb'
 import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 import Grid from 'material-ui/Grid';
-
+import CirLoading from '../../components/loading/CirLoading'
 const styles = {
     card: {
+        height:310
     },
     media: {
-        height: 200,
+        height: 180,
     },
     content:{
-        height:120
+        height:90,
+        paddingBottom:0
     },
     title:{
-        height:64
+        height:32,
+        overflow:'hidden'
     },
     description: {
         height:40,
@@ -32,6 +34,9 @@ const styles = {
     },
     pagination:{
         margin:'10px auto'
+    },
+    cardAction:{
+        height:42
     }
 
 };
@@ -56,30 +61,15 @@ class News extends React.Component{
         this.queryNews(1)
     }
     render(){
-        const {classes,news}=this.props
-        const breadcrumbNameMap = [
-            {
-                path:'/',
-                name:'App'
-            } ,
-            {
-                path:'/material',
-                name:'Material-Design',
-            },
-            {
-                path:'/material/user',
-                name: 'News',
-            }
-        ];
-
+        const {classes,news,loading}=this.props
         return(
-            <div>
-                <BreadCrumb data={breadcrumbNameMap}/>
-
+            <div style={{position:'relative',padding:'40px 0'}}>
+                <CirLoading loading={loading.global}/>
                 <Grid container spacing={24} style={{margin:'0 auto',maxWidth:1200}}>
+
                     { news.list.map((item,index)=>(  <Grid key={item.id} item xs={12} sm={6} md={6} lg={4}>
                         <Card className={classes.card}>
-                            <Link to={item.link}>
+                            <Link to='/news'>
                                 <CardMedia
                                         className={classes.media}
                                         image={item.poster}
@@ -94,14 +84,14 @@ class News extends React.Component{
                                     {item.description}
                                 </Typography>
                             </CardContent>
-                            <CardActions>
+                            <CardActions className={classes.cardAction}>
                                 <Button dense color="primary">
                                     Share
                                 </Button>
-                                <Button dense color="primary" href={item.link}>
-                                    Learn More
+                                <Button dense color="primary" href='/news'>
+                                    More
                                 </Button>
-                                <Button dense color="primary" href={item.link}>
+                                <Button dense color="primary" href='/news'>
                                     {item.createTime}
                                 </Button>
                             </CardActions>
@@ -114,4 +104,4 @@ class News extends React.Component{
     }
 
 }
-export default connect(({news,dispatch})=>({news,dispatch}))(withStyles(styles)(News))
+export default connect(({news,loading})=>({news,loading}))(withStyles(styles)(News))

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Logs;
+use App\Models\Notes;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -42,6 +43,19 @@ class UserController extends Controller
         }
         public function getCurrentUser(Request $request){
             return $request->user();
+        }
+
+
+        public function addnote(Request $request){
+            $data=$request->get('note');
+            $note=new Notes();
+            $note->title=$data['title'];
+            $note->content=$data['content'];
+            if($note->save()){
+                $request->user()->notes()->attach($note->id);
+                $this->createLog('add user note',$request->user(),$note->id,'Notes');
+            }
+            return response()->json(['success',true],200);
         }
 
 }

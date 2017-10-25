@@ -5,10 +5,7 @@ import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
 import Checkbox from 'material-ui/Checkbox';
 import styles from './login.css'
-import axios from 'axios'
-import Cookies from 'js-cookie'
-
-const LoginForm = ({app, login, dispatch}) => {
+const LoginForm = ({dispatch}) => {
     const state = {
         email: "",
         password: "",
@@ -37,25 +34,6 @@ const LoginForm = ({app, login, dispatch}) => {
             type: 'login/login',
             payload: state
         })
-    }
-    const queryUser = () => {
-        if (Cookies('access_token')) {
-            axios({
-                url: 'http://mylaravel.com/api/current-user',
-                method: 'get',
-                headers: {
-                    'Accept': 'application/json',
-                    'X-Requested-With': 'XMLHttpRequest',
-                    'Authorization': 'Bearer ' + Cookies('access_token')
-                },
-            }).then(res => {
-                console.log(res)
-                dispatch({
-                    type: 'app/currentUser',
-                    payload: res.data
-                })
-            })
-        }
     }
     return (
         <div className={styles.pageWrapper}>
@@ -101,4 +79,4 @@ const LoginForm = ({app, login, dispatch}) => {
     )
 }
 
-export default connect(({app, login, dispatch}) => ({app, login, dispatch}))(LoginForm)
+export default connect(({ dispatch}) => ({ dispatch}))(LoginForm)

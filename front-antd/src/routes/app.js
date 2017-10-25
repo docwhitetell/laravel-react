@@ -17,8 +17,9 @@ import List , { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 import Collapse from 'material-ui/transitions/Collapse';
 import ExpandLess from 'material-ui-icons/ExpandLess';
 import ExpandMore from 'material-ui-icons/ExpandMore';
-
 import { Menu, Icon } from 'antd';
+
+import config from '../utils/config'
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 
@@ -73,6 +74,10 @@ const styles = theme => ({
             marginTop: 64,
         },
     },
+    menuIcon:{
+        color:'#424242',
+        fontSize:'16px'
+    }
 });
 const ResponsiveDrawer=({app,dispatch,children,classes,theme,loading,location})=> {
     const {dropDown1 ,mobileOpen}=app
@@ -116,27 +121,39 @@ const ResponsiveDrawer=({app,dispatch,children,classes,theme,loading,location})=
             <List subheader={<ListSubheader>Dashboard</ListSubheader>}>
                 <Link to="/dashboard">
                     <ListItem button>
+                        <Icon type="pie-chart" className={classes.menuIcon} />
                         <ListItemText primary="Dashboard" className={style2.menuItem}/>
                     </ListItem>
                 </Link>
                 <Link to="/user">
                     <ListItem button>
+                        <Icon type="team" className={classes.menuIcon} />
                         <ListItemText primary="User" className={style2.menuItem}/>
                     </ListItem>
                 </Link>
                 <Link to="/news">
                     <ListItem button>
+                        <Icon type="appstore" className={classes.menuIcon} />
                         <ListItemText primary="News" className={style2.menuItem}/>
                     </ListItem>
                 </Link>
                 <ListItem button key={0} onClick={handleClick}>
-                    <ListItemText primary="Collapse" className={style2.menuItem}/>
+                    <Icon type="inbox" className={classes.menuIcon} />
+                    <ListItemText primary="Notes" className={style2.menuItem}/>
                     {dropDown1 ? <ExpandLess/> : <ExpandMore/>}
                 </ListItem>
                 <Collapse in={dropDown1} transitionDuration="auto" unmountOnExit>
+                    <Link to="/notes">
+                        <ListItem button className={style2.secondMenuItem}>
+                            <Icon type="bars" className={classes.menuIcon} />
+                            <ListItemText style={{fontSize: '14px'}}
+                                          primary="List"/>
+                        </ListItem>
+                    </Link>
                     <Link to="/editor">
-                        <ListItem button>
-                            <ListItemText className={style2.secondMenuItem} style={{fontSize: '14px'}}
+                        <ListItem button className={style2.secondMenuItem}>
+                            <Icon type="edit" className={classes.menuIcon} />
+                            <ListItemText style={{fontSize: '14px'}}
                                           primary="Editor"/>
                         </ListItem>
                     </Link>
@@ -164,7 +181,7 @@ const ResponsiveDrawer=({app,dispatch,children,classes,theme,loading,location})=
                                 <MenuIcon />
                             </IconButton>
                             <Typography type="title" color="inherit" noWrap>
-                                Material-Design
+                                {config.name}
                             </Typography>
                             {app.user!==null &&
                             <div style={{position: 'absolute', right: '20px'}}>
@@ -175,7 +192,7 @@ const ResponsiveDrawer=({app,dispatch,children,classes,theme,loading,location})=
                                     theme="light"
                                 >
                                     <SubMenu title={<span style={{color:'#ffffff'}}><Icon type="user" />{app.user.name}</span>}>
-                                            <Menu.Item key="logout" >Logout</Menu.Item>
+                                            <Menu.Item key="logout" ><Icon type="logout" />Logout</Menu.Item>
                                     </SubMenu>
                                 </Menu>
                             </div>

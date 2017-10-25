@@ -56,7 +56,7 @@ let EnhancedTableToolbar = props => {
             })}
         >
             <div className={classes.title} style={{marginRight:20}}>
-                <Button fab color="accent" aria-label="add" className={classes.button} style={{width:'40px',height:'40px'}} onClick={userAdd}>
+                <Button fab color="accent" aria-label="add" className={classes.button} style={{width:'44px',height:'44px'}} onClick={userAdd}>
                     <AddIcon />
                 </Button>
             </div>
