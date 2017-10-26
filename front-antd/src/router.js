@@ -41,6 +41,11 @@ function RouterConfig({ history ,app}) {
             component:()=>import('./routes/notes/editor')
         },
         {
+            path:'/edit/:id',
+            models:()=>[import('./models/notes')],
+            component:()=>import('./routes/notes/editor')
+        },
+        {
             path:'/notes',
             models:()=>[import('./models/notes')],
             component:()=>import('./routes/notes/index')

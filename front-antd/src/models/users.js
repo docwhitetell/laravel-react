@@ -18,9 +18,15 @@ export default {
             password:null,
             password_confirmation:null,
         },
-
+        title:'Users',
+        column: [
+            {id: 'id', numeric: true, disablePadding: true, label: 'Id'},
+            {id: 'name', numeric: false, disablePadding: false, label: 'Name'},
+            {id: 'email', numeric: false, disablePadding: false, label: 'email'},
+            {id: 'created_at', numeric: false, disablePadding: false, label: 'Created_at'},
+        ],
         order: 'asc',
-        orderBy: 'calories',
+        orderBy: 'id',
         selected: [],
         data:[],
         page: 1,

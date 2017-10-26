@@ -29,5 +29,16 @@ class NoteController extends Controller
     public function usernotes(Request $request){
         return $request->user()->notes;
     }
+    public function update(Request $request){
+        $data=$request->get('note');
+        $note=Notes::find($data['id']);
+        $note->content=$data['content'];
+        $note->title=$data['title'];
+        $note->save();
+        return response()->json($note,200);
+    }
+    public function detail($id){
+        return Notes::find($id);
+    }
 
 }

@@ -1,20 +1,175 @@
 import React from 'react'
-import UserTable from '../../components/usertable/index'
-
+import Table from '../../components/table/index'
+import {connect} from 'dva'
+import keycode from 'keycode';
+import {
+    TableCell,
+    TableRow,
+} from 'material-ui/Table';
+import Checkbox from 'material-ui/Checkbox';
 class User extends React.Component{
     constructor(props){
         super(props)
     }
     componentDidMount() {
     }
+    handleSelectAllClick = (event, checked) => {
+        const {users,dispatch}=this.props
+        if (checked) {
+            dispatch({
+                type:'users/update',
+                payload:{ selected: users.data.map(n => n.id) }
+            })
+        }else{
+            dispatch({
+                type:'users/update',
+                payload:{ selected:  []  }
+            })
+        }
 
+    };
+    handleRequestSort = (event, property) => {
+        const orderBy = property;
+        let order = 'desc';
+        const {users,dispatch}=this.props
+        if (users.orderBy === property && users.order === 'desc') {
+            order = 'asc';
+        }
+
+        const data =
+            order === 'desc'
+                ? users.data.sort((a, b) => (b[orderBy] < a[orderBy] ? -1 : 1))
+                : users.data.sort((a, b) => (a[orderBy] < b[orderBy] ? -1 : 1));
+
+        dispatch({
+            type:'users/update',
+            payload:{ data, order, orderBy }
+        })
+    };
+    handleKeyDown = (event, id) => {
+        if (keycode(event) === 'space') {
+            this.handleClick(event, id);
+        }
+    };
+    handleClick = (event, id) => {
+        const {users,dispatch}=this.props
+        const { selected } = users;
+        const selectedIndex = selected.indexOf(id);
+        let newSelected = [];
+
+        if (selectedIndex === -1) {
+            newSelected = newSelected.concat(selected, id);
+        } else if (selectedIndex === 0) {
+            newSelected = newSelected.concat(selected.slice(1));
+        } else if (selectedIndex === selected.length - 1) {
+            newSelected = newSelected.concat(selected.slice(0, -1));
+        } else if (selectedIndex > 0) {
+            newSelected = newSelected.concat(
+                selected.slice(0, selectedIndex),
+                selected.slice(selectedIndex + 1),
+            );
+        }
+        dispatch({
+            type:'users/update',
+            payload:{ selected: newSelected }
+        })
+    };
+
+    handleChangePage = (event, page) => {
+        const {users,dispatch}=this.props
+        let newState;
+        if(page+1<=users.last_page){
+            newState={
+                page:page+1,rowsPerPage:users.rowsPerPage
+            }
+        }else{
+            newState={
+                page:page,rowsPerPage:users.rowsPerPage
+            }
+        }
+        dispatch({
+            type:'users/getUserList',
+            payload:newState
+        })
+    };
+
+    handleChangeRowsPerPage = event => {
+        const {dispatch } = this.props;
+        //this.setState({ rowsPerPage: event.target.value });
+        const newSize={rowsPerPage:event.target.value,page:1}
+        dispatch({
+            type:'users/changeRowsPerPage',
+            payload:newSize
+        })
+    };
+
+    handleDialogOpenOrHide=()=>{
+        const {dispatch}=this.props
+        dispatch({
+            type:'users/showOrHideDialog'
+        })
+    }
+
+
+    handleSelectedAction=()=>{
+        const {users,dispatch}=this.props
+        dispatch({
+            type:'users/deleteUser',
+            payload:users.selected
+        })
+    }
+    handleEmptyAction=()=>{
+
+    }
+    isSelected = (id) => {
+        const {users}=this.props
+        return users.selected.indexOf(id) !== -1;
+    }
     render(){
+        const {users}=this.props
+        const props={}
+        props.table=users
+        /*props.column=this.props.users.column*/
+        props.loading=this.props.loading
+        props.dispatch=this.props.dispatch
+        props.handleSelectAllClick=this.handleSelectAllClick
+        props.handleRequestSort=this.handleRequestSort
+        props.handleChangePage=this.handleChangePage
+        props.handleChangeRowsPerPage=this.handleChangeRowsPerPage
+        props.handleDialogOpenOrHide=this.handleDialogOpenOrHide
+        /*props.isSelected=this.isSelected*/
+        props.handleSelectedAction=this.handleSelectedAction
+        props.handleEmptyAction=this.handleEmptyAction
         return(
             <div>
-                <UserTable/>
+                <Table {...props}>
+                    {users.data.map(n => {
+                        const Selected = this.isSelected(n.id);
+                        return (
+                            <TableRow
+                                hover
+                                onClick={event =>this.handleClick(event, n.id)}
+                                onKeyDown={event => this.handleKeyDown(event, n.id)}
+                                role="checkbox"
+                                aria-checked={Selected}
+                                tabIndex={-1}
+                                key={n.id}
+                                selected={Selected}
+                            >
+                                <TableCell padding="checkbox">
+                                    <Checkbox checked={Selected} />
+                                </TableCell>
+                                <TableCell numeric padding="none">{n.id}</TableCell>
+                                <TableCell>{n.name}</TableCell>
+                                <TableCell>{n.email}</TableCell>
+                                <TableCell>{n.created_at}</TableCell>
+                            </TableRow>
+                        );
+                    })}
+                </Table>
             </div>
         )
     }
 
 }
-export default User
+export default connect(({users,loading})=>({users,loading}))(User)

@@ -37,47 +37,38 @@ const toolbarStyles = theme => ({
 });
 
 let EnhancedTableToolbar = props => {
-    const {selected, numSelected,dispatch, classes } = props;
-    const userDelete=()=>{
-        dispatch({
-            type:'users/deleteUser',
-            payload:selected
-        })
-    }
-    const userAdd=()=>{
-        dispatch({
-            type:'users/showOrHideDialog',
-        })
-    }
+    const {table,handleSelectedAction,handleEmptyAction, classes } = props;
+
+
     return (
         <Toolbar
             className={classNames(classes.root, {
-                [classes.highlight]: numSelected > 0,
+                [classes.highlight]: table.selected.length > 0,
             })}
         >
-            <div className={classes.title} style={{marginRight:20}}>
+       {/*     <div className={classes.title} style={{marginRight:20}}>
                 <Button fab color="accent" aria-label="add" className={classes.button} style={{width:'44px',height:'44px'}} onClick={userAdd}>
                     <AddIcon />
                 </Button>
-            </div>
+            </div>*/}
             <div className={classes.title}>
-                {numSelected > 0 ? (
-                    <Typography type="subheading">{numSelected} selected</Typography>
+                {table.selected.length > 0 ? (
+                    <Typography type="subheading">{table.selected.length} selected</Typography>
                 ) : (
-                    <Typography type="title">Users</Typography>
+                    <Typography type="title">{table.title}</Typography>
                 )}
             </div>
             <div className={classes.spacer} />
             <div className={classes.actions} >
-                {numSelected > 0 ? (
+                {table.selected.length > 0 ? (
                     <Tooltip title="Delete">
-                        <IconButton aria-label="Delete" onClick={userDelete}>
+                        <IconButton aria-label="Delete" onClick={handleSelectedAction}>
                             <DeleteIcon />
                         </IconButton>
                     </Tooltip>
                 ) : (
                     <Tooltip title="Filter list">
-                        <IconButton aria-label="Filter list" onClick={()=>{console.log('filter')}}>
+                        <IconButton aria-label="Filter list" onClick={handleEmptyAction}>
                             <FilterListIcon />
                         </IconButton>
                     </Tooltip>
@@ -88,8 +79,7 @@ let EnhancedTableToolbar = props => {
 };
 
 EnhancedTableToolbar.propTypes = {
-    classes: PropTypes.object.isRequired,
-    numSelected: PropTypes.number.isRequired,
+
 };
 
 export default withStyles(toolbarStyles)(EnhancedTableToolbar);

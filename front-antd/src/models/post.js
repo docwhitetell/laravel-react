@@ -22,7 +22,6 @@ export default {
             yield put({
                 type:'update'
             })
-
         }
     },
 

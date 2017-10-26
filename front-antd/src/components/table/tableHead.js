@@ -9,13 +9,6 @@ import  {
 import Checkbox from 'material-ui/Checkbox';
 import Tooltip from 'material-ui/Tooltip';
 
-const columnData = [
-    { id: 'id', numeric: true, disablePadding: true, label: 'Id' },
-    { id: 'name', numeric: false, disablePadding: false, label: 'Name' },
-    { id: 'email', numeric: false, disablePadding: false, label: 'email' },
-    { id: 'created_at', numeric: false, disablePadding: false, label: 'Created_at' },
-];
-
 
 class EnhancedTableHead extends React.Component {
     static propTypes = {
@@ -25,6 +18,7 @@ class EnhancedTableHead extends React.Component {
         order: PropTypes.string.isRequired,
         orderBy: PropTypes.string.isRequired,
         rowCount: PropTypes.number.isRequired,
+        columnData: PropTypes.array.isRequired,
     };
 
     createSortHandler = property => event => {
@@ -32,7 +26,7 @@ class EnhancedTableHead extends React.Component {
     };
 
     render() {
-        const { onSelectAllClick, order, orderBy, numSelected, rowCount } = this.props;
+        const { onSelectAllClick, order, orderBy, numSelected, rowCount ,columnData} = this.props;
 
         return (
             <TableHead>

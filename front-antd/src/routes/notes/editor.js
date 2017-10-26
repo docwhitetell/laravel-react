@@ -10,45 +10,60 @@ import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
 import MyEditor from '../../components/editor/MyEditor'
 import style from './style.css'
-class noteEditor extends React.Component{
-    constructor(props){
-        super(props)
-        this.state={
-            editorState: EditorState.createEmpty(),
-            title:''
+const noteEditor =({notes,dispatch})=>{
+
+    function onEditorStateChange(editorState) {
+       dispatch({
+           type:'notes/update',
+           payload:{editorState:editorState}
+       })
+    }
+    function handleSubmit(){
+        if(notes.current){
+            console.log('has current')
+            const data=draftToHtml(convertToRaw(notes.editorState.getCurrentContent()))
+            const title=notes.editTitle
+
+            dispatch({
+                type:'notes/updateNote',
+                payload:{title:title,content:data,id:notes.current.id}
+            })
+        }else{
+            dispatch({
+                type:'notes/createNote',
+                payload:{title:title,content:data}
+            })
         }
+
     }
-    onEditorStateChange = (editorState) => {
-        this.setState({
-            editorState,
-        })
+    function handleTitleChange(e){
+        if(notes.current) {
+            dispatch({
+                type:'notes/update',
+                payload:{editTitle:e.target.value}
+            })
+        }else{
+            dispatch({
+                type:'notes/update',
+                payload:{noteTile:e.target.value}
+            })
+        }
+
     }
-    handleSubmit=()=>{
-        const data=draftToHtml(convertToRaw(this.state.editorState.getCurrentContent()))
-        const title=this.state.title
-        const {dispatch}=this.props
-        dispatch({
-            type:'posts/postUserNote',
-            payload:{title:title,content:data}
-        })
-    }
-    handleTitleChange=(e)=>{
-        this.setState({
-            title:e.target.value
-        })
-    }
-    render(){
-        const { editorState } = this.state
+
+
+        const { editorState } = notes
         return (
-            <div>
+            <div style={{paddingBottom:40}}>
                 <div className={style.title}>
                     <TextField
                         margin="dense"
                         label="Title"
                         type="text"
                         fullWidth
+                        value={notes.editTitle?notes.editTitle:''}
                         className={style.titleInput}
-                        onChange={this.handleTitleChange}
+                        onChange={handleTitleChange}
                     />
                 </div>
                 <div style={{display:'flex',margin:20}}>
@@ -57,7 +72,7 @@ class noteEditor extends React.Component{
                             wrapperStyle={{minHeight: 500,flex:2}}
                             editorStyle={{minHeight: 376,}}
                             editorState={editorState}
-                            onEditorStateChange={this.onEditorStateChange}
+                            onEditorStateChange={onEditorStateChange}
                         />
                     </Card>
                     <textarea style={{
@@ -70,7 +85,7 @@ class noteEditor extends React.Component{
                     />
                 </div>
                 <div style={{textAlign:'center'}}>
-                    <Button raised color="accent" onClick={this.handleSubmit}>
+                    <Button raised color="accent" onClick={()=>{handleSubmit()}}>
                         SAVE
                     </Button>
                 </div>
@@ -78,7 +93,7 @@ class noteEditor extends React.Component{
             </div>
 
         )
-    }
+
 
 }
-export default connect(({posts})=>({posts}))(noteEditor)
+export default connect(({notes})=>({notes}))(noteEditor)

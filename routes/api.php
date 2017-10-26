@@ -27,3 +27,5 @@ Route::post('/register', 'Api\RegisterController@register');
 Route::middleware(['auth:api','cors'])->get('/user/delete', 'Api\UserController@deleteUser');
 Route::middleware(['auth:api','cors'])->post('/user/addnote', 'Api\NoteController@addnote');
 Route::middleware(['auth:api','cors'])->get('/user/notes', 'Api\NoteController@usernotes');
+Route::middleware(['auth:api','cors'])->post('/user/note/update', 'Api\NoteController@update');
+Route::middleware(['auth:api','cors'])->get('/user/notes/{id}', 'Api\NoteController@detail');
