@@ -27,7 +27,7 @@ const styles = theme => ({
         position:'absolute',
         top:'50%',left:'50%',
         transform:'translate(-50%,30px)',
-        color:'#3F51B5',
+        color:theme.palette.primary,
         fontSize:'16px',
         zIndex:10
     },

@@ -126,8 +126,9 @@ class User extends React.Component{
         return users.selected.indexOf(id) !== -1;
     }
     render(){
-        const {users}=this.props
+        const {app,users}=this.props
         const props={}
+        props.theme=app.currentTheme
         props.table=users
         /*props.column=this.props.users.column*/
         props.loading=this.props.loading
@@ -172,4 +173,4 @@ class User extends React.Component{
     }
 
 }
-export default connect(({users,loading})=>({users,loading}))(User)
+export default connect(({app,users,loading})=>({app,users,loading}))(User)

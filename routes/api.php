@@ -29,3 +29,4 @@ Route::middleware(['auth:api','cors'])->post('/user/addnote', 'Api\NoteControlle
 Route::middleware(['auth:api','cors'])->get('/user/notes', 'Api\NoteController@usernotes');
 Route::middleware(['auth:api','cors'])->post('/user/note/update', 'Api\NoteController@update');
 Route::middleware(['auth:api','cors'])->get('/user/notes/{id}', 'Api\NoteController@detail');
+Route::middleware(['auth:api','cors'])->post('/user/note/delete', 'Api\NoteController@delete');

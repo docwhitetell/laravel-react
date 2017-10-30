@@ -10,7 +10,8 @@ import DeleteIcon from 'material-ui-icons/Delete';
 import FilterListIcon from 'material-ui-icons/FilterList';
 import Button from 'material-ui/Button';
 import AddIcon from 'material-ui-icons/Add';
-
+import pink from 'material-ui/colors/pink'
+import indigo from 'material-ui/colors/indigo'
 const toolbarStyles = theme => ({
     root: {
         paddingRight: 2,
@@ -29,33 +30,37 @@ const toolbarStyles = theme => ({
         flex: '1 1 100%',
     },
     actions: {
-        color: theme.palette.text.secondary,
+        color: '#ffffff',
     },
     title: {
         flex: '0 0 auto',
+        color:'#ffffff'
+    },
+    accent:{
+     /*   background: '#E91E63',*/
+        background: pink.A100
+    },
+    primary:{
+        background: '#303F9F'
     },
 });
 
-let EnhancedTableToolbar = props => {
+let EnhancedTableToolbar = (props) => {
     const {table,handleSelectedAction,handleEmptyAction, classes } = props;
 
 
     return (
         <Toolbar
-            className={classNames(classes.root, {
-                [classes.highlight]: table.selected.length > 0,
-            })}
+           /* className={classNames(classes.root, {
+               [classes.highlight]: table.selected.length > 0,
+            })}*/
+            className={classes.root}
         >
-       {/*     <div className={classes.title} style={{marginRight:20}}>
-                <Button fab color="accent" aria-label="add" className={classes.button} style={{width:'44px',height:'44px'}} onClick={userAdd}>
-                    <AddIcon />
-                </Button>
-            </div>*/}
             <div className={classes.title}>
                 {table.selected.length > 0 ? (
-                    <Typography type="subheading">{table.selected.length} selected</Typography>
+                    <Typography type="subheading">{table.selected.length} selected Notes</Typography>
                 ) : (
-                    <Typography type="title">{table.title}</Typography>
+                    <Typography type="title" >{table.title}</Typography>
                 )}
             </div>
             <div className={classes.spacer} />

@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 
 
 use App\Http\Controllers\Api\CommonController as CommonFunc;
+use Mockery\Matcher\Not;
+
 class NoteController extends Controller
 {
     /* CommonFunc 封装有一系列通用功能函数 */
@@ -40,5 +42,13 @@ class NoteController extends Controller
     public function detail($id){
         return Notes::find($id);
     }
+    public function delete(Request $request){
+        $shouldDelete=$request->get('note');
+        if(Notes::destroy($shouldDelete)){
+            return response()->json(['status'=>true],200);
+        }else{
+            return response()->json(['status'=>false],200);
+        }
 
+    }
 }

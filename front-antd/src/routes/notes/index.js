@@ -2,6 +2,7 @@ import React from 'react'
 import Table from '../../components/table/index'
 import {connect} from 'dva'
 import keycode from 'keycode';
+import Button from 'material-ui/Button';
 import {
     TableCell,
     TableRow,
@@ -9,7 +10,10 @@ import {
 import Checkbox from 'material-ui/Checkbox';
 import IconButton from 'material-ui/IconButton';
 import EditIcon from 'material-ui-icons/Edit'
-const List =({notes,loading,dispatch})=>{
+import AddIcon from 'material-ui-icons/Add';
+import styles from './style.css'
+
+const List =({app,notes,loading,dispatch})=>{
 
     function handleSelectAllClick(event, checked) {
         if (checked) {
@@ -101,9 +105,8 @@ const List =({notes,loading,dispatch})=>{
         return notes.selected.indexOf(id) !== -1;
     }
     function handleSelectedAction(){
-        const {notes,dispatch}=this.props
         dispatch({
-            type:'notes/deleteUser',
+            type:'notes/deleteNote',
             payload:notes.selected
         })
     }
@@ -111,6 +114,11 @@ const List =({notes,loading,dispatch})=>{
 
     }
 
+    function handleAddNote() {
+        dispatch({
+            type:'notes/create'
+        })
+    }
     const handleEdit=(id)=>{
         console.log(id)
         dispatch({
@@ -120,10 +128,12 @@ const List =({notes,loading,dispatch})=>{
     }
 
     const props={}
+    props.theme=app.currentTheme
     props.table=notes
     props.column=notes.column
     props.loading=loading
     props.dispatch=dispatch
+
     /*全选点击事件*/
     props.handleSelectAllClick=handleSelectAllClick
     /*排序事件*/
@@ -138,14 +148,19 @@ const List =({notes,loading,dispatch})=>{
     props.handleEmptyAction=handleEmptyAction
 
 
-    return(<div>
+    return(<div style={{padding:20}}>
+        <div style={{marginBottom:10,textAlign:'right'}}>
+            <Button fab raised color="primary"  onClick={handleAddNote}>
+                <AddIcon />
+            </Button>
+        </div>
+
         <Table {...props}>
             {notes.data.map(n => {
                 const Selected = isSelected(n.id);
                 return (
                     <TableRow
                         hover
-                        onClick={event =>handleClick(event, n.id)}
                         onKeyDown={event => handleKeyDown(event, n.id)}
                         role="checkbox"
                         aria-checked={Selected}
@@ -153,14 +168,15 @@ const List =({notes,loading,dispatch})=>{
                         key={n.id}
                         selected={Selected}
                     >
-                        <TableCell padding="checkbox">
+                        <TableCell onClick={event =>handleClick(event, n.id)} padding="checkbox">
                             <Checkbox checked={Selected} />
                         </TableCell>
                         <TableCell numeric padding="none">{n.id}</TableCell>
-                        <TableCell>{n.title}</TableCell>
-                        <TableCell>{n.content}</TableCell>
-                        <TableCell>{n.created_at}</TableCell>
-                        <TableCell>
+                        <TableCell className={styles.tableCell}>{n.title}</TableCell>
+                        <TableCell className={styles.tableCell}>{n.content}</TableCell>
+                        <TableCell className={styles.tableCell}>{n.created_at}</TableCell>
+                        <TableCell className={styles.tableCell}>{n.updated_at}</TableCell>
+                        <TableCell className={styles.tableCell}>
                             <IconButton aria-label="Edit" color="primary" onClick={()=>{handleEdit(n.id)}}>
                                 <EditIcon/>
                             </IconButton>
@@ -173,4 +189,4 @@ const List =({notes,loading,dispatch})=>{
     </div>)
 }
 
-export default connect(({notes,loading})=>({notes,loading}))(List)
+export default connect(({app,notes,loading})=>({app,notes,loading}))(List)

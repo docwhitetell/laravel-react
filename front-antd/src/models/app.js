@@ -4,6 +4,8 @@ import {query} from '../services/query'
 import Cookies from 'js-cookie'
 import config from '../utils/config'
 import queryString from 'query-string'
+import color from '../utils/theme'
+
 export default {
 
     namespace: 'app',
@@ -11,21 +13,21 @@ export default {
     state: {
         user:null,
         mobileOpen: false,
-        dropDown1:true,
+        dropDown:{notes:true,ui:true},
         test:false,
         anchorEl: null,
         open: false,
-
         locationPathname: '',
         locationQuery: {},
+        theme:color.colors.blue,
+        currentColor:'blue',
+        colors:color,
+        canChoice:color.canChoice
     },
 
     subscriptions: {
         setupHistory ({ dispatch, history }) {
             history.listen((location) => {
-        /*        if(location.pathname==='/user'){
-                    dispatch({ type: 'users/getUserList',payload:{page:1,rowsPerPage:10} })
-                }*/
                 dispatch({
                     type: 'updateState',
                     payload: {
@@ -65,18 +67,26 @@ export default {
     },
 
     reducers: {
-        updateState (state, { payload }) {
-            return {
-                ...state,
-                ...payload,
-            }
+        'update'(state,payload){
+            return {...state,...payload.payload}
         },
         'dropdownShowHide'(state,payload) {
             console.log(payload)
-            return {
-                ...state,
-                dropDown1:!state.dropDown1
+            switch (payload.payload){
+                case 'notes':
+                    return{
+                        ...state,
+                        dropDown:{notes:!state.dropDown.notes,ui:state.dropDown.ui}
+                    }
+                case 'ui':{
+                    return{
+                        ...state,
+                        dropDown:{notes:state.dropDown.notes,ui:!state.dropDown.ui}
+                    }
+                }
+                default:
             }
+
         },
         'drawerShowHide'(state){
             return {
@@ -100,7 +110,7 @@ export default {
         },
         'userDropdownClose'(state){
             return {...state,open:false}
-        }
+        },
 
     },
 

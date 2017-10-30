@@ -19,6 +19,7 @@ export default {
             {id: 'title', numeric: false, disablePadding: false, label: 'Title'},
             {id: 'content', numeric: false, disablePadding: false, label: 'Content'},
             {id: 'created_at', numeric: false, disablePadding: false, label: 'Created_at'},
+            {id: 'updated_at', numeric: false, disablePadding: false, label: 'updated_at'},
             {id: 'action', numeric: false, disablePadding: false, label: 'Edit'},
         ],
         title:'Notes',
@@ -42,8 +43,12 @@ export default {
                     dispatch({
                         type: 'getUserNote',
                     })
-                }
-                if (match) {
+                }else if(location.pathname==='/note/add'){
+                    dispatch({
+                        type:'update',
+                        payload:{current:null,editTitle:'',editorState:EditorState.createEmpty()}
+                    })
+                }else if(match){
                     console.log(match[1]);
                     dispatch({ type: 'query', payload: { id: match[1] } })
                 }
@@ -58,7 +63,7 @@ export default {
             if(req.status===200){
                 yield put({
                     type:'update',
-                    payload:{data:req.data}
+                    payload:{data:req.data,current:null,editTitle:'',editorState:EditorState.createEmpty()}
                 })
             }
         },
@@ -79,6 +84,9 @@ export default {
                 yield put({type:'update',payload:{current:req.data,editTitle:req.data.title,editorState:editorState}})
             }
         },
+        *create({payload},{call,put,select}){
+            yield put(routerRedux.push('/note/add'))
+        },
         *createNote({payload},{call,put,select}){
             console.log(payload)
             const data={note:payload}
@@ -87,6 +95,7 @@ export default {
             yield put({
                 type:'update'
             })
+            yield put(routerRedux.push('/notes'))
         },
         *updateNote({payload},{call,put,select}){
             console.log(payload)
@@ -97,6 +106,15 @@ export default {
         *edit({payload},{call,put,select}){
             console.log(payload)
             yield put(routerRedux.push('/edit/'+payload))
+        },
+        *deleteNote({payload},{call,put,select}){
+            console.log(payload)
+            const accessToken=Cookies('access_token')
+            const data={note:payload}
+            const req=yield call(post,{url:config.api.deleteNote,token:accessToken,data})
+            if(req.data.status){
+                yield put({type:'getUserNote'})
+            }
         }
     },
 

@@ -4,6 +4,8 @@ import { Router, Route, Switch, Redirect,routerRedux } from 'dva/router';
 import Layout from './routes/app'
 import dynamic from 'dva/dynamic';
 
+
+
 const {ConnectedRouter}=routerRedux
 function RouterConfig({ history ,app}) {
 
@@ -11,6 +13,8 @@ function RouterConfig({ history ,app}) {
         app,
         component: () => import('./routes/error'),
     })
+
+
     const routes=[
         {
             path:'/',
@@ -36,8 +40,8 @@ function RouterConfig({ history ,app}) {
             component:()=>import('./routes/news/news')
         },
         {
-            path:'/editor',
-            models:()=>[import('./models/post')],
+            path:'/note/add',
+            models:()=>[import('./models/notes')],
             component:()=>import('./routes/notes/editor')
         },
         {
@@ -49,6 +53,14 @@ function RouterConfig({ history ,app}) {
             path:'/notes',
             models:()=>[import('./models/notes')],
             component:()=>import('./routes/notes/index')
+        },
+        {
+            path:'/UIElement/editor',
+            component:()=>import('./routes/UI/editor')
+        },
+        {
+            path:'/UIElement/ck-editor',
+            component:()=>import('./routes/UI/ckEditor')
         }
     ]
   return (

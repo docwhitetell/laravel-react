@@ -21,6 +21,7 @@ module.exports = {
         notes:'http://www.gitbase.com/api/user/notes',
         addNote:'http://www.gitbase.com/api/user/addnote',
         updateNote:'http://www.gitbase.com/api/user/note/update',
+        deleteNote:'http://www.gitbase.com/api/user/note/delete'
     },
     mockApi:{
         news:'http://localhost:8000/mock/news',

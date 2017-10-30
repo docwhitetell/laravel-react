@@ -11,13 +11,9 @@ import Table, {
 import Paper from 'material-ui/Paper';
 
 
-import RegisterForm from '../registerform/RegisterForm'
-import Dialog, {
-    DialogContent,
-    DialogTitle,
-} from 'material-ui/Dialog';
 
 import EnhancedTableToolbar from './tableToolBar'
+
 import EnhancedTableHead from './tableHead'
 
 import CirLoading from '../loading/CirLoading'
@@ -30,8 +26,7 @@ function createData(name, calories, fat, carbs, protein) {
 
 const styles = theme => ({
     root: {
-        width: '96%',
-        margin:'20px auto',
+        width: '100%',
         position:'relative'
     },
     table: {
@@ -56,12 +51,11 @@ class EnhancedTable extends React.Component {
 
 
     render() {
-        const {table,loading,handleSelectAllClick,
+        const {theme,table,loading,handleSelectAllClick,
             handleRequestSort,children,
             handleChangePage,handleChangeRowsPerPage,handleSelectedAction,handleEmptyAction,
             dispatch, classes
         } = this.props;
-
 
         const props={}
         props.table=table

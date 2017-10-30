@@ -19,11 +19,10 @@ const noteEditor =({notes,dispatch})=>{
        })
     }
     function handleSubmit(){
+        const data=draftToHtml(convertToRaw(notes.editorState.getCurrentContent()))
+        const title=notes.editTitle
         if(notes.current){
             console.log('has current')
-            const data=draftToHtml(convertToRaw(notes.editorState.getCurrentContent()))
-            const title=notes.editTitle
-
             dispatch({
                 type:'notes/updateNote',
                 payload:{title:title,content:data,id:notes.current.id}
@@ -37,7 +36,7 @@ const noteEditor =({notes,dispatch})=>{
 
     }
     function handleTitleChange(e){
-        if(notes.current) {
+        if(notes.current!==null) {
             dispatch({
                 type:'notes/update',
                 payload:{editTitle:e.target.value}
@@ -45,7 +44,7 @@ const noteEditor =({notes,dispatch})=>{
         }else{
             dispatch({
                 type:'notes/update',
-                payload:{noteTile:e.target.value}
+                payload:{editTitle:e.target.value}
             })
         }
 
