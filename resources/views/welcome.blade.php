@@ -77,7 +77,11 @@
                 <div class="title m-b-md">
                     Laravel
                 </div>
-
+                <form action="/fileupload" method="post" enctype="multipart/form-data" >
+                    {{csrf_field()}}
+                    <input type="file" name="img">
+                    <button type="submit">submit</button>
+                </form>
                 <div class="links">
                     <a href="https://laravel.com/docs">Documentation</a>
                     <a href="https://laracasts.com">Laracasts</a>

@@ -14,6 +14,7 @@ module.exports = {
         */
         domain:'http://www.gitbase.com',
         userLogin:'http://www.gitbase.com/api/login',
+        refresh:'http://www.gitbase.com/api/refresh',
         userInfo:'http://www.gitbase.com/api/current-user',
         userList:'http://www.gitbase.com/api/user',
         addUser:'http://www.gitbase.com/api/register',
@@ -21,7 +22,9 @@ module.exports = {
         notes:'http://www.gitbase.com/api/user/notes',
         addNote:'http://www.gitbase.com/api/user/addnote',
         updateNote:'http://www.gitbase.com/api/user/note/update',
-        deleteNote:'http://www.gitbase.com/api/user/note/delete'
+        deleteNote:'http://www.gitbase.com/api/user/note/delete',
+        fileUpload:'http://www.gitbase.com/api/file/upload',
+        userFiles:'http://www.gitbase.com/api/user/files'
     },
     mockApi:{
         news:'http://localhost:8000/mock/news',

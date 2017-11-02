@@ -61,6 +61,15 @@ function RouterConfig({ history ,app}) {
         {
             path:'/UIElement/ck-editor',
             component:()=>import('./routes/UI/ckEditor')
+        },
+        {
+            path:'/upload/multi',
+            component:()=>import('./routes/upload/multi')
+        },
+        {
+            path:'/upload/my-files',
+            models:()=>[import('./models/files')],
+            component:()=>import('./routes/upload/myFiles')
         }
     ]
   return (

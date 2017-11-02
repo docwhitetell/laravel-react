@@ -13,20 +13,32 @@ use Illuminate\Http\Request;
 |
 */
 
-/*Route::middleware(['auth:api','cors'])->get('/user', function (Request $request) {
-    return $request->user();
-});*/
-
-Route::middleware(['auth:api','cors'])->get('/user', 'Api\UserController@getAllUser');
-Route::middleware(['auth:api','cors'])->get('/current-user', 'Api\UserController@getCurrentUser');
 Route::get('/login', 'Api\PassportController@loginform');
 Route::post('/login', 'Api\PassportController@login');
+Route::get('/refresh', 'Api\PassportController@refresh');
 Route::post('/register', 'Api\RegisterController@register');
 
+Route::group(['middleware' => ['auth:api','cors']], function () {
+/*user relate*/
+    Route::get('/user', 'Api\UserController@getAllUser');
+    Route::get('/current-user', 'Api\UserController@getCurrentUser');
+    Route::get('/user/delete', 'Api\UserController@deleteUser');
+/*user relate*/
+/*user note*/
+    Route::post('/user/addnote', 'Api\NoteController@addnote');
+    Route::get('/user/notes', 'Api\NoteController@usernotes');
+    Route::post('/user/note/update', 'Api\NoteController@update');
+    Route::get('/user/notes/{id}', 'Api\NoteController@detail');
+    Route::post('/user/note/delete', 'Api\NoteController@delete');
+/*user note*/
 
-Route::middleware(['auth:api','cors'])->get('/user/delete', 'Api\UserController@deleteUser');
-Route::middleware(['auth:api','cors'])->post('/user/addnote', 'Api\NoteController@addnote');
-Route::middleware(['auth:api','cors'])->get('/user/notes', 'Api\NoteController@usernotes');
-Route::middleware(['auth:api','cors'])->post('/user/note/update', 'Api\NoteController@update');
-Route::middleware(['auth:api','cors'])->get('/user/notes/{id}', 'Api\NoteController@detail');
-Route::middleware(['auth:api','cors'])->post('/user/note/delete', 'Api\NoteController@delete');
+/*files*/
+    Route::get('/user/files', 'Api\FileController@userFiles');
+
+});
+
+
+Route::middleware(['cors'])->any('/file/upload', 'Api\FileController@recieveFile');
+
+
+

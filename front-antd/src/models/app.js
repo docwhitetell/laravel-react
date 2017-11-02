@@ -1,17 +1,19 @@
 import dva from 'dva'
 import {routerRedux} from 'dva/router'
+import {mockQuery} from '../services/mockQuery'
 import {query} from '../services/query'
+import {post} from '../services/post'
 import Cookies from 'js-cookie'
 import config from '../utils/config'
 import queryString from 'query-string'
 import color from '../utils/theme'
-
+import store from 'store'
 export default {
 
     namespace: 'app',
 
     state: {
-        user:null,
+        user:store.get('user')?store.get('user'): null,
         mobileOpen: false,
         dropDown:{notes:true,ui:true},
         test:false,
@@ -39,30 +41,55 @@ export default {
         },
 
         setup ({ dispatch }) {
-            dispatch({ type: 'query' })
+            const time=new Date()
+            console.log(time+3600)
+            const user=store.get('user')
+            if(!user && Cookies('access_token')){
+                dispatch({type: 'query'})
+            }else if((user && !Cookies('access_token')) || (!user && !Cookies('access_token'))){
+                if(Cookies('refresh_token')){
+                    //获取access_token ,登录
+                    console.log('need refresh token')
+                    dispatch({
+                        type:'refresh'
+                    })
+                }else{
+                    dispatch({
+                        type:'logout'
+                    })
+                }
+            }else{
+
+            }
         },
     },
 
     effects: {
         *query({payload},{put,call,select}){
-            if(Cookies('access_token')){
-                console.log('should query user')
                 const accessToken=Cookies('access_token')
                 const res=yield call(query, {url:config.api.userInfo,token:accessToken})
                 if (res.status === 200) {
-                    yield put({type:'updateUser', payload:res.data })
+                    store.set('user',res.data)
+                    console.log(res.data)
+                    yield put({type:'update', payload:{user:res.data }})
                 }
-            }else{
-                console.log('should login')
-                yield put({type:'updateUser', payload:null })
-                yield put({type:'logout'})
-            }
         },
         *redirectHome({payload},{put,call,select}){
             yield put(routerRedux.push('/dashboard'))
         },
         *logout({payload},{put,call,select}){
+            store.clearAll()
+            Cookies.remove('access_token')
+            Cookies.remove('refresh_token')
             yield put(routerRedux.push('/login'))
+        },
+        *refresh({payload},{put,call,select}){
+            const query={refresh:Cookies('refresh_token')}
+            const req = yield call(mockQuery,{url:config.api.refresh,query})
+            if(req.status===200){
+                Cookies.set('access_token', req.data.access_token, { expires:1, path: '/' });
+                Cookies.set('refresh_token', req.data.refresh_token, { expires: 7, path: '/' });
+            }
         }
     },
 
@@ -92,12 +119,6 @@ export default {
             return {
                 ...state,
                 mobileOpen:!state.mobileOpen
-            }
-        },
-        'updateUser'(state,payload){
-            return {
-                ...state,
-                user:payload.payload
             }
         },
         'userDropdown'(state,payload){

@@ -249,6 +249,28 @@ const ResponsiveDrawer=({app,dispatch,children,classes,theme,loading,location})=
                         </ListItem>
                     </Link>
                 </Collapse>
+
+                <ListItem button key={2} onClick={()=>{handleClick('ui')}}>
+                    <Icon type="inbox" className={classes.menuIcon} />
+                    <ListItemText primary="Upload" className={style2.menuItem}/>
+                    {dropDown.ui ? <ExpandLess/> : <ExpandMore/>}
+                </ListItem>
+                <Collapse in={dropDown.ui} transitionDuration="auto" unmountOnExit>
+                    <Link to="/upload/multi">
+                        <ListItem button className={style2.secondMenuItem}>
+                            <Icon type="edit" className={classes.menuIcon} />
+                            <ListItemText style={{fontSize: '14px'}}
+                                          primary="Multi-File Upload"/>
+                        </ListItem>
+                    </Link>
+                    <Link to="/upload/my-files">
+                        <ListItem button className={style2.secondMenuItem}>
+                            <Icon type="edit" className={classes.menuIcon} />
+                            <ListItemText style={{fontSize: '14px'}}
+                                          primary="My Files"/>
+                        </ListItem>
+                    </Link>
+                </Collapse>
             </List>
             <div className={classes.fixedBottom}>
                 <FormControl className={classes.themeSelectBox}>

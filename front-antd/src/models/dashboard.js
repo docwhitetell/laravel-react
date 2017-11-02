@@ -32,7 +32,7 @@ export default {
             //console.log(res)
             if(res.status===200){
                 yield put({
-                    type:'updateState',
+                    type:'update',
                     payload:res.data
                 })
             }
@@ -40,7 +40,7 @@ export default {
     },
 
     reducers: {
-        'updateState'(state,payload){
+        'update'(state,payload){
             return {
                 ...state,
                 ...payload.payload

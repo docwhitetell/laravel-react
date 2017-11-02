@@ -22,12 +22,8 @@ export default {
                 yield put(routerRedux.push('/dashboard'))
             }
         },
-        * login ({
-                     payload,
-                 }, { put, call, select }) {
-            //console.log(payload)
+        * login ({payload,}, { put, call, select }) {
             const res = yield call(login, payload)
-            //console.log(data)
             if(res.data.error){
                 console.log(res.data.error)
                 yield put({
@@ -35,20 +31,13 @@ export default {
                     payload:res.data.error
                 })
             }else if(res.data.success){
-                Cookies.set('access_token', res.data.token.access_token, { expires: 7, path: '/' });
+                Cookies.set('access_token', res.data.token.access_token, { expires: 1, path: '/' });
                 Cookies.set('refresh_token', res.data.token.refresh_token, { expires: 7, path: '/' });
-                Cookies.set('expires_in', res.data.token.expires_in, { expires: 7, path: '/' });
                 yield put({
                     type:'app/query'
                 })
                 yield put(routerRedux.push('/dashboard'))
             }
-            //JSON.parse(data)
-            //const result=JSON.parse(data).success
-            //console.log(JSON.parse(data))
-            /*if(result){
-                yield put(routerRedux.push('/dashboard'))
-            }*/
         },
     },
 

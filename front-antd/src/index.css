@@ -22,3 +22,26 @@ header .ant-menu:hover li{
 
 
 
+
+div.example {
+  margin-left: 20px;
+}
+
+div.intro {
+  margin-left: 20px;
+  color: #000;
+}
+
+#dropArea {
+  width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.filepicker.dropzone .dz-preview.dz-image-preview {
+  background: none;
+}
+
+.filepicker.dropzone .dz-preview.dz-image-preview .dz-image {
+  border-radius: 5px;
+}

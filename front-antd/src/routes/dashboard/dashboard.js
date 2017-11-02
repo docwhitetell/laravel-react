@@ -49,16 +49,14 @@ const Dashboard =({dashboard,dispatch})=>{
                 </Grid>
                 <Grid item xs={12} sm={12} md={6} lg={4} className={style.chartItem}>
                     <Card>
-                    <ResponsiveContainer minHeight={400}>
-                        <RadarChart outerRadius={150} minHeight={300} data={dashboard.pd}>
-                            <Radar name="pv" dataKey="pv" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6}/>
-                            <Radar name="Lily" dataKey="uv" stroke="#82ca9d" fill="#82ca9d" fillOpacity={0.6}/>
-                            <PolarGrid />
-                            <Legend />
-                            <PolarAngleAxis dataKey="subject" />
-                            <PolarRadiusAxis angle={30} domain={[0, 150]}/>
-                        </RadarChart>
-                    </ResponsiveContainer>
+                        <ResponsiveContainer minHeight={400}>
+                            <PieChart minHeight={300}>
+                                <Pie data={dashboard.ud.inner_pie} dataKey='value' outerRadius={60} fill="#8884d8"/>
+                                <Pie data={dashboard.ud.outer_pie} dataKey='value' innerRadius={70} outerRadius={90} fill="#82ca9d" label/>
+                                <Tooltip/>
+                                <Legend />
+                            </PieChart>
+                        </ResponsiveContainer>
                     </Card>
                 </Grid>
                 <Grid item xs={12} sm={12} md={6} className={style.chartItem}>
