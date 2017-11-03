@@ -34,6 +34,19 @@ class FileController extends Controller
     function userFiles(Request $request){
         return $request->user()->resources;
     }
+    function delete(Request $request){
+        $file=Resources::find($request->get('id'));
+        $id=$file->id;$name=$file->name;
+        if($file->delete()){
+            Storage::disk('uploads')->delete($name);
+            $request->user()->resources()->detach($id);
+            $msg=['status'=>'success'];
+            return $msg;
+        }else{
+            $msg=['status'=>'false'];
+            return $msg;
+        }
 
+    }
 
 }

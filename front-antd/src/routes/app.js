@@ -26,7 +26,7 @@ import Select from 'material-ui/Select';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import config from '../utils/config'
 
-
+import store from 'store'
 import Cookies from 'js-cookie'
 import style2 from './app.css'
 import color from '../utils/theme'
@@ -83,8 +83,9 @@ const styles = theme => ({
         minHeight: 'calc(100vh - 56px)',
         overflow:'hidden',
         marginTop: 56,
+        position:'relative',
         [theme.breakpoints.up('sm')]: {
-            minHeight: 'calc(100vh - 64px - 60px)',
+            minHeight: 'calc(100vh - 64px - 64px)',
             marginTop: 64,
         },
     },
@@ -123,13 +124,14 @@ const styles = theme => ({
 const ResponsiveDrawer=({app,dispatch,children,classes,theme,loading,location})=> {
     const {dropDown ,mobileOpen}=app
 
-
     let { pathname } = location
     pathname = pathname.startsWith('/') ? pathname : `/${pathname}`
     const href = window.location.href
     
     const handleChangeTheme=(e)=>{
         const value=e.target.value
+        const currentColor=value
+        store.set('currentColor',currentColor)
         switch (value){
             case "blue":
                 return dispatch({type:'app/update', payload:{currentColor:value,theme:app.colors.colors.blue}})
@@ -169,7 +171,6 @@ const ResponsiveDrawer=({app,dispatch,children,classes,theme,loading,location})=
                 break;
             default:
         }
-
     }
 
     function handleClick(target){
@@ -222,7 +223,7 @@ const ResponsiveDrawer=({app,dispatch,children,classes,theme,loading,location})=
                     </ListItem>
                 </Link>
                 <ListItem button key={0} onClick={()=>{handleClick('notes')}}>
-                    <Icon type="inbox" className={classes.menuIcon} />
+                    <Icon type="file-text" className={classes.menuIcon} />
                     <ListItemText primary="Notes" className={style2.menuItem}/>
                     {dropDown.notes ? <ExpandLess/> : <ExpandMore/>}
                 </ListItem>
@@ -234,9 +235,16 @@ const ResponsiveDrawer=({app,dispatch,children,classes,theme,loading,location})=
                                           primary="List"/>
                         </ListItem>
                     </Link>
+                    <Link to="/note/add">
+                        <ListItem button className={style2.secondMenuItem}>
+                            <Icon type="edit" className={classes.menuIcon} />
+                            <ListItemText style={{fontSize: '14px'}}
+                                          primary="Add"/>
+                        </ListItem>
+                    </Link>
                 </Collapse>
                 <ListItem button key={1} onClick={()=>{handleClick('ui')}}>
-                    <Icon type="inbox" className={classes.menuIcon} />
+                    <Icon type="smile-o" className={classes.menuIcon} />
                     <ListItemText primary="UI Element" className={style2.menuItem}/>
                     {dropDown.ui ? <ExpandLess/> : <ExpandMore/>}
                 </ListItem>
@@ -250,22 +258,22 @@ const ResponsiveDrawer=({app,dispatch,children,classes,theme,loading,location})=
                     </Link>
                 </Collapse>
 
-                <ListItem button key={2} onClick={()=>{handleClick('ui')}}>
-                    <Icon type="inbox" className={classes.menuIcon} />
+                <ListItem button key={2} onClick={()=>{handleClick('upload')}}>
+                    <Icon type="cloud-upload" className={classes.menuIcon} />
                     <ListItemText primary="Upload" className={style2.menuItem}/>
-                    {dropDown.ui ? <ExpandLess/> : <ExpandMore/>}
+                    {dropDown.upload ? <ExpandLess/> : <ExpandMore/>}
                 </ListItem>
-                <Collapse in={dropDown.ui} transitionDuration="auto" unmountOnExit>
+                <Collapse in={dropDown.upload} transitionDuration="auto" unmountOnExit>
                     <Link to="/upload/multi">
                         <ListItem button className={style2.secondMenuItem}>
-                            <Icon type="edit" className={classes.menuIcon} />
+                            <Icon type="upload" className={classes.menuIcon} />
                             <ListItemText style={{fontSize: '14px'}}
                                           primary="Multi-File Upload"/>
                         </ListItem>
                     </Link>
                     <Link to="/upload/my-files">
                         <ListItem button className={style2.secondMenuItem}>
-                            <Icon type="edit" className={classes.menuIcon} />
+                            <Icon type="file" className={classes.menuIcon} />
                             <ListItemText style={{fontSize: '14px'}}
                                           primary="My Files"/>
                         </ListItem>
@@ -289,7 +297,6 @@ const ResponsiveDrawer=({app,dispatch,children,classes,theme,loading,location})=
 
         </div>
     );
-
     if(pathname==='/' || pathname==='/login'){
         return (<div className={classes.root} style={{minHeight:'100vh'}}>
             {children}

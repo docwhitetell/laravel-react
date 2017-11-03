@@ -1,4 +1,5 @@
 import React from 'react'
+import PageHeader from '../../components/pageHeader/pageHeader'
 import Table from '../../components/table/index'
 import {connect} from 'dva'
 import keycode from 'keycode';
@@ -13,7 +14,7 @@ import EditIcon from 'material-ui-icons/Edit'
 import AddIcon from 'material-ui-icons/Add';
 import styles from './style.css'
 
-const List =({app,notes,loading,dispatch})=>{
+const List =({app,notes,loading,dispatch,classes})=>{
 
     function handleSelectAllClick(event, checked) {
         if (checked) {
@@ -148,44 +149,47 @@ const List =({app,notes,loading,dispatch})=>{
     props.handleEmptyAction=handleEmptyAction
 
 
-    return(<div style={{padding:20}}>
-        <div style={{marginBottom:10,textAlign:'right'}}>
-            <Button fab raised color="primary"  onClick={handleAddNote}>
-                <AddIcon />
-            </Button>
-        </div>
+    return(
+        <div>
+            <PageHeader title="My Notes" />
+            <div style={{width:'90%',margin:'20px auto 10px auto'}}>
+                <Table {...props}>
+                    {notes.data.map(n => {
+                        const Selected = isSelected(n.id);
+                        return (
+                            <TableRow
+                                hover
+                                onKeyDown={event => handleKeyDown(event, n.id)}
+                                role="checkbox"
+                                aria-checked={Selected}
+                                tabIndex={-1}
+                                key={n.id}
+                                selected={Selected}
+                            >
+                                <TableCell onClick={event =>handleClick(event, n.id)} padding="checkbox">
+                                    <Checkbox checked={Selected} />
+                                </TableCell>
+                                <TableCell numeric padding="none">{n.id}</TableCell>
+                                <TableCell className={styles.tableCell}>{n.title}</TableCell>
+                                <TableCell className={styles.tableCell}>{n.content}</TableCell>
+                                <TableCell className={styles.tableCell}>{n.created_at}</TableCell>
+                                <TableCell className={styles.tableCell}>{n.updated_at}</TableCell>
+                                <TableCell className={styles.tableCell}>
+                                    <IconButton aria-label="Edit" color="primary" onClick={()=>{handleEdit(n.id)}}>
+                                        <EditIcon/>
+                                    </IconButton>
+                                </TableCell>
+                            </TableRow>
+                        );
+                    })}
+                </Table>
+            </div>
 
-        <Table {...props}>
-            {notes.data.map(n => {
-                const Selected = isSelected(n.id);
-                return (
-                    <TableRow
-                        hover
-                        onKeyDown={event => handleKeyDown(event, n.id)}
-                        role="checkbox"
-                        aria-checked={Selected}
-                        tabIndex={-1}
-                        key={n.id}
-                        selected={Selected}
-                    >
-                        <TableCell onClick={event =>handleClick(event, n.id)} padding="checkbox">
-                            <Checkbox checked={Selected} />
-                        </TableCell>
-                        <TableCell numeric padding="none">{n.id}</TableCell>
-                        <TableCell className={styles.tableCell}>{n.title}</TableCell>
-                        <TableCell className={styles.tableCell}>{n.content}</TableCell>
-                        <TableCell className={styles.tableCell}>{n.created_at}</TableCell>
-                        <TableCell className={styles.tableCell}>{n.updated_at}</TableCell>
-                        <TableCell className={styles.tableCell}>
-                            <IconButton aria-label="Edit" color="primary" onClick={()=>{handleEdit(n.id)}}>
-                                <EditIcon/>
-                            </IconButton>
-                        </TableCell>
-                    </TableRow>
-                );
-            })}
-        </Table>
-
+            <div style={{width:'90%',margin:'10px auto'}}>
+                <Button raised color="primary" onClick={handleAddNote} style={{width:'100%'}}>
+                    New Note
+                </Button>
+            </div>
     </div>)
 }
 

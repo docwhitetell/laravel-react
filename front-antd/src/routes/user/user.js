@@ -142,7 +142,7 @@ class User extends React.Component{
         props.handleSelectedAction=this.handleSelectedAction
         props.handleEmptyAction=this.handleEmptyAction
         return(
-            <div>
+            <div style={{margin:20}}>
                 <Table {...props}>
                     {users.data.map(n => {
                         const Selected = this.isSelected(n.id);

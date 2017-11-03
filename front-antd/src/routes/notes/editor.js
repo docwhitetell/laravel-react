@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'dva'
+import PageHeader from '../../components/pageHeader/pageHeader'
 import { EditorState, convertToRaw, ContentState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import draftToHtml from 'draftjs-to-html';
@@ -10,6 +11,7 @@ import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
 import MyEditor from '../../components/editor/MyEditor'
 import style from './style.css'
+
 const noteEditor =({notes,dispatch})=>{
 
     function onEditorStateChange(editorState) {
@@ -53,7 +55,8 @@ const noteEditor =({notes,dispatch})=>{
 
         const { editorState } = notes
         return (
-            <div style={{paddingBottom:40}}>
+            <div>
+                <PageHeader title="Create New Note" />
                 <div className={style.title}>
                     <TextField
                         margin="dense"

@@ -24,7 +24,8 @@ module.exports = {
         updateNote:'http://www.gitbase.com/api/user/note/update',
         deleteNote:'http://www.gitbase.com/api/user/note/delete',
         fileUpload:'http://www.gitbase.com/api/file/upload',
-        userFiles:'http://www.gitbase.com/api/user/files'
+        userFiles:'http://www.gitbase.com/api/user/files',
+        deleteFiles:'http://www.gitbase.com/api/user/files/delete'
     },
     mockApi:{
         news:'http://localhost:8000/mock/news',

@@ -1,3 +1,4 @@
+.pageHeader{}
 .gridItem{
     position: relative;
 }
@@ -19,14 +20,14 @@
 .delete{
     position: absolute;
     top: 50%;
-    left: 40%;
-    transform: translate(-50%,-50%);
+    left: 50%;
+    transform: translate(-100%,-50%);
 }
 .more{
     position: absolute;
     top: 50%;
-    left: 60%;
-    transform: translate(-50%,-50%);
+    left: 50%;
+    transform: translate(0%,-50%);
 }
 
 .icon{

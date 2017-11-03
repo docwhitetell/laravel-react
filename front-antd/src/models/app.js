@@ -8,6 +8,50 @@ import config from '../utils/config'
 import queryString from 'query-string'
 import color from '../utils/theme'
 import store from 'store'
+const currentColor=store.get('currentColor')?store.get('currentColor'):'blue'
+
+let currentTheme= null;
+switch(currentColor){
+    case "blue":
+        currentTheme=color.colors.blue
+        break;
+    case 'pink':
+        currentTheme=color.colors.pink
+        break;
+    case 'indigo':
+        currentTheme=color.colors.indigo
+        break;
+    case 'red':
+        currentTheme=color.colors.red
+        break;
+    case 'purple':
+        currentTheme=color.colors.purple
+        break;
+    case 'cyan':
+        currentTheme=color.colors.cyan
+        break;
+    case 'teal':
+        currentTheme=color.colors.teal
+        break;
+    case 'green':
+        currentTheme=color.colors.green
+        break;
+    case 'yellow':
+        currentTheme=color.colors.yellow
+        break;
+    case 'amber':
+        currentTheme=color.colors.amber
+        break;
+    case 'orange':
+        currentTheme=color.colors.orange
+        break;
+    case 'grey':
+        currentTheme=color.colors.grey
+        break;
+    default:
+        currentTheme=color.colors.blue
+}
+
 export default {
 
     namespace: 'app',
@@ -15,14 +59,14 @@ export default {
     state: {
         user:store.get('user')?store.get('user'): null,
         mobileOpen: false,
-        dropDown:{notes:true,ui:true},
+        dropDown:store.get('dropDown')?store.get('dropDown'):{notes:false,ui:false,upload:false},
         test:false,
         anchorEl: null,
         open: false,
         locationPathname: '',
         locationQuery: {},
-        theme:color.colors.blue,
-        currentColor:'blue',
+        theme:currentTheme,
+        currentColor:currentColor,
         colors:color,
         canChoice:color.canChoice
     },
@@ -101,14 +145,26 @@ export default {
             console.log(payload)
             switch (payload.payload){
                 case 'notes':
+                    const data={notes:!state.dropDown.notes,ui:state.dropDown.ui,upload:state.dropDown.upload}
+                    store.set('dropDown',data)
                     return{
                         ...state,
-                        dropDown:{notes:!state.dropDown.notes,ui:state.dropDown.ui}
+                        dropDown:{notes:!state.dropDown.notes,ui:state.dropDown.ui,upload:state.dropDown.upload}
                     }
                 case 'ui':{
+                    const data={notes:state.dropDown.notes,ui:!state.dropDown.ui,upload:state.dropDown.upload}
+                    store.set('dropDown',data)
                     return{
                         ...state,
-                        dropDown:{notes:state.dropDown.notes,ui:!state.dropDown.ui}
+                        dropDown:data
+                    }
+                }
+                case 'upload':{
+                    const data={notes:state.dropDown.notes,ui:state.dropDown.ui,upload:!state.dropDown.upload}
+                    store.set('dropDown',data)
+                    return {
+                        ...state,
+                        dropDown: data
                     }
                 }
                 default:

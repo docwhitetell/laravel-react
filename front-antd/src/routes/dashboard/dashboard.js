@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'dva';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import PageHeader from '../../components/pageHeader/pageHeader'
 import Grid from 'material-ui/Grid';
 import {LineChart, Line,
     XAxis, YAxis, CartesianGrid,
@@ -12,7 +13,7 @@ import {LineChart, Line,
 
 import Card from 'material-ui/Card';
 import {Icon} from 'antd'
-import CountUp from 'react-countup';
+
 import NumberCard from './components/NumberCard'
 
 import style from './style.css'
@@ -24,13 +25,13 @@ const sectiontitle={
 
 
 
-const Dashboard =({dashboard,dispatch})=>{
+const Dashboard =({dashboard,dispatch,classes})=>{
     const NumberCards=dashboard.numberCard.map((item,index)=>{
         return <NumberCard data={item} key={index}/>
     })
     return(
         <div>
-            <h1 style={sectiontitle}>Dashboard <small style={{fontSize:'12px',color:'#424242',fontWeight:'300'}}>(mock.js data present)</small></h1>
+            <PageHeader title="Dashboard" />
             <Grid spacing={0} container className={style.cardRow}>
                 {NumberCards}
             </Grid>

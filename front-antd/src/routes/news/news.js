@@ -63,9 +63,9 @@ class News extends React.Component{
     render(){
         const {classes,news,loading}=this.props
         return(
-            <div style={{position:'relative',padding:'40px 0'}}>
+            <div style={{margin:20,marginTop:40}}>
                 <CirLoading loading={loading.global}/>
-                <Grid container spacing={24} style={{margin:'0 auto',maxWidth:1200}}>
+                <Grid container spacing={24} style={{maxWidth:1200}}>
 
                     { news.list.map((item,index)=>(  <Grid key={item.id} item xs={12} sm={6} md={6} lg={4}>
                         <Card className={classes.card}>
