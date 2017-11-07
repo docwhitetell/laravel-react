@@ -1,5 +1,6 @@
 import React from 'react'
 import Table from '../../components/table/index'
+import PageHeader from '../../components/pageHeader/pageHeader'
 import {connect} from 'dva'
 import keycode from 'keycode';
 import {
@@ -131,7 +132,6 @@ class User extends React.Component{
         props.theme=app.currentTheme
         props.table=users
         /*props.column=this.props.users.column*/
-        props.loading=this.props.loading
         props.dispatch=this.props.dispatch
         props.handleSelectAllClick=this.handleSelectAllClick
         props.handleRequestSort=this.handleRequestSort
@@ -142,35 +142,39 @@ class User extends React.Component{
         props.handleSelectedAction=this.handleSelectedAction
         props.handleEmptyAction=this.handleEmptyAction
         return(
-            <div style={{margin:20}}>
-                <Table {...props}>
-                    {users.data.map(n => {
-                        const Selected = this.isSelected(n.id);
-                        return (
-                            <TableRow
-                                hover
-                                onClick={event =>this.handleClick(event, n.id)}
-                                onKeyDown={event => this.handleKeyDown(event, n.id)}
-                                role="checkbox"
-                                aria-checked={Selected}
-                                tabIndex={-1}
-                                key={n.id}
-                                selected={Selected}
-                            >
-                                <TableCell padding="checkbox">
-                                    <Checkbox checked={Selected} />
-                                </TableCell>
-                                <TableCell numeric padding="none">{n.id}</TableCell>
-                                <TableCell>{n.name}</TableCell>
-                                <TableCell>{n.email}</TableCell>
-                                <TableCell>{n.created_at}</TableCell>
-                            </TableRow>
-                        );
-                    })}
-                </Table>
+            <div>
+                <PageHeader title="Users" />
+                <div style={{margin:20}}>
+                    <Table {...props}>
+                        {users.data.map(n => {
+                            const Selected = this.isSelected(n.id);
+                            return (
+                                <TableRow
+                                    hover
+                                    onClick={event =>this.handleClick(event, n.id)}
+                                    onKeyDown={event => this.handleKeyDown(event, n.id)}
+                                    role="checkbox"
+                                    aria-checked={Selected}
+                                    tabIndex={-1}
+                                    key={n.id}
+                                    selected={Selected}
+                                >
+                                    <TableCell padding="checkbox">
+                                        <Checkbox checked={Selected} />
+                                    </TableCell>
+                                    <TableCell numeric padding="none">{n.id}</TableCell>
+                                    <TableCell>{n.name}</TableCell>
+                                    <TableCell>{n.email}</TableCell>
+                                    <TableCell>{n.created_at}</TableCell>
+                                </TableRow>
+                            );
+                        })}
+                    </Table>
+                </div>
+
             </div>
         )
     }
 
 }
-export default connect(({app,users,loading})=>({app,users,loading}))(User)
+export default connect(({app,users})=>({app,users}))(User)

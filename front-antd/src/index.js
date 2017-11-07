@@ -13,7 +13,7 @@ const app = dva({
     history: createHistory(),
     onError (error) {
         message.error(error.message)
-    },
+    }
 });
 
 // 2. Plugins

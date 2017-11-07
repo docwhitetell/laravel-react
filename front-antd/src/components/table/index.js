@@ -16,7 +16,6 @@ import EnhancedTableToolbar from './tableToolBar'
 
 import EnhancedTableHead from './tableHead'
 
-import CirLoading from '../loading/CirLoading'
 let counter = 0;
 function createData(name, calories, fat, carbs, protein) {
     counter += 1;
@@ -51,7 +50,7 @@ class EnhancedTable extends React.Component {
 
 
     render() {
-        const {theme,table,loading,handleSelectAllClick,
+        const {theme,table,handleSelectAllClick,
             handleRequestSort,children,
             handleChangePage,handleChangeRowsPerPage,handleSelectedAction,handleEmptyAction,
             dispatch, classes
@@ -93,7 +92,6 @@ class EnhancedTable extends React.Component {
                     </Table>
                 </div>
 
-                <CirLoading loading={loading.global}/>
              {/*   <Dialog open={table.dialogopen} onRequestClose={handleDialogOpenOrHide} className={classes.dialog}>
                     <DialogTitle>Add New User</DialogTitle>
                     <DialogContent>

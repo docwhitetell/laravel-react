@@ -17,15 +17,19 @@ class FileController extends Controller
         $path=null;
         $user=User::find($request->get('user'));
         foreach ($files as $key=>$file){
-            $path = $file->storeAs('/',$file->getClientOriginalName() , 'uploads');
+            $newName=md5(date('Ymd').$file->getClientOriginalName()).'.'.($file->getClientOriginalExtension());
+            $path = $file->storeAs('/user/'.$user->id,$newName , 'uploads');
             $resource=new Resources();
-            $resource->name=$file->getClientOriginalName();
+            $resource->name=$newName;
+            $resource->original_name=$file->getClientOriginalName();
+            $resource->size='not sure';
             $resource->type=$file->getClientMimeType();
             $resource->path=env('APP_URL').'/react/'.$path;
            /* $resource->save();*/
+            $data['link']=$resource->path;
             if($resource->save()){
                 $user->resources()->attach($resource->id);
-                return response()->json(['path'=>$path],200);
+                return response()->json(['data'=>$data],200);
             }else{
                return response()->json(['error'=>'something wrong'],200);
             }

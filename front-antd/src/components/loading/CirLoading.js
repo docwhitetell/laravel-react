@@ -16,7 +16,7 @@ const styles = theme => ({
     },
     progress: {
         position:'absolute',
-        top:'50%',left:'50%',
+        top:'calc((100vh - 128px) / 2 )',left:'50%',
         transform:'translate(-50%,-40%)',
         zIndex:10
     },
@@ -25,7 +25,7 @@ const styles = theme => ({
     },
     text: {
         position:'absolute',
-        top:'50%',left:'50%',
+        top:'calc((100vh - 128px) / 2 )',left:'50%',
         transform:'translate(-50%,30px)',
         color:theme.palette.primary,
         fontSize:'16px',
@@ -36,7 +36,6 @@ const styles = theme => ({
         width:'100%',
         height:'100%',
         background:'rgba(255,255,255,0.8)',
-        filter:'blur(4px)'
     },
     hidden:{
         zIndex: -1,

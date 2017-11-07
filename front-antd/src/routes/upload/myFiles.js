@@ -8,6 +8,7 @@ import Dialog, {
     DialogTitle,
 } from 'material-ui/Dialog';
 import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
+import Bricks from 'bricks.js'
 import AppBar from 'material-ui/AppBar';
 import CirLoading from '../../components/loading/CirLoading'
 import Button from 'material-ui/Button';
@@ -16,6 +17,23 @@ import { GridList, GridListTile } from 'material-ui/GridList';
 import Tabs, { Tab } from 'material-ui/Tabs';
 import {Icon} from 'antd'
 import style from './myfiles.css'
+
+const sizes = [
+    { columns: 3, gutter: 10 },                   // assumed to be mobile, because of the missing mq property
+    { mq: '768px', columns: 3, gutter: 25 },
+    { mq: '1024px', columns: 4, gutter: 50 }
+]
+
+// create an instance
+
+const instance = Bricks({
+    container: '.container',
+    packed:    'data-packed',        // if not prefixed with 'data-', it will be added
+    sizes:     sizes
+})
+
+
+
 const styles = theme => ({
     pageHeader:{
         backgroundColor:theme.palette.primary[800],
@@ -102,17 +120,17 @@ class myFiles extends React.Component{
         })
     }
     render(){
-        const {files,classes,loading}=this.props
+        const {files,classes}=this.props
         const {filesList,open,alert,tabs}=files
         return (
             <div>
                 <PageHeader title="My Files" />
-                <div className={classes.tabsroot}  style={{maxWidth:860,margin:'20px auto',position:'relative'}}>
-                    <CirLoading loading={loading.global}/>
+                <div className={classes.tabsroot}  style={{maxWidth:860,margin:'20px auto'}}>
                     <AppBar position="static" color="default">
                         <Tabs value={tabs} onChange={this.handleTabsChange} indicatorColor="primary" centered>
                             <Tab label="Images" />
                             <Tab label="Videos" />
+                            <Tab label="Masonry" />
                         </Tabs>
                     </AppBar>
                     { tabs===0 &&
@@ -122,15 +140,15 @@ class myFiles extends React.Component{
                                 <GridListTile key={index} cols={1} className={style.gridItem}>
                                     <img src={item.path} style={{width:'100%',height:'100%'}} alt=""/>
                                     <div className={style.mask}>
-                                        <div className={style.delete}><Icon type="delete" className={style.icon} onClick={()=>this.handleAlertOpen(index,item.id)}  /></div>
-                                        <div className={style.more} ><Icon type="search" className={style.icon} onClick={()=>this.handleOpen(index)} /></div>
+                                        <div className={style.Delete}><Icon type="delete" className={style.DeleteIcon} onClick={()=>this.handleAlertOpen(index,item.id)}  /></div>
+                                        <div className={style.Play} ><Icon type="eye-o" className={style.PlayIcon} onClick={()=>this.handleOpen(index)} /></div>
                                     </div>
                                     <Dialog open={alert[index]} onRequestClose={()=>this.handleAlertClose(index)}>
                                         <DialogTitle>{"Delete ？"}</DialogTitle>
                                         <DialogContent>
                                             <DialogContentText>
                                                 ARE YOU SURE YOU DON'T NEED IT ANY MORE?<br/>
-                                                （{item.name}）
+                                                （{item.original_name}）
                                             </DialogContentText>
                                         </DialogContent>
                                         <DialogActions>
@@ -143,7 +161,7 @@ class myFiles extends React.Component{
                                         </DialogActions>
                                     </Dialog>
                                     <Dialog open={open[index]} onRequestClose={()=>this.handleRequestClose(index)} maxWidth="md">
-                                        <DialogTitle>{item.name}</DialogTitle>
+                                        <DialogTitle>{item.original_name}</DialogTitle>
                                         <DialogContent>
                                             <img src={item.path} style={{width:'100%'}} alt=""/>
                                         </DialogContent>
@@ -161,59 +179,105 @@ class myFiles extends React.Component{
                     }
 
                     { tabs===1 &&
-                    <GridList cellHeight={160} className={classes.gridList} cols={3}>
-                        {filesList.filter((item)=>{return (item.type==='video/mp4' )}).map((item,index) =>{
-                            return(
-                                <GridListTile key={index} cols={1} className={style.gridItem}>
-                                    <CardMedia
-                                        style={{objectit:'fill',height:'100%'}}
-                                        component="video"
-                                        src={item.path}
-                                        autoPlay
-                                        muted
-                                    />
-                                    <div className={style.mask}>
-                                        <div className={style.delete}><Icon type="delete" className={style.icon} onClick={()=>this.handleAlertOpen(index,item.id)}  /></div>
-                                        <div className={style.more} ><Icon type="search" className={style.icon} onClick={()=>this.handleOpen(index)} /></div>
-                                    </div>
-                                    <Dialog open={alert[index]} onRequestClose={()=>this.handleAlertClose(index)}>
-                                        <DialogTitle>{"Delete ？"}</DialogTitle>
-                                        <DialogContent>
-                                            <DialogContentText>
-                                                ARE YOU SURE YOU DON'T NEED IT ANY MORE?<br/>
-                                                （{item.name}）
-                                            </DialogContentText>
-                                        </DialogContent>
-                                        <DialogActions>
-                                            <Button onClick={()=>this.handleDelete(item.id)} color="primary">
-                                                YES
-                                            </Button>
-                                            <Button onClick={()=>this.handleAlertClose(index)} color="primary" autoFocus>
-                                                NO
-                                            </Button>
-                                        </DialogActions>
-                                    </Dialog>
-                                    <Dialog open={open[index]} onRequestClose={()=>this.handleRequestClose(index)} maxWidth="md">
-                                        <DialogTitle>{item.name}</DialogTitle>
-                                        <DialogContent>
-                                            <CardMedia
-                                                component="video"
-                                                src={item.path}
-                                                autoPlay
-                                                controls
-                                            />
-                                        </DialogContent>
-                                        <DialogActions>
-                                            <Button onClick={()=>this.handleRequestClose(index)} color="primary">
-                                                Close
-                                            </Button>
-                                        </DialogActions>
-                                    </Dialog>
+                <GridList cellHeight={160} className={classes.gridList} cols={3}>
+                    {filesList.filter((item)=>{return (item.type==='video/mp4' )}).map((item,index) =>{
+                        return(
+                            <GridListTile key={index} cols={1} className={style.gridItem}>
+                                <CardMedia
+                                    style={{objectit:'fill',height:'100%'}}
+                                    component="video"
+                                    src={item.path}
+                                    muted
+                                />
+                                <div className={style.videoMask}>
+                                    <h1 className={style.videoTitle}>{item.original_name}</h1>
+                                    <div className={style.Delete}><Icon type="delete" className={style.DeleteIcon} onClick={()=>this.handleAlertOpen(index,item.id)}  /></div>
+                                    <div className={style.Play} ><Icon type="play-circle" className={style.PlayIcon} onClick={()=>this.handleOpen(index)} /></div>
+                                </div>
+                                <Dialog open={alert[index]} onRequestClose={()=>this.handleAlertClose(index)}>
+                                    <DialogTitle>{"Delete ？"}</DialogTitle>
+                                    <DialogContent>
+                                        <DialogContentText>
+                                            ARE YOU SURE YOU DON'T NEED IT ANY MORE?<br/>
+                                            （{item.original_name}）
+                                        </DialogContentText>
+                                    </DialogContent>
+                                    <DialogActions>
+                                        <Button onClick={()=>this.handleDelete(item.id)} color="primary">
+                                            YES
+                                        </Button>
+                                        <Button onClick={()=>this.handleAlertClose(index)} color="primary" autoFocus>
+                                            NO
+                                        </Button>
+                                    </DialogActions>
+                                </Dialog>
+                                <Dialog open={open[index]} onRequestClose={()=>this.handleRequestClose(index)} maxWidth="md">
+                                    <DialogTitle>{item.original_name}</DialogTitle>
+                                    <DialogContent>
+                                        <CardMedia
+                                            component="video"
+                                            src={item.path}
+                                            autoPlay
+                                            controls
+                                        />
+                                    </DialogContent>
+                                    <DialogActions>
+                                        <Button onClick={()=>this.handleRequestClose(index)} color="primary">
+                                            Close
+                                        </Button>
+                                    </DialogActions>
+                                </Dialog>
 
-                                </GridListTile>
-                            )
-                        })}
-                    </GridList>
+                            </GridListTile>
+                        )
+                    })}
+                </GridList>
+                }
+                    { tabs===2 &&
+                        <div className="container">
+                            <GridList className={classes.gridList} cols={3}>
+                                {filesList.filter((item)=>{return (item.type==='image/png' ||item.type==='image/jpeg' )}).map((item,index) =>{
+                                    return(
+                                        <GridListTile key={index} cols={1}>
+                                            <img src={item.path} style={{width:'100%',height:'100%'}} alt=""/>
+                                            <div className={style.mask}>
+                                                <div className={style.Delete}><Icon type="delete" className={style.DeleteIcon} onClick={()=>this.handleAlertOpen(index,item.id)}  /></div>
+                                                <div className={style.Play} ><Icon type="eye-o" className={style.PlayIcon} onClick={()=>this.handleOpen(index)} /></div>
+                                            </div>
+                                            <Dialog open={alert[index]} onRequestClose={()=>this.handleAlertClose(index)}>
+                                                <DialogTitle>{"Delete ？"}</DialogTitle>
+                                                <DialogContent>
+                                                    <DialogContentText>
+                                                        ARE YOU SURE YOU DON'T NEED IT ANY MORE?<br/>
+                                                        （{item.original_name}）
+                                                    </DialogContentText>
+                                                </DialogContent>
+                                                <DialogActions>
+                                                    <Button onClick={()=>this.handleDelete(item.id)} color="primary">
+                                                        YES
+                                                    </Button>
+                                                    <Button onClick={()=>this.handleAlertClose(index)} color="primary" autoFocus>
+                                                        NO
+                                                    </Button>
+                                                </DialogActions>
+                                            </Dialog>
+                                            <Dialog open={open[index]} onRequestClose={()=>this.handleRequestClose(index)} maxWidth="md">
+                                                <DialogTitle>{item.original_name}</DialogTitle>
+                                                <DialogContent>
+                                                    <img src={item.path} style={{width:'100%'}} alt=""/>
+                                                </DialogContent>
+                                                <DialogActions>
+                                                    <Button onClick={()=>this.handleRequestClose(index)} color="primary">
+                                                        Close
+                                                    </Button>
+                                                </DialogActions>
+                                            </Dialog>
+
+                                        </GridListTile>
+                                    )
+                                })}
+                            </GridList>
+                        </div>
                     }
                 </div>
 
@@ -222,4 +286,4 @@ class myFiles extends React.Component{
     }
 
 }
-export default connect(({files,loading})=>({files,loading}))(withStyles(styles)(myFiles));
+export default connect(({files})=>({files}))(withStyles(styles)(myFiles));

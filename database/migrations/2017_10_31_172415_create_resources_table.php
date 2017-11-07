@@ -16,7 +16,9 @@ class CreateResourcesTable extends Migration
         Schema::create('resources', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->comment('资源名');
+            $table->string('original_name')->comment('资源原始名');
             $table->string('type',20)->comment('资源类型/扩展名');
+            $table->string('size')->comment('大小');
             $table->string('path')->comment('资源路径');
             $table->timestamps();
         });

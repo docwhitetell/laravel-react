@@ -8,7 +8,7 @@ class Resources extends Model
 {
     //
     protected $fillable = [
-        'name','type','path'
+        'name','original_name','size','type','path'
     ];
     protected $table='resources';
 

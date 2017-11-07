@@ -20,21 +20,20 @@ import ExpandMore from 'material-ui-icons/ExpandMore';
 import { Menu, Icon } from 'antd';
 import { MenuItem } from 'material-ui/Menu';
 import Input, { InputLabel } from 'material-ui/Input';
-import { FormControl, FormLabel, FormControlLabel , FormHelperText } from 'material-ui/Form';
-import Radio, { RadioGroup } from 'material-ui/Radio';
+import { FormControl} from 'material-ui/Form';
 import Select from 'material-ui/Select';
-import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
+import { MuiThemeProvider } from 'material-ui/styles';
 import config from '../utils/config'
 
 import store from 'store'
 import Cookies from 'js-cookie'
 import style2 from './app.css'
-import color from '../utils/theme'
+import CirLoading from '../components/loading/CirLoading'
 
 const drawerWidth = 240;
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
-let lastHref
+
 
 const styles = theme => ({
     root: {
@@ -264,14 +263,14 @@ const ResponsiveDrawer=({app,dispatch,children,classes,theme,loading,location})=
                     {dropDown.upload ? <ExpandLess/> : <ExpandMore/>}
                 </ListItem>
                 <Collapse in={dropDown.upload} transitionDuration="auto" unmountOnExit>
-                    <Link to="/upload/multi">
+                    <Link to="/multi-upload">
                         <ListItem button className={style2.secondMenuItem}>
                             <Icon type="upload" className={classes.menuIcon} />
                             <ListItemText style={{fontSize: '14px'}}
                                           primary="Multi-File Upload"/>
                         </ListItem>
                     </Link>
-                    <Link to="/upload/my-files">
+                    <Link to="/my-files">
                         <ListItem button className={style2.secondMenuItem}>
                             <Icon type="file" className={classes.menuIcon} />
                             <ListItemText style={{fontSize: '14px'}}
@@ -365,6 +364,7 @@ const ResponsiveDrawer=({app,dispatch,children,classes,theme,loading,location})=
                             </Drawer>
                         </Hidden>
                         <main className={classes.content}>
+                            <CirLoading loading={loading.global}/>
                             {children}
                         </main>
                     </div>
@@ -387,4 +387,4 @@ const ResponsiveDrawer=({app,dispatch,children,classes,theme,loading,location})=
 ResponsiveDrawer.propTypes = {
 };
 
-export default withRouter(connect(({app})=>({app}))(withStyles(styles,{withTheme:true})(ResponsiveDrawer)));
+export default withRouter(connect(({app,loading})=>({app,loading}))(withStyles(styles,{withTheme:true})(ResponsiveDrawer)));

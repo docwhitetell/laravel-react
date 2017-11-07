@@ -1,4 +1,5 @@
 import React from 'react'
+import PageHeader from '../../components/pageHeader/pageHeader'
 import {Link} from 'react-router-dom'
 import {connect} from 'dva'
 import {Pagination} from 'antd'
@@ -7,7 +8,6 @@ import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 import Grid from 'material-ui/Grid';
-import CirLoading from '../../components/loading/CirLoading'
 const styles = {
     card: {
         height:310
@@ -63,10 +63,10 @@ class News extends React.Component{
     render(){
         const {classes,news,loading}=this.props
         return(
-            <div style={{margin:20,marginTop:40}}>
-                <CirLoading loading={loading.global}/>
-                <Grid container spacing={24} style={{maxWidth:1200}}>
+            <div>
 
+                <PageHeader title="News" />
+                <Grid container spacing={24} style={{maxWidth:1200,margin:20,width:'auto',}}>
                     { news.list.map((item,index)=>(  <Grid key={item.id} item xs={12} sm={6} md={6} lg={4}>
                         <Card className={classes.card}>
                             <Link to='/news'>

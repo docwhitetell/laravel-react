@@ -85,8 +85,7 @@ export default {
         },
 
         setup ({ dispatch }) {
-            const time=new Date()
-            console.log(time+3600)
+            console.log(new Date())
             const user=store.get('user')
             if(!user && Cookies('access_token')){
                 dispatch({type: 'query'})
@@ -142,7 +141,6 @@ export default {
             return {...state,...payload.payload}
         },
         'dropdownShowHide'(state,payload) {
-            console.log(payload)
             switch (payload.payload){
                 case 'notes':
                     const data={notes:!state.dropDown.notes,ui:state.dropDown.ui,upload:state.dropDown.upload}
