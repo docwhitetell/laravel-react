@@ -76,7 +76,7 @@ const styles = theme => ({
         width: 250,
     },
     content: {
-        backgroundColor: theme.palette.background.default,
+        backgroundColor: '#f0f2f5',
         width: '100%',
         paddingTop: 0,
         minHeight: 'calc(100vh - 56px)',

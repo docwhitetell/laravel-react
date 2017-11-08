@@ -47,3 +47,81 @@
 .chartItem{
     margin-bottom: 10px;
 }
+
+.dataCard{
+    padding: 20px 10px 20px 10px;
+}
+.dataCardHeader{
+
+}
+.cardHeaderInfo{
+    float:right;
+    padding-right: 10px;
+}
+.CardTitle{
+    height: 28px;
+    font-size: 14px;
+    color:#757575 ;
+    font-weight: 300;
+}
+.CardMain{
+
+}
+.leftData{
+    font-size: 14px;
+    font-weight: 400;
+    display: inline-block;
+    width: 50%;
+}
+.rightData{
+    font-size: 14px;
+    font-weight: 400;
+    display: inline-block;
+    width: 50%;
+}
+.salesRank{
+    margin-top:10px;
+}
+@media (max-width: 600px) {
+    .salesRank{
+        padding: 0 40px;
+    }
+}
+.salesRankItem{
+    margin-top: 12px;
+}
+.salesItemLeftTop{
+    display:inline-block;
+    background:#263238;
+    border-radius:50%;
+    width:24px;height:24px;
+    color:#ffffff;
+    text-align:center;
+    line-height:24px;
+    font-size:16px
+}
+.salesItemLeft{
+    display:inline-block;
+    background:#B0BEC5;
+    border-radius:50%;
+    width:24px;height:24px;
+    color:#ffffff;
+    text-align:center;
+    line-height:24px;
+    font-size:16px
+}
+.salesItemMid{
+    margin:0 20px
+}
+.salesItemRight{
+    float:right;
+    margin-right:20px;
+    line-height:24px;
+}
+
+.cardHeader{
+    height: 56px;
+    line-height: 56px ;
+    padding: 0 20px;
+    position:relative;
+}

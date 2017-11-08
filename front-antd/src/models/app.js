@@ -102,7 +102,8 @@ export default {
                     })
                 }
             }else{
-
+                console.log(' quering')
+                dispatch({type: 'query'})
             }
         },
     },
@@ -111,10 +112,18 @@ export default {
         *query({payload},{put,call,select}){
                 const accessToken=Cookies('access_token')
                 const res=yield call(query, {url:config.api.userInfo,token:accessToken})
-                if (res.status === 200) {
-                    store.set('user',res.data)
-                    console.log(res.data)
-                    yield put({type:'update', payload:{user:res.data }})
+                console.log('query end')
+                if(res){
+                    if(res.status===200){
+                        store.set('user',res.data)
+                        console.log(res.data)
+                        yield put({type:'update', payload:{user:res.data }})
+                    }else if(res.status===0){
+                        console.log(res)
+                        yield put({type:'logout'})
+                    }else{
+                        yield put({type:'logout'})
+                    }
                 }
         },
         *redirectHome({payload},{put,call,select}){

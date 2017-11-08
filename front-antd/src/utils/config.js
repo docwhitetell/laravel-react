@@ -1,6 +1,6 @@
 
 module.exports = {
-    name: 'Laravel React',
+    name: 'Doc White',
     CORS: [],
     openPages: ['/'],
     api: {
@@ -29,6 +29,7 @@ module.exports = {
     },
     mockApi:{
         news:'http://localhost:8000/mock/news',
-        dashboard:'http://localhost:8000/mock/dashboard'
+        dashboard:'http://localhost:8000/mock/dashboard',
+        search:'http://localhost:8000/mock/search-word',
     }
 }

@@ -11,21 +11,29 @@ const styles = theme => ({
         top:0,
         left:0,
         background:'rgba(0,0,0,0.14)',
-        zIndex:1000,
+        zIndex:99999,
         opacity:1
     },
     progress: {
-        position:'absolute',
-        top:'calc((100vh - 128px) / 2 )',left:'50%',
-        transform:'translate(-50%,-40%)',
+        position:'fixed',
+        top:'50vh',
+        [theme.breakpoints.up('md')]: {
+            left: 'calc( 50vw + 120px)',
+        },
+        left:'50%',
+        transform:'translate(-50%,-50%)',
         zIndex:10
     },
     progressFixed:{
         position:'fixed !important',
     },
     text: {
-        position:'absolute',
-        top:'calc((100vh - 128px) / 2 )',left:'50%',
+        position:'fixed',
+        top:'50vh',
+        [theme.breakpoints.up('md')]: {
+            left: 'calc( 50vw + 120px)',
+        },
+        left:'50%',
         transform:'translate(-50%,30px)',
         color:theme.palette.primary,
         fontSize:'16px',
