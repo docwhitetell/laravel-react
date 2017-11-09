@@ -1,4 +1,4 @@
-
+import Cookies from 'js-cookie'
 module.exports = {
     name: 'Doc White',
     CORS: [],
@@ -31,5 +31,10 @@ module.exports = {
         news:'http://localhost:8000/mock/news',
         dashboard:'http://localhost:8000/mock/dashboard',
         search:'http://localhost:8000/mock/search-word',
+    },
+    authenticHeaders:{
+        'Accept':'application/json',
+        'X-Requested-With': 'XMLHttpRequest',
+        'Authorization':'Bearer '+Cookies('access_token')
     }
 }

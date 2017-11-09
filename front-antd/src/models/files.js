@@ -2,8 +2,7 @@ import dva from 'dva'
 import {routerRedux} from 'dva/router'
 import Cookies from 'js-cookie'
 import config from '../utils/config'
-import {post} from '../services/post'
-import {query} from '../services/query'
+import {request} from '../services/request'
 import store from 'store'
 export default {
 
@@ -28,8 +27,12 @@ export default {
 
     effects: {
         *query({payload},{call,put,select}){
-            const accessToken=Cookies('access_token')
-            const req=yield call(query, {url:config.api.userFiles,token:accessToken})
+            const headers={
+                'Accept':'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+                'Authorization':'Bearer '+Cookies('access_token')
+            }
+            const req=yield call(request, {url:config.api.userFiles,headers:headers})
             if(req.status===200){
                 let open=[],alert=[]
                 req.data.map((item,index)=>{
@@ -46,10 +49,13 @@ export default {
             }
         },
         *delete({payload},{call,put,select}) {
-            const accessToken=Cookies('access_token')
+            const headers={
+                'Accept':'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+                'Authorization':'Bearer '+Cookies('access_token')
+            }
             const data={id:payload}
-            console.log(data)
-            const req=yield call(query, {url:config.api.deleteFiles,token:accessToken,payload:data})
+            const req=yield call(request, {url:config.api.deleteFiles,headers:headers,params:data})
             if(req.data.status==='success'){
                 yield put({
                     type:'query'

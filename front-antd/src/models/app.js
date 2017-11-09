@@ -1,8 +1,6 @@
 import dva from 'dva'
 import {routerRedux} from 'dva/router'
-import {mockQuery} from '../services/mockQuery'
-import {query} from '../services/query'
-import {post} from '../services/post'
+import {request} from '../services/request'
 import Cookies from 'js-cookie'
 import config from '../utils/config'
 import queryString from 'query-string'
@@ -110,8 +108,12 @@ export default {
 
     effects: {
         *query({payload},{put,call,select}){
-                const accessToken=Cookies('access_token')
-                const res=yield call(query, {url:config.api.userInfo,token:accessToken})
+                const headers={
+                    'Accept':'application/json',
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Authorization':'Bearer '+Cookies('access_token')
+                }
+                const res=yield call(request, {url:config.api.userInfo,headers:headers,method:'get'})
                 console.log('query end')
                 if(res){
                     if(res.status===200){
@@ -137,7 +139,7 @@ export default {
         },
         *refresh({payload},{put,call,select}){
             const query={refresh:Cookies('refresh_token')}
-            const req = yield call(mockQuery,{url:config.api.refresh,query})
+            const req = yield call(request,{url:config.api.refresh,params:query,method:'get'})
             if(req.status===200){
                 Cookies.set('access_token', req.data.access_token, { expires:1, path: '/' });
                 Cookies.set('refresh_token', req.data.refresh_token, { expires: 7, path: '/' });

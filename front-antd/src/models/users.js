@@ -3,8 +3,12 @@ import {routerRedux} from 'dva/router'
 import queryString from 'query-string'
 import Cookies from 'js-cookie'
 import config from '../utils/config'
-import {query} from '../services/query'
-import {post} from '../services/post'
+import {request} from '../services/request'
+const headers={
+    'Accept':'application/json',
+    'X-Requested-With': 'XMLHttpRequest',
+    'Authorization':'Bearer '+Cookies('access_token')
+}
 export default {
 
     namespace: 'users',
@@ -52,11 +56,8 @@ export default {
     effects: {
         *getUserList({payload},{put,call,select}){
             yield put({type:'loading'})
-            /*获取state*/
-            const accessToken=Cookies('access_token')
-            const res=yield call(query, {url:config.api.userList,token:accessToken,payload})
+            const res=yield call(request, {url:config.api.userList,headers:headers,params:payload})
                 if(res.status===200){
-                    //console.log(res)
                     const {current_page,data,total,last_page}=res.data
                     const newState={
                         data:data,total:total,page:current_page,last_page:last_page,
@@ -68,17 +69,17 @@ export default {
         *deleteUser({payload},{put,call,select}){
             /*获取全局state*/
             const { users } = yield (select(_ => _))
-            const accessToken=Cookies('access_token')
+
             const params={users:payload}
             /*发起删除异步请求*/
-            const res=yield call(query, {url:config.api.deleteUser,token:accessToken,params})
+            const res=yield call(request, {url:config.api.deleteUser,headers:headers,params:params})
             /*删除成功后刷新数据*/
             yield put({type:'getUserList',payload:{page:users.page,rowsPerPage:users.rowsPerPage}})
         },
         *addUser({payload},{put,call,select}){
           /*  yield put({type:'dialogLoading'})*/
-            const accessToken=Cookies('access_token')
-            const res=yield call(post, {url:config.api.addUser,token:accessToken,data:payload})
+
+            const res=yield call(request, {url:config.api.addUser,headers:headers,data:payload})
           /*  yield put({type:'dialogLoading'})*/
             if(res.data.error===true){
                 yield put({type:'updateErrorMsg',payload:res.data.msg})

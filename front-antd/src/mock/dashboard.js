@@ -28,12 +28,14 @@ let positive_data2=Mock.mock({
 let userdata=Mock.mock({
     'inner_pie|7':[{
         name:'@last',
-        value:'@integer(300,600)'
+        value:'@integer(300,600)',
+        color:'@color'
     }],
     'outer_pie|7':[
         {
             name:'@first',
-            value:'@integer(100,200)'
+            value:'@integer(100,200)',
+            color:'@color'
         }
     ],
 })
@@ -60,6 +62,8 @@ let searchData = Mock.mock({
         },
     ],
 })
+
+
 searchData.data.map((item,index)=>{item.id=index+1;index++})
 let database=searchData.data
 module.exports={

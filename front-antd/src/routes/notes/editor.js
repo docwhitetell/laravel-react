@@ -87,7 +87,7 @@ const noteEditor =({notes,dispatch})=>{
                     />
                 </div>
                 <div style={{textAlign:'center'}}>
-                    <Button raised color="accent" onClick={()=>{handleSubmit()}}>
+                    <Button raised color="accent" onClick={handleSubmit}>
                         SAVE
                     </Button>
                 </div>

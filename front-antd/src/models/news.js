@@ -1,6 +1,6 @@
 import dva from 'dva'
 import {routerRedux} from 'dva/router'
-import {mockQuery} from '../services/mockQuery'
+import {request} from '../services/request'
 import config from '../utils/config'
 export default {
 
@@ -17,7 +17,7 @@ export default {
 
     effects: {
         *getNewsdata({payload},{put,call,select}){
-            const res=yield call(mockQuery,{url:config.mockApi.news,query:{pageSize:6,page:payload}})
+            const res=yield call(request,{url:config.mockApi.news,params:{pageSize:6,page:payload}})
             if(res.status===200){
                 yield put({
                     type:'updateState',

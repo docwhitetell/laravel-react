@@ -3,8 +3,7 @@ import pathToRegexp from 'path-to-regexp'
 import {routerRedux} from 'dva/router'
 import Cookies from 'js-cookie'
 import config from '../utils/config'
-import {post} from '../services/post'
-import {query} from "../services/query";
+import {request} from "../services/request";
 import { EditorState, convertToRaw, ContentState } from 'draft-js';
 
 import htmlToDraft from 'html-to-draftjs';
@@ -58,8 +57,12 @@ export default {
 
     effects: {
         *getUserNote({payload},{call,put,select}){
-            const accessToken=Cookies('access_token')
-            const req=yield call(query,{url:config.api.notes,token:accessToken})
+            const headers={
+                'Accept':'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+                'Authorization':'Bearer '+Cookies('access_token')
+            }
+            const req=yield call(request,{url:config.api.notes,headers:headers})
             if(req.status===200){
                 yield put({
                     type:'update',
@@ -68,10 +71,13 @@ export default {
             }
         },
         *query({payload},{call,put,select}){
-            const accessToken=Cookies('access_token')
-            const req=yield call(query,{url:config.api.notes+'/'+payload.id,token:accessToken})
+            const headers={
+                'Accept':'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+                'Authorization':'Bearer '+Cookies('access_token')
+            }
+            const req=yield call(request,{url:config.api.notes+'/'+payload.id,headers:headers})
             if(req.status===200){
-
                 const html=req.data.content
                 //console.log(html)
                 const contentBlock = htmlToDraft(html);
@@ -88,30 +94,39 @@ export default {
             yield put(routerRedux.push('/note/add'))
         },
         *createNote({payload},{call,put,select}){
-            console.log(payload)
+            const headers={
+                'Accept':'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+                'Authorization':'Bearer '+Cookies('access_token')
+            }
             const data={note:payload}
-            const accessToken=Cookies('access_token')
-            const req=yield call(post,{url:config.api.addNote,token:accessToken,data})
+            const req=yield call(request,{url:config.api.addNote,headers:headers,data:data,method:'post'})
             yield put({
                 type:'update'
             })
             yield put(routerRedux.push('/notes'))
         },
         *updateNote({payload},{call,put,select}){
-            console.log(payload)
-            const accessToken=Cookies('access_token')
+            const headers={
+                'Accept':'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+                'Authorization':'Bearer '+Cookies('access_token')
+            }
             const data={note:payload}
-            const req=yield call(post,{url:config.api.updateNote,token:accessToken,data})
+            const req=yield call(request,{url:config.api.updateNote,headers:headers,data:data,method:'post'})
         },
         *edit({payload},{call,put,select}){
             console.log(payload)
             yield put(routerRedux.push('/edit/'+payload))
         },
         *deleteNote({payload},{call,put,select}){
-            console.log(payload)
-            const accessToken=Cookies('access_token')
+            const headers={
+                'Accept':'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+                'Authorization':'Bearer '+Cookies('access_token')
+            }
             const data={note:payload}
-            const req=yield call(post,{url:config.api.deleteNote,token:accessToken,data})
+            const req=yield call(request,{url:config.api.deleteNote,headers:headers,data:data,method:'post'})
             if(req.data.status){
                 yield put({type:'getUserNote'})
             }

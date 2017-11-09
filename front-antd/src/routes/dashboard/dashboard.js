@@ -12,16 +12,47 @@ import {LineChart, Line,
     XAxis, YAxis, CartesianGrid,
     Tooltip, Legend,ResponsiveContainer,
     BarChart,Bar,ReferenceLine,
-    Pie,PieChart,RadarChart,Radar,PolarAngleAxis,PolarRadiusAxis,PolarGrid,AreaChart, Area,
+    Pie,PieChart,RadarChart,Radar,PolarAngleAxis,PolarRadiusAxis,PolarGrid,AreaChart, Area, Cell
 } from 'recharts';
 import { LinearProgress } from 'material-ui/Progress';
+import Button from 'material-ui/Button';
 import Card, { CardHeader, CardMedia, CardContent, CardActions }  from 'material-ui/Card';
 import Divider from 'material-ui/Divider';
 import {Icon,Menu} from 'antd'
 
 import NumberCard from './components/NumberCard'
 import AntdTable from '../../components/table/antdTable'
+import AreasChart from '../../components/charts/AreasChart'
+import BarsChart from '../../components/charts/BarChart'
+import BarsChartWithXY from '../../components/charts/BarChartWithXY'
+import LinesChartWithXY from '../../components/charts/LineChartWithXY'
 import style from './style.css'
+
+
+const salseData=[
+    [{name:'Household appliances',percent:'28.79%',sales:4544,color:'#F44336'},
+        {name:'Consumption of alcohol',percent:'21.04%',sales:3321,color:'#E91E63'},
+        {name:'Personal health',percent:'19.73%',sales:3113,color:'#3F51B5'},
+        {name:'Clothing bags',percent:'14.83%',sales:2341,color:'#2196F3'},
+        {name:'Maternal and child products',percent:'7.80',sales:1231,color:'#009688'},
+        {name:'Other',percent:'7.80%',sales:1231,color:'#FFEB3B'},
+    ],
+    [{name:'Household appliances',percent:'18.79%',sales:2544,color:'#F44336'},
+        {name:'Consumption of alcohol',percent:'31.04%',sales:4321,color:'#E91E63'},
+        {name:'Personal health',percent:'9.73%',sales:1113,color:'#3F51B5'},
+        {name:'Clothing bags',percent:'24.83%',sales:2341,color:'#2196F3'},
+        {name:'Maternal and child products',percent:'7.80',sales:1231,color:'#009688'},
+        {name:'Other',percent:'7.80%',sales:1231,color:'#FFEB3B'},
+    ],
+    [{name:'Household appliances',percent:'12.79%',sales:1044,color:'#F44336'},
+        {name:'Consumption of alcohol',percent:'16.04%',sales:1321,color:'#E91E63'},
+        {name:'Personal health',percent:'25.73%',sales:2413,color:'#3F51B5'},
+        {name:'Clothing bags',percent:'32.83%',sales:3341,color:'#2196F3'},
+        {name:'Maternal and child products',percent:'7.80',sales:1231,color:'#009688'},
+        {name:'Other',percent:'7.80%',sales:1231,color:'#FFEB3B'},
+    ],
+
+]
 const SubMenu = Menu.SubMenu;
 const styles = theme => ({
     root: {
@@ -76,7 +107,13 @@ const Dashboard =({dashboard,dispatch,classes})=>{
                 payload:pagination
             })
         }
-
+    }
+    function handleChangePieData(index) {
+        console.log(index)
+        dispatch({
+            type:'dashboard/update',
+            payload:{sales:salseData[index]}
+        })
     }
     return(
         <div>
@@ -122,13 +159,7 @@ const Dashboard =({dashboard,dispatch,classes})=>{
                                 <Grid container spacing={0}  className={style.BigWord}>
                                     <h1 style={{fontSize:28,display:'block',width:'100%'}}>8,848</h1>
                                     <div style={{height:48,width:'100%'}}>
-                                        <ResponsiveContainer height={48}>
-                                            <AreaChart data={dashboard.pd}
-                                                       margin={{top: 0, right: 0, left: 0, bottom: 0}}>
-                                                <Tooltip/>
-                                                <Area type='monotone' dataKey='pv' stroke='#E91E63' fill='#E91E63' />
-                                            </AreaChart>
-                                        </ResponsiveContainer>
+                                        <AreasChart height={48} data={dashboard.pd} dataKey="pv" stroke='#E91E63' fill='#E91E63' margin={{top: 0, right: 0, left: 0, bottom: 0}}/>
                                     </div>
 
                                     <Grid item xs={12} style={{border:'1px solid #e8e8e8',width:'100%'}}></Grid>
@@ -156,14 +187,14 @@ const Dashboard =({dashboard,dispatch,classes})=>{
                                 <Grid container spacing={0}  className={style.BigWord}>
                                     <h1 style={{fontSize:28,display:'block',width:'100%'}}>6,560</h1>
                                     <div style={{height:48,width:'100%'}}>
-                                        <ResponsiveContainer height={48}>
-                                            <BarChart heightt={48} data={dashboard.pd} stackOffset="sign"
-                                                      margin={{top: 0, right: 0, left: 0, bottom: 0}}>
-                                                <ReferenceLine y={0} stroke='#000'/>
-                                                <Tooltip/>
-                                                <Bar dataKey="pv" fill="#2196F3" stackId="stack" />
-                                            </BarChart>
-                                        </ResponsiveContainer>
+                                        <BarsChart
+                                            height={48}
+                                            data={dashboard.pd}
+                                            dataKey={"pv"}
+                                            margin={{top: 0, right: 0, left: 0, bottom: 0}}
+                                            stroke={'#000'}
+                                            fill={'#2196F3'}
+                                        />
                                     </div>
 
                                     <Grid item xs={12} style={{border:'1px solid #e8e8e8',width:'100%'}}></Grid>
@@ -236,16 +267,13 @@ const Dashboard =({dashboard,dispatch,classes})=>{
                         {dashboard.tabs === 0 &&
                         <Grid container spacing={0}>
                             <Grid item xs={12} sm={6}  md={7} lg={8}>
-                                <ResponsiveContainer height={352}>
-                                    <BarChart height={352} data={dashboard.pd}
-                                              margin={{top: 20, right: 20, left: -20, bottom:20}}>
-                                        <XAxis dataKey="name"/>
-                                        <YAxis/>
-                                        <CartesianGrid strokeDasharray="3 3"/>
-                                        <Tooltip/>
-                                        <Bar dataKey="pv" fill="#8884d8" />
-                                    </BarChart>
-                                </ResponsiveContainer>
+                                <BarsChartWithXY
+                                    height={352}
+                                    data={dashboard.pd}
+                                    dataKey="pv"
+                                    margin={{top: 20, right: 20, left: -20, bottom: 20}}
+                                    stroke='#000'
+                                    fill="#8884d8"/>
                             </Grid>
                             <Grid item xs={12} sm={6} md={5} lg={4}>
                                 <h1 style={{fontWeight:400,fontSize:28,color:'#263238',paddingTop:10}}>Store Sales Rank 1.0</h1>
@@ -297,16 +325,14 @@ const Dashboard =({dashboard,dispatch,classes})=>{
                         {dashboard.tabs === 1 &&
                         <Grid container spacing={0}>
                             <Grid item xs={12} sm={6}  md={7} lg={8}>
-                                <ResponsiveContainer height={352}>
-                                    <LineChart width={600} height={300} data={dashboard.bd}
-                                               margin={{top: 20, right: 20, left: -20, bottom: 0}}>
-                                        <XAxis dataKey="name"/>
-                                        <YAxis/>
-                                        <CartesianGrid strokeDasharray="3 3"/>
-                                        <Tooltip/>
-                                        <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{r: 8}}/>
-                                    </LineChart>
-                                </ResponsiveContainer>
+                                <LinesChartWithXY
+                                    height={352}
+                                    data={dashboard.bd}
+                                    dataKey="pv"
+                                    XAxisKey="name"
+                                    margin={{top: 20, right: 20, left: -20, bottom: 0}}
+                                    stroke="#8884d8"
+                                />
                             </Grid>
                             <Grid item xs={12} sm={6} md={5} lg={4}>
                                 <h1 style={{fontWeight:400,fontSize:28,color:'#263238',paddingTop:10}}>Store Sales Rank 2.0</h1>
@@ -379,7 +405,7 @@ const Dashboard =({dashboard,dispatch,classes})=>{
                                         borderBottom: 0
                                     }}
                                 >
-                                    <SubMenu style={{borderBottom: 0}} title={<Icon type="menu-fold" style={{
+                                    <SubMenu style={{borderBottom: 0}} title={<Icon type="ellipsis" style={{
                                         fontSize: 18,
                                         marginTop: 14,
                                         color: '#ffffff'
@@ -423,7 +449,7 @@ const Dashboard =({dashboard,dispatch,classes})=>{
                         </Card>
                     </Grid>
                     <Grid item xs={12} lg={6}>
-                        <Card style={{width: '100%', marginTop: 20, minHeight: 400}}>
+                        <Card style={{width: '100%', marginTop: 20, height:598}}>
                             <AppBar position="static" style={{position: 'relative', height: '50px'}}>
                         <span style={{
                             position: 'absolute',
@@ -444,7 +470,7 @@ const Dashboard =({dashboard,dispatch,classes})=>{
                                         borderBottom: 0
                                     }}
                                 >
-                                    <SubMenu style={{borderBottom: 0}} title={<Icon type="menu-fold" style={{
+                                    <SubMenu style={{borderBottom: 0}} title={<Icon type="ellipsis" style={{
                                         fontSize: 18,
                                         marginTop: 14,
                                         color: '#ffffff'
@@ -455,103 +481,34 @@ const Dashboard =({dashboard,dispatch,classes})=>{
                                 </Menu>
                             </AppBar>
                             <Grid container spacing={0}>
-                                <Grid item xs={12} sm={6} style={{padding: 20}}>
-                                    <h3 style={{color: '#757575'}}>
-                                        Search Users  &nbsp;&nbsp;
-                                        <span><Icon type="info-circle-o"/></span>
-                                    </h3>
-                                    <ResponsiveContainer height={80}>
-                                        <AreaChart data={dashboard.pd}
-                                                   margin={{top: 0, right: 0, left: 0, bottom: 0}}>
-                                            <Tooltip/>
-                                            <Area type='monotone' dataKey='pv' stroke='#108ee9' fill='#108ee9'/>
-                                        </AreaChart>
-                                    </ResponsiveContainer>
+                                <Grid item xs={12} style={{padding:"30px 20px",}}>
+                                    <Button raised color="primary" className={classes.button} onClick={()=>handleChangePieData(0)}>
+                                        All Channels
+                                    </Button>
+                                    <Button raised color="primary" className={classes.button} onClick={()=>handleChangePieData(1)}>
+                                        Online
+                                    </Button>
+                                    <Button raised color="primary" className={classes.button} onClick={()=>handleChangePieData(2)}>
+                                        Stores
+                                    </Button>
                                 </Grid>
-                                <Grid item xs={12} sm={6} style={{padding: 20}}>
-                                    <h3 style={{color: '#757575'}}>
-                                        Per capita search times  &nbsp;&nbsp;
-                                        <span><Icon type="info-circle-o"/></span>
-                                    </h3>
-                                    <ResponsiveContainer height={80}>
-                                        <AreaChart data={dashboard.bd}
-                                                   margin={{top: 0, right: 0, left: 0, bottom: 0}}>
-                                            <Tooltip/>
-                                            <Area type='monotone' dataKey='pv' stroke='#108ee9' fill='#108ee9'/>
-                                        </AreaChart>
-                                    </ResponsiveContainer>
-                                </Grid>
-                                <Grid item xs={12} style={{padding:20}}>
-                                    <AntdTable data={dashboard.search} pagination={dashboard.pagination} handleChange={handleTablePageChange}/>
-                                </Grid>
+                                <div style={{border:'1px solid #e8e8e8',width:'100%'}}></div>
+                                <ResponsiveContainer minHeight={400}>
+                                    <PieChart minHeight={300}>
+                                        <Pie data={dashboard.sales} dataKey='sales' innerRadius={70} outerRadius={90} fill="#82ca9d" label>
+                                            {
+                                                dashboard.sales.map((entry, index) => <Cell key={index} fill={entry.color}/>)
+                                            }
+                                        </Pie>
+                                        <Tooltip/>
+                                        <Legend />
+                                    </PieChart>
+                                </ResponsiveContainer>
                             </Grid>
                         </Card>
                     </Grid>
                 </Grid>
-
             </div>
-
-            <Grid spacing={8} container className={style.cardRow}>
-                <Grid item xs={12} sm={12} md={6} lg={8} className={style.chartItem}>
-                    <Card>
-                    <ResponsiveContainer minHeight={400}>
-                        <PieChart minHeight={300}>
-                            <Pie data={dashboard.ud.inner_pie} dataKey='value' outerRadius={60} fill="#8884d8"/>
-                            <Pie data={dashboard.ud.outer_pie} dataKey='value' innerRadius={70} outerRadius={90} fill="#82ca9d" label/>
-                            <Tooltip/>
-                            <Legend />
-                        </PieChart>
-                    </ResponsiveContainer>
-                    </Card>
-                </Grid>
-                <Grid item xs={12} sm={12} md={6} lg={4} className={style.chartItem}>
-                    <Card>
-                        <ResponsiveContainer minHeight={400}>
-                            <PieChart minHeight={300}>
-                                <Pie data={dashboard.ud.inner_pie} dataKey='value' outerRadius={60} fill="#8884d8"/>
-                                <Pie data={dashboard.ud.outer_pie} dataKey='value' innerRadius={70} outerRadius={90} fill="#82ca9d" label/>
-                                <Tooltip/>
-                                <Legend />
-                            </PieChart>
-                        </ResponsiveContainer>
-                    </Card>
-                </Grid>
-                <Grid item xs={12} sm={12} md={6} className={style.chartItem}>
-                    <Card>
-                        <ResponsiveContainer minHeight={400}>
-                            <LineChart layout="vertical" minHeight={300} data={dashboard.pd}
-                                       margin={{top: 20, right: 30, left: 0, bottom: 5}}>
-                                <XAxis type="number"/>
-                                <YAxis dataKey="name" type="category"/>
-                                <CartesianGrid strokeDasharray="3 3"/>
-                                <Tooltip/>
-                                <Legend />
-                                <Line dataKey="pv" stroke="#8884d8" />
-                                <Line dataKey="uv" stroke="#82ca9d" />
-                            </LineChart>
-                        </ResponsiveContainer>
-                    </Card>
-
-
-                </Grid>
-                <Grid item xs={12} sm={12} md={6}className={style.chartItem}>
-                    <Card>
-                        <ResponsiveContainer minHeight={400}>
-                            <BarChart minHeight={300} data={dashboard.nd} stackOffset="sign"
-                                      margin={{top: 5, right: 30, left: 0, bottom: 5}}>
-                                <XAxis dataKey="name"/>
-                                <YAxis/>
-                                <CartesianGrid strokeDasharray="3 3"/>
-                                <Tooltip/>
-                                <Legend />
-                                <ReferenceLine y={0} stroke='#000'/>
-                                <Bar dataKey="pv" fill="#8884d8" stackId="stack" />
-                                <Bar dataKey="uv" fill="#82ca9d" stackId="stack" />
-                            </BarChart>
-                        </ResponsiveContainer>
-                    </Card>
-                </Grid>
-            </Grid>
         </div>
     )
 

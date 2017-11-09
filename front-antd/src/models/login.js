@@ -1,7 +1,8 @@
 import dva from 'dva'
 import {routerRedux} from 'dva/router'
-import {login} from '../services/login'
+import {request} from '../services/request'
 import Cookies from 'js-cookie'
+import config from '../utils/config'
 export default {
 
     namespace: 'login',
@@ -23,7 +24,7 @@ export default {
             }
         },
         * login ({payload,}, { put, call, select }) {
-            const res = yield call(login, payload)
+            const res = yield call(request, {url:config.api.userLogin,data:payload,method:'post'})
             if(res.data.error){
                 console.log(res.data.error)
                 yield put({
