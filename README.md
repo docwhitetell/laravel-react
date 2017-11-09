@@ -1,11 +1,9 @@
 # Laravel-React 
 作者：Doc.White
 <br>
-以 Laravel 制作后端API，使用 React 渲染。
+以 Laravel 制作后端API，使用 React 渲染。<br>
 ###目录结构
 front-antd文件夹为前端资源文件<br/>
-
-### 结构如下
 
 ```bash
 ├── /dist/           # 项目输出目录
