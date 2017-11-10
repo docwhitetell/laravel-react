@@ -95,9 +95,7 @@ export default {
                         type:'refresh'
                     })
                 }else{
-                    dispatch({
-                        type:'logout'
-                    })
+
                 }
             }else{
                 console.log(' quering')
@@ -135,7 +133,7 @@ export default {
             store.clearAll()
             Cookies.remove('access_token')
             Cookies.remove('refresh_token')
-            yield put(routerRedux.push('/login'))
+            yield put(routerRedux.push('/'))
         },
         *refresh({payload},{put,call,select}){
             const query={refresh:Cookies('refresh_token')}

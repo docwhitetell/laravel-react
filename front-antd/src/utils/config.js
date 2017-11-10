@@ -1,8 +1,45 @@
 import Cookies from 'js-cookie'
+import store from 'store'
 module.exports = {
     name: 'Doc White',
     CORS: [],
     openPages: ['/'],
+    leftMenu:[
+        {
+            name:'Dashboard',
+            path:'/dashboard',
+            icon:'pie-chart'
+        },
+        {
+            name:'User',
+            path:'/user',
+            icon:'team'
+        },
+        {
+            name:'News',
+            path:'/news',
+            icon:'appstore'
+        },
+        {
+            name:"Notes",
+            type:'notes',
+            icon:'file-text',
+            subMenu:true,
+            list:[
+                {
+                    name:'List',
+                    path:'/notes',
+                    icon:'bars'
+                },
+                {
+                    name:'Add',
+                    path:'/note/add',
+                    icon:'edit'
+                },
+            ]
+        }
+
+    ],
     api: {
         /*
         domain:'http://你的laravel项目地址',

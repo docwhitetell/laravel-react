@@ -9,8 +9,10 @@ const styles=theme=>({
         color:theme.palette.common.white,
         height:80,
         lineHeight:'100px',
-        fontSize:20,
-        textIndent:20
+        fontSize:24,
+        textIndent:20,
+        fontWeight:200,
+        fontFamily:'inherit'
     }
 })
 

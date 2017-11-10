@@ -14,5 +14,7 @@
         ["import", { "libraryName": "antd", "style": "css" }]
       ]
     }
-  }
+  },
+  "multipage": true,
+  "outputPath": "./dist/admin"
 }

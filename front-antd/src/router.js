@@ -1,10 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Router, Route, Switch, Redirect,routerRedux } from 'dva/router';
-import Layout from './routes/app'
+import { Route, Switch, Redirect,routerRedux } from 'dva/router';
 import dynamic from 'dva/dynamic';
-
-
+import Layout from './routes/app'
 
 const {ConnectedRouter}=routerRedux
 function RouterConfig({ history ,app}) {
@@ -57,6 +55,14 @@ function RouterConfig({ history ,app}) {
         {
             path:'/UIElement/editor',
             component:()=>import('./routes/UI/editor')
+        },
+        {
+            path:'/UIElement/table',
+            component:()=>import('./routes/UI/table')
+        },
+        {
+            path:'/UIElement/form',
+            component:()=>import('./routes/UI/form')
         },
         {
             path:'/multi-upload',
