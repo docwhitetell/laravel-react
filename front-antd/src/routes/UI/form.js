@@ -8,6 +8,8 @@ import TextField from 'material-ui/TextField';
 import {FormControl, FormHelperText, FormLabel, FormControlLabel,  FormGroup} from 'material-ui/Form';
 import Radio, { RadioGroup } from 'material-ui/Radio';
 import Input, { InputLabel } from 'material-ui/Input';
+import { Input as AntdInput , Col, Select as AntdSelect, InputNumber, DatePicker, AutoComplete, Cascader ,Radio as AntdRadio} from 'antd';
+
 import green from 'material-ui/colors/green';
 import Checkbox from 'material-ui/Checkbox';
 import Select from 'material-ui/Select';
@@ -15,6 +17,10 @@ import Button from 'material-ui/Button';
 import MdForm from './components/materialForm'
 import AntdFormLogin from './components/antdForm1'
 import AntdFormRegister from './components/antdForm2'
+import AntdTransfer from './components/antdTransfer'
+import AntdUpload from './components/antdUpload'
+import AntdMultiUpload from './components/antdMutilUpload'
+const AntdRadioGroup = AntdRadio.Group;
 const styles=theme=>({
     formGrid:{
         padding:20,
@@ -82,6 +88,7 @@ class Form extends React.Component{
             checkedB: false,
             checkedF: true,
             checkedG: true,
+            radio:null,
         }
     }
     handleChange=(e)=>{
@@ -232,16 +239,47 @@ class Form extends React.Component{
                             </div>
                             <div className={classes.formContent}>
                                 <Grid container spacing={24}>
-                                    <Grid item xs={12} sm={6} md={5}>
+                                    <Grid item xs={12} sm={12} md={6}>
                                         <FormControl className={classes.formControl}>
                                             <FormLabel style={{fontSize:24}}>Base Components</FormLabel>
                                         </FormControl>
                                         <FormControl className={classes.formControl}>
+                                            <AntdInput placeholder="Basic usage"/>
+                                            <br/>
+                                            <div>
+                                                <AntdInput addonBefore="Http://" addonAfter=".com" defaultValue="mysite" />
+                                            </div>
+                                            <br/>
+                                            <div>
+                                                <AntdTransfer/>
+                                            </div>
+                                            <br/>
+                                            <AntdRadioGroup onChange={this.handleSelectChange('radio')} value={this.state.radio}>
+                                                <AntdRadio value={1}>A</AntdRadio>
+                                                <AntdRadio value={2}>B</AntdRadio>
+                                                <AntdRadio value={3}>C</AntdRadio>
+                                                <AntdRadio value={4}>D</AntdRadio>
+                                            </AntdRadioGroup>
+                                            <br/>
+                                            <DatePicker />
+                                            <br/>
+                                            <AntdSelect defaultValue="Option1-1">
+                                                <Option value="Option1-1">Option1-1</Option>
+                                                <Option value="Option1-2">Option1-2</Option>
+                                            </AntdSelect>
+                                            <br/>
+                                            <label>single upload</label>
+                                            <AntdUpload/>
+                                            <br/>
+                                            <label>single upload</label>
+                                            <AntdMultiUpload/>
+                                        </FormControl>
+                                    </Grid>
+                                    <Grid item xs={12} sm={12} md={6}>
+                                        <FormControl className={classes.formControl}>
                                             <FormLabel style={{fontSize:24}}>Login Form</FormLabel>
                                         </FormControl>
                                         <AntdFormLogin/>
-                                    </Grid>
-                                    <Grid item xs={12} sm={6} md={7}>
                                         <FormControl className={classes.formControl}>
                                             <FormLabel style={{fontSize:24}}>Register Form</FormLabel>
                                         </FormControl>
