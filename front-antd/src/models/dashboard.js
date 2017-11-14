@@ -14,7 +14,7 @@ export default {
         tabs: 0,
         menuEl:null,
         cardMenu:false,
-
+        loading:true,
         search: [],
         pagination: {current:1,pageSize:5},
         sales:[{name:'Household appliances',percent:'28.79%',sales:4544,color:'#F44336'},
@@ -30,6 +30,7 @@ export default {
         setup ({ dispatch, history }) {
             history.listen((location) => {
                 if (location.pathname === '/dashboard') {
+                    dispatch({type:'app/update',payload:{pageHeader:'Dashboard'}})
                     dispatch({
                         type: 'getData',
                     })
@@ -42,6 +43,7 @@ export default {
         *getData({payload},{put,call,select}){
             const res = yield call(request,{url:config.mockApi.dashboard,method:'get'})
             //console.log(res)
+            res.data.loading=false
             if(res.status===200){
                 yield put({
                     type:'update',

@@ -42,6 +42,7 @@ export default {
         setup ({ dispatch, history }) {
             history.listen((location) => {
                 const match = pathToRegexp('/edit/:id').exec(location.pathname)
+                dispatch({type:'app/update',payload:{pageHeader:'Notes'}})
                 if (location.pathname === '/notes') {
                     dispatch({
                         type: 'getUserNote',

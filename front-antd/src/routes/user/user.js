@@ -1,6 +1,5 @@
 import React from 'react'
 import Table from '../../components/table/index'
-import PageHeader from '../../components/pageHeader/pageHeader'
 import {connect} from 'dva'
 import keycode from 'keycode';
 import {
@@ -143,7 +142,6 @@ class User extends React.Component{
         props.handleEmptyAction=this.handleEmptyAction
         return(
             <div>
-                <PageHeader title="Users" />
                 <div style={{margin:20}}>
                     <Table {...props}>
                         {users.data.map(n => {

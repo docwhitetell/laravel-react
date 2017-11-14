@@ -48,6 +48,7 @@ export default {
         setup ({ dispatch, history }) {
             history.listen((location) => {
                 if (location.pathname === '/user') {
+                    dispatch({type:'app/update', payload:{pageHeader:'Users'}})
                     const payload = location.query || { page: 1, rowsPerPage: 10 }
                     dispatch({
                         type: 'getUserList',

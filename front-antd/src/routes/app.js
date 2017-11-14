@@ -13,6 +13,7 @@ import Header from '../layout/Header'
 import Footer from '../layout/Footer'
 import CirLoading from '../components/loading/CirLoading'
 import style2 from './app.css'
+import PageHeader from '../components/pageHeader/pageHeader'
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -213,6 +214,7 @@ const ResponsiveDrawer=({app,children,classes,theme,loading,location,dispatch})=
                         </Hidden>
                         <main className={classes.content}>
                             <CirLoading loading={loading.global}/>
+                            <PageHeader title={app.pageHeader}/>
                             {children}
                         </main>
                     </div>

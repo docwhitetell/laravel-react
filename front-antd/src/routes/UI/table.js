@@ -1,7 +1,6 @@
 import React from 'react'
 import {withStyles} from 'material-ui/styles'
 
-import PageHeader from '../../components/pageHeader/pageHeader'
 import Grid from 'material-ui/Grid'
 import Card from 'material-ui/Card'
 import MdTable from './components/mdTable'
@@ -36,7 +35,6 @@ const styles=theme=>({
 const Table=({classes})=>{
     return(
         <div>
-            <PageHeader title="Table Components" />
             <Grid container spacing={0}>
                 <Grid item xs={12} className={classes.formGrid}>
                     <Card className={classes.formWrapper}>

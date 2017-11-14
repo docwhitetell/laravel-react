@@ -151,7 +151,6 @@ const List =({app,notes,loading,dispatch,classes})=>{
 
     return(
         <div>
-            <PageHeader title="My Notes" />
             <div style={{width:'90%',margin:'20px auto 10px auto'}}>
                 <Table {...props}>
                     {notes.data.map(n => {

@@ -13,6 +13,13 @@ export default {
     },
 
     subscriptions: {
+        setup ({ dispatch, history }) {
+            history.listen((location) => {
+                if (location.pathname === '/news') {
+                    dispatch({type:'app/update',payload:{pageHeader:'News'}})
+                }
+            })
+        },
     },
 
     effects: {

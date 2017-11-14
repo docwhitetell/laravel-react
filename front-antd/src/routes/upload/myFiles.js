@@ -1,6 +1,5 @@
 import React from 'react'
 import {connect} from 'dva'
-import PageHeader from '../../components/pageHeader/pageHeader'
 import Dialog, {
     DialogActions,
     DialogContent,
@@ -126,7 +125,6 @@ class myFiles extends React.Component{
         const {filesList,open,alert,tabs}=files
         return (
             <div>
-                <PageHeader title="My Files" />
                 <div className={classes.tabsroot}  style={{maxWidth:860,margin:'20px auto'}}>
                     <AppBar position="static" color="default">
                         <Tabs value={tabs} onChange={this.handleTabsChange} indicatorColor="primary" centered>

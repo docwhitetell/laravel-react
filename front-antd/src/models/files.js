@@ -29,10 +29,15 @@ export default {
         setup({ dispatch, history }) {
             history.listen(({ pathname }) => {
                 if (pathname === '/files-lists') {
+                    dispatch({type:'app/update',payload:{pageHeader:'Files Lists'}})
                     dispatch({
                         type: 'query',
                         payload:{page:1,pageSize:10}
                     })
+                }else if(pathname==='/multi-upload'){
+                    dispatch({type:'app/update',payload:{pageHeader:'Multi-files drag & auto upload'}})
+                }else if(pathname==='/my-files'){
+                    dispatch({type:'app/update',payload:{pageHeader:'My Files'}})
                 }
             });
         },

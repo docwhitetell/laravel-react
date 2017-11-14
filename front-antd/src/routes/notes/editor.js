@@ -1,7 +1,6 @@
 import React from 'react'
 import {connect} from 'dva'
 import { withStyles } from 'material-ui/styles';
-import PageHeader from '../../components/pageHeader/pageHeader'
 import { EditorState, convertToRaw, ContentState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import draftToHtml from 'draftjs-to-html';
@@ -91,7 +90,6 @@ const noteEditor =({notes,dispatch,classes})=>{
         const { editorState } = notes
         return (
             <div>
-                <PageHeader title="Create New Note" />
                 <div className={style.title}>
                     <TextField
                         margin="dense"
@@ -102,7 +100,7 @@ const noteEditor =({notes,dispatch,classes})=>{
                         className={style.titleInput}
                         onChange={handleTitleChange}
                     />
-                    <Button component="a" raised color="accent" href="/files-lists" target="_blank">
+                    <Button component="a" raised color="accent" href="/files-lists" target="_top">
                         Your Resource
                     </Button>
                 </div>

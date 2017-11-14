@@ -7,7 +7,7 @@ import './index.css';
 // 1. Initialize
 const app = dva({
     ...createLoading({
-        model:{users:true},
+        model:{users:true,dashboard:false},
         effects: true,
     }),
     history: createHistory(),

@@ -63,16 +63,19 @@ function RouterConfig({ history ,app}) {
         {
             path:'/UIElement/editor',
             name:'UIElement',
+            models:()=>[import('./models/ui')],
             component:()=>import('./routes/UI/editor')
         },
         {
             path:'/UIElement/table',
             name:'UIElement',
+            models:()=>[import('./models/ui')],
             component:()=>import('./routes/UI/table')
         },
         {
             path:'/UIElement/form',
             name:'UIElement',
+            models:()=>[import('./models/ui')],
             component:()=>import('./routes/UI/form')
         },
         {
@@ -96,7 +99,6 @@ function RouterConfig({ history ,app}) {
   return (
       <ConnectedRouter history={history}>
           <Layout>
-              {/*<PageHeader title={name}/>*/}
               <Switch>
                   {
                       routes.map(({path,name, ...dynamics}, key) => (

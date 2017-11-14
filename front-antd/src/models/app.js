@@ -67,7 +67,9 @@ export default {
         theme:currentTheme,
         currentColor:currentColor,
         colors:color,
-        canChoice:color.canChoice
+        canChoice:color.canChoice,
+        pageHeader:null,
+
     },
 
     subscriptions: {

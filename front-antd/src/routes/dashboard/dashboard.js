@@ -3,7 +3,6 @@ import { connect } from 'dva';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from 'material-ui/styles';
-import PageHeader from '../../components/pageHeader/pageHeader'
 import TextField from 'material-ui/TextField';
 import AppBar from 'material-ui/AppBar';
 import Grid from 'material-ui/Grid';
@@ -134,7 +133,6 @@ const Dashboard =({dashboard,dispatch,classes})=>{
     }
     return(
         <div>
-            <PageHeader title="Dashboard" />
             <Grid spacing={0} container className={style.cardRow}>
                 {NumberCards}
             </Grid>
@@ -410,7 +408,7 @@ const Dashboard =({dashboard,dispatch,classes})=>{
                             height: 50,
                             lineHeight: '50px',
                             fontSize: 16
-                        }}>Online Hot Search</span>
+                        }}>Online Hot Search Table</span>
                                 <Menu
                                     mode="horizontal"
                                     style={{

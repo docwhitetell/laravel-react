@@ -5,6 +5,7 @@ import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
 import Checkbox from 'material-ui/Checkbox';
 import styles from './login.css'
+import {message} from 'antd'
 const LoginForm = ({dispatch}) => {
     const state = {
         email: "",
@@ -29,6 +30,7 @@ const LoginForm = ({dispatch}) => {
     }
     const handleSubmit = (e) => {
         e.preventDefault()
+        message.loading('Loging!')
         const url = e.target.getAttribute('action')
         dispatch({
             type: 'login/login',

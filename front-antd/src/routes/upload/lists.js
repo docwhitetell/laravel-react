@@ -1,6 +1,5 @@
 import React from 'react'
 import {connect} from 'dva'
-import PageHeader from '../../components/pageHeader/pageHeader'
 import AntdTable from '../../components/table/antdTable'
 const columns = [{
     title: 'Resource Name',
@@ -29,7 +28,6 @@ const Lists=({files,dispatch})=>{
     }
     return(
         <div>
-            <PageHeader title="Files Lists" />
             <div style={{padding:20}}>
                 <AntdTable
                     size="default"

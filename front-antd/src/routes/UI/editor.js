@@ -27,7 +27,6 @@ class UIEditor extends React.Component{
         const {classes}=this.props
         return (
             <div>
-                <PageHeader title="React Editor" />
                 <div style={{margin:20}}>
                     <Card>
                         <MyEditor

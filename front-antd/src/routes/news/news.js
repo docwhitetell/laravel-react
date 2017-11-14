@@ -1,5 +1,4 @@
 import React from 'react'
-import PageHeader from '../../components/pageHeader/pageHeader'
 import {Link} from 'react-router-dom'
 import {connect} from 'dva'
 import {Pagination} from 'antd'
@@ -64,8 +63,6 @@ class News extends React.Component{
         const {classes,news,loading}=this.props
         return(
             <div>
-
-                <PageHeader title="News" />
                 <Grid container spacing={24} style={{maxWidth:1200,margin:20,width:'auto',}}>
                     { news.list.map((item,index)=>(  <Grid key={item.id} item xs={12} sm={6} md={6} lg={4}>
                         <Card className={classes.card}>
