@@ -26,7 +26,15 @@ const LeftMenu=({dropDown,style,classes,handleClick,handleChangeTheme,app})=>{
 
     return(
         <div>
-            <div className={classes.drawerHeader}/>
+            <div style={{lineHeight:'32px'}}>
+                <p style={{textAlign:'center',height:32,LineHeight:'32px',fontSize:18}}>
+                    For The Best experience
+                </p>
+                <p style={{textAlign:'center',height:32,LineHeight:'32px',fontSize:14}}>
+                    Please Use Chrome Browser
+                </p>
+
+            </div>
             <Divider/>
             <List subheader={<ListSubheader>Dashboard</ListSubheader>}>
                 <Link to="/dashboard">
@@ -115,6 +123,13 @@ const LeftMenu=({dropDown,style,classes,handleClick,handleChangeTheme,app})=>{
                             <Icon type="file" className={classes.menuIcon} />
                             <ListItemText style={{fontSize: '14px'}}
                                           primary="My Files"/>
+                        </ListItem>
+                    </Link>
+                    <Link to="/files-lists">
+                        <ListItem button className={style.secondMenuItem}>
+                            <Icon type="bars" className={classes.menuIcon} />
+                            <ListItemText style={{fontSize: '14px'}}
+                                          primary="Files-List"/>
                         </ListItem>
                     </Link>
                 </Collapse>

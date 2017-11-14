@@ -4,62 +4,100 @@ import Cookies from 'js-cookie'
 import config from '../utils/config'
 import {request} from '../services/request'
 import store from 'store'
+import {message} from 'antd'
+message.config({
+    top:100
+})
+const headers={
+    'Accept':'application/json',
+    'X-Requested-With': 'XMLHttpRequest',
+    'Authorization':'Bearer '+Cookies('access_token')
+}
 export default {
 
     namespace: 'files',
     state:{
         filesList:[],
+        videoList:[],
         open:store.get('open')?store.get('open'):[],
         alert:store.get('alert')?store.get('alert'):[],
         tabs:0,
+
+        filesPagination: {current:1,pageSize:10,total:null},
     },
     subscriptions: {
-      /*  setup({ dispatch, history }) {
+        setup({ dispatch, history }) {
             history.listen(({ pathname }) => {
-                if (pathname === '/upload/my-files') {
+                if (pathname === '/files-lists') {
                     dispatch({
                         type: 'query',
+                        payload:{page:1,pageSize:10}
                     })
                 }
             });
-        },*/
+        },
     },
 
     effects: {
         *query({payload},{call,put,select}){
-            const headers={
-                'Accept':'application/json',
-                'X-Requested-With': 'XMLHttpRequest',
-                'Authorization':'Bearer '+Cookies('access_token')
-            }
-            const req=yield call(request, {url:config.api.userFiles,headers:headers})
-            if(req.status===200){
+            const data=payload
+            const res=yield call(request, {url:config.api.userImgs,headers:headers,params:data})
+            if(res.status===200){
                 let open=[],alert=[]
-                req.data.map((item,index)=>{
+                res.data.data.map((item,index)=>{
                     open[index]=false
                     alert[index]=false
                 })
-              /*  store.set('filesList',req.data)*/
                 store.set('open',open)
                 store.set('alert',alert)
                 yield put({
                     type:'update',
-                    payload:{filesList:req.data,open:open,alert:alert}
+                    payload:{
+                        filesList:res.data.data,
+                        open:open,
+                        alert:alert,
+                        filesPagination:{current:res.data.current_page,pageSize:parseInt(res.data.per_page),total:res.data.total}
+                    }
+                })
+            }
+        },
+        *queryVideos({payload},{call,put,select}){
+            const res=yield call(request, {url:config.api.userVideos,headers:headers})
+            if(res.status===200){
+                let open=[],alert=[]
+                res.data.data.map((item,index)=>{
+                    open[index]=false
+                    alert[index]=false
+                })
+                store.set('open',open)
+                store.set('alert',alert)
+                yield put({
+                    type:'update',
+                    payload:{
+                        filesList:res.data.data,
+                        open:open,
+                        alert:alert,
+                        filesPagination:{current:res.data.current_page,pageSize:parseInt(res.data.per_page),total:res.data.total}
+                    }
                 })
             }
         },
         *delete({payload},{call,put,select}) {
-            const headers={
-                'Accept':'application/json',
-                'X-Requested-With': 'XMLHttpRequest',
-                'Authorization':'Bearer '+Cookies('access_token')
-            }
+            yield put({
+                type:'alertClose'
+            })
+
             const data={id:payload}
             const req=yield call(request, {url:config.api.deleteFiles,headers:headers,params:data})
-            if(req.data.status==='success'){
+            console.log(req)
+            if(req.data.success){
+                console.log('delete success')
                 yield put({
                     type:'query'
                 })
+            }else if(req.data.error){
+                console.log(req.data.error)
+                message.error(`${req.data.error}`)
             }
         }
     }
@@ -104,11 +142,16 @@ export default {
             }
         },
         'alertClose'(state,payload){
-            let newState=state.alert
-            newState[payload.payload]=false
+            const newState=state.alert
+            let alertArray=[]
+            for(var i=0;i<newState.length;i++){
+                alertArray[i]=false
+            }
+            console.log(alertArray)
+           // newState[payload.payload]=false
             return {
                 ...state,
-                alert:newState
+                alert:alertArray
             }
         },
     },

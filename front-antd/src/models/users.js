@@ -4,6 +4,11 @@ import queryString from 'query-string'
 import Cookies from 'js-cookie'
 import config from '../utils/config'
 import {request} from '../services/request'
+import {message} from 'antd'
+message.config({
+    top:100
+})
+
 const headers={
     'Accept':'application/json',
     'X-Requested-With': 'XMLHttpRequest',
@@ -73,24 +78,13 @@ export default {
             const params={users:payload}
             /*发起删除异步请求*/
             const res=yield call(request, {url:config.api.deleteUser,headers:headers,params:params})
-            /*删除成功后刷新数据*/
-            yield put({type:'getUserList',payload:{page:users.page,rowsPerPage:users.rowsPerPage}})
-        },
-        *addUser({payload},{put,call,select}){
-          /*  yield put({type:'dialogLoading'})*/
 
-            const res=yield call(request, {url:config.api.addUser,headers:headers,data:payload})
-          /*  yield put({type:'dialogLoading'})*/
-            if(res.data.error===true){
-                yield put({type:'updateErrorMsg',payload:res.data.msg})
-            }
-            if(res.data.status===true){
-                yield put({
-                    type:'getUserList',payload:{ page: 1, rowsPerPage: 10 }
-                })
-                yield put({type:'showOrHideDialog'})
-            }
+            res.data.error?
+                message.error(`${res.data.error}`):
+                yield put({type:'getUserList',payload:{page:users.page,rowsPerPage:users.rowsPerPage}})
+
         },
+
         *changeRowsPerPage({payload},{put,call,select}){
             yield put({
                 type:'update',

@@ -4,42 +4,6 @@ module.exports = {
     name: 'Doc White',
     CORS: [],
     openPages: ['/'],
-    leftMenu:[
-        {
-            name:'Dashboard',
-            path:'/dashboard',
-            icon:'pie-chart'
-        },
-        {
-            name:'User',
-            path:'/user',
-            icon:'team'
-        },
-        {
-            name:'News',
-            path:'/news',
-            icon:'appstore'
-        },
-        {
-            name:"Notes",
-            type:'notes',
-            icon:'file-text',
-            subMenu:true,
-            list:[
-                {
-                    name:'List',
-                    path:'/notes',
-                    icon:'bars'
-                },
-                {
-                    name:'Add',
-                    path:'/note/add',
-                    icon:'edit'
-                },
-            ]
-        }
-
-    ],
     api: {
         /*
         domain:'http://你的laravel项目地址',
@@ -61,7 +25,8 @@ module.exports = {
         updateNote:'http://www.gitbase.com/api/user/note/update',
         deleteNote:'http://www.gitbase.com/api/user/note/delete',
         fileUpload:'http://www.gitbase.com/api/file/upload',
-        userFiles:'http://www.gitbase.com/api/user/files',
+        userImgs:'http://www.gitbase.com/api/user/imgs',
+        userVideos:'http://www.gitbase.com/api/user/videos',
         deleteFiles:'http://www.gitbase.com/api/user/files/delete'
     },
     mockApi:{

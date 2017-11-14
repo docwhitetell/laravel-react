@@ -45,4 +45,16 @@ trait CommonController
         $ip = $_SERVER["REMOTE_ADDR"];
         return $ip;
     }
+
+    public function errorMsg($type){
+        switch ($type){
+            case 'permission':
+                return ['error'=>'You Dont Have Permission'];
+                break;
+            default:
+        }
+    }
+
+
+
 }

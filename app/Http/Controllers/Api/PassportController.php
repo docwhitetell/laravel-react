@@ -23,6 +23,11 @@ class PassportController extends Controller
             $this->cleanExpiresAccessToken();
             $this->cleanExpiresRefreshToken();
             $passwordClient=Client::find(2);
+            if($request->email=='example@react.com'){
+               $scopes='';
+            }else{
+                $scopes='*';
+            }
             $response = $http->post(env('APP_URL').'/oauth/token', [
                 'form_params' => [
                     'grant_type' => 'password',
@@ -31,13 +36,13 @@ class PassportController extends Controller
                     'client_secret' => $passwordClient->secret,
                     'username' => $request->get('email'),
                     'password' =>  $request->get('password'),
-                    'scope' => '*',
+                    'scope' => $scopes,
                 ],
             ]);
             $data=json_decode((string) $response->getBody(), true);
             return response()->json(['success'=>true,'token'=>$data]);
         }else{
-            return response()->json(['error'=>'email or password not match!'],200);
+            return response()->json(['error'=>'Email or Password not Match!'],200);
         }
 
     }
@@ -48,6 +53,12 @@ class PassportController extends Controller
         $refreshToken=$request->get('refresh');
         $http = new GuzzleHttp\Client;
         $passwordClient=Client::find(2);
+        $user=$request->get('user');
+        if($user['email']==='example@react.com'){
+            $scopes='';
+        }else{
+            $scopes='*';
+        }
         $response = $http->post(env('APP_URL').'/oauth/token', [
             'form_params' => [
                 'grant_type' => 'refresh_token',
@@ -55,7 +66,7 @@ class PassportController extends Controller
                 'client_id' => 2,
                 //请替换为你自己的client_secret
                 'client_secret' =>$passwordClient->secret,
-                'scope' => '*',
+                'scope' => $scopes,
             ],
         ]);
 

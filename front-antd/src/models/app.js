@@ -1,6 +1,7 @@
 import dva from 'dva'
 import {routerRedux} from 'dva/router'
 import {request} from '../services/request'
+import {routeMiddleware} from '../services/routeMiddleware'
 import Cookies from 'js-cookie'
 import config from '../utils/config'
 import queryString from 'query-string'
@@ -82,25 +83,30 @@ export default {
             })
         },
 
-        setup ({ dispatch }) {
+        setup ({ dispatch,history }) {
             console.log(new Date())
-            const user=store.get('user')
-            if(!user && Cookies('access_token')){
-                dispatch({type: 'query'})
-            }else if((user && !Cookies('access_token')) || (!user && !Cookies('access_token'))){
-                if(Cookies('refresh_token')){
-                    //获取access_token ,登录
-                    console.log('need refresh token')
-                    dispatch({
-                        type:'refresh'
-                    })
+            let pathname=history.location.pathname
+            routeMiddleware(pathname)
+            if(!routeMiddleware(pathname)){
+                const user=store.get('user')
+                if(Cookies('access_token')){
+                    dispatch({type: 'query'})
+                }else if(!Cookies('access_token')){
+                    if(Cookies('refresh_token')){
+                        //获取access_token ,登录
+                        console.log('need refresh token')
+                        dispatch({
+                            type:'refresh'
+                        })
+                    }else{
+                        dispatch({type:'logout'})
+                    }
                 }else{
-
+                    console.log(' quering')
+                    dispatch({type: 'query'})
                 }
-            }else{
-                console.log(' quering')
-                dispatch({type: 'query'})
             }
+
         },
     },
 
@@ -136,8 +142,8 @@ export default {
             yield put(routerRedux.push('/'))
         },
         *refresh({payload},{put,call,select}){
-            const query={refresh:Cookies('refresh_token')}
-            const req = yield call(request,{url:config.api.refresh,params:query,method:'get'})
+            const query={refresh:Cookies('refresh_token'),user:store.get('user')}
+            const req = yield call(request,{url:config.api.refresh,data:query,method:'post'})
             if(req.status===200){
                 Cookies.set('access_token', req.data.access_token, { expires:1, path: '/' });
                 Cookies.set('refresh_token', req.data.refresh_token, { expires: 7, path: '/' });

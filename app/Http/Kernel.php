@@ -66,5 +66,6 @@ class Kernel extends HttpKernel
         //cross site
         'cors' => \App\Http\Middleware\AccessControlAllowOrigin::class,
         //cross site
+
     ];
 }

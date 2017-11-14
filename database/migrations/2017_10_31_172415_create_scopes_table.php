@@ -4,25 +4,18 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsersTable extends Migration
+class CreateScopesTable extends Migration
 {
     /**
      * Run the migrations.
      *
      * @return void
-     *
      */
-
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('scopes', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->boolean('experience')->default(false);
-            $table->string('email',191)->unique();
-            $table->string('password');
-            $table->rememberToken();
-            $table->timestamps();
+            $table->text('scopes')->comment('权限范围');
         });
     }
 
@@ -33,6 +26,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('scopes');
     }
 }

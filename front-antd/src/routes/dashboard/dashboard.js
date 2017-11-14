@@ -80,7 +80,24 @@ const CircleNumber=({props})=>{
         <span style={{borderRadius:'50%',background:props.color}}>{props.data}</span>
     )
 }
-
+const tableColumns = [{
+    title: 'Rank',
+    dataIndex: 'id',
+    sorter: (a,b)=>a.id-b.id,
+}, {
+    title: 'Key Word',
+    dataIndex: 'word',
+}, {
+    title: 'User Number',
+    dataIndex: 'userNumber',
+    sorter:(a,b)=>a.userNumber-b.userNumber,
+}, {
+    title: 'Rose',
+    dataIndex: 'rose',
+    sorter:(a,b)=>a.rose-b.rose,
+    render: rose => `${rose} %`,
+}
+];
 const Dashboard =({dashboard,dispatch,classes})=>{
     const NumberCards=dashboard.numberCard.map((item,index)=>{
         return <NumberCard data={item} key={index}/>
@@ -443,7 +460,7 @@ const Dashboard =({dashboard,dispatch,classes})=>{
                                     </ResponsiveContainer>
                                 </Grid>
                                 <Grid item xs={12} style={{padding:20}}>
-                                    <AntdTable data={dashboard.search} pagination={dashboard.pagination} handleChange={handleTablePageChange}/>
+                                    <AntdTable data={dashboard.search} columns={tableColumns} pagination={dashboard.pagination} handleChange={handleTablePageChange}/>
                                 </Grid>
                             </Grid>
                         </Card>

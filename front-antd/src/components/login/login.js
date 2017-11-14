@@ -69,7 +69,10 @@ const LoginForm = ({dispatch}) => {
                             onChange={handleInputOnchange}
                         />
                     </p>
-
+                    <p style={{position:'absolute',bottom:0,width:280}}>
+                        <span style={{textAlign:'center',display:'block',width:'100%',fontWeight:600}}>Test Account</span>
+                        <span style={{textAlign:'center',display:'block',width:'100%',fontWeight:600}}><strong>example@react.com </strong>&nbsp;&nbsp;&nbsp;<strong>123456</strong></span>
+                    </p>
                     <Button type="submit" raised color="accent" className={styles.submitButton}>
                         Login
                     </Button>

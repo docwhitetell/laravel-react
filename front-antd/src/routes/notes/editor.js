@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'dva'
+import { withStyles } from 'material-ui/styles';
 import PageHeader from '../../components/pageHeader/pageHeader'
 import { EditorState, convertToRaw, ContentState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
@@ -10,9 +11,35 @@ import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
 import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
 import MyEditor from '../../components/editor/MyEditor'
+import Grid from 'material-ui/Grid'
+
+
 import style from './style.css'
 
-const noteEditor =({notes,dispatch})=>{
+const styles = theme => ({
+    pageHeader:{
+        backgroundColor:theme.palette.primary[800],
+        height:100
+    },
+    pageTitle:{
+        color:theme.palette.common.white,
+        height:80,
+        lineHeight:'100px',
+        fontSize:20,
+        textIndent:20
+    },
+    gridList: {
+        height: 'auto',
+    },
+    subheader: {
+        width: '100%',
+    },
+    tabsroot:{
+        /*  backgroundColor: theme.palette.background.paper,*/
+        marginBottom:6
+    },
+})
+const noteEditor =({notes,dispatch,classes})=>{
 
     function onEditorStateChange(editorState) {
        dispatch({
@@ -51,7 +78,15 @@ const noteEditor =({notes,dispatch})=>{
         }
 
     }
-
+    function handleTablePageChange(pagination,filters, sorter) {
+        if(pagination.current===dashboard.pagination.current){
+        }else{
+            dispatch({
+                type:'notes/getUserResource',
+                payload:pagination
+            })
+        }
+    }
 
         const { editorState } = notes
         return (
@@ -67,25 +102,24 @@ const noteEditor =({notes,dispatch})=>{
                         className={style.titleInput}
                         onChange={handleTitleChange}
                     />
+                    <Button component="a" raised color="accent" href="/files-lists" target="_blank">
+                        Your Resource
+                    </Button>
                 </div>
-                <div style={{display:'flex',margin:20}}>
-                    <Card style={{flex:2}}>
-                        <MyEditor
-                            wrapperStyle={{minHeight: 500,flex:2}}
-                            editorStyle={{minHeight: 376,}}
-                            editorState={editorState}
-                            onEditorStateChange={onEditorStateChange}
-                        />
-                    </Card>
-                    <textarea style={{
-                        minHeight: 300,
-                        background: '#f7f7f7',
-                        borderColor: '#F1F1F1',
-                        padding: '16px 8px',flex:2}}
-                              disabled
-                              value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
-                    />
-                </div>
+                <Grid container spacing={0} style={{margin:0,padding:20}}>
+                    <Grid item xs={12}>
+                        <Card >
+                            <MyEditor
+                                wrapperStyle={{minHeight: 500}}
+                                editorStyle={{minHeight: 376,}}
+                                editorState={editorState}
+                                onEditorStateChange={onEditorStateChange}
+                            />
+                        </Card>
+                    </Grid>
+
+                </Grid>
+
                 <div style={{textAlign:'center'}}>
                     <Button raised color="accent" onClick={handleSubmit}>
                         SAVE
@@ -98,4 +132,4 @@ const noteEditor =({notes,dispatch})=>{
 
 
 }
-export default connect(({notes})=>({notes}))(noteEditor)
+export default connect(({notes})=>({notes}))(withStyles(styles)(noteEditor))

@@ -17,29 +17,25 @@ class UserController extends Controller
         public function getAllUser(Request $request){
             $pagesize=$request->get('rowsPerPage');
             $this->createLog('get all user',$request->user());
-            return User::orderBy('created_at', 'desc')->paginate($pagesize);
+            return User::orderBy('id', 'desc')->paginate($pagesize);
         }
         public function deleteUser(Request $request){
             $usersId=$request->get('users');
             $users=[];
-
-            for($i=0;$i<count($usersId);$i++){
-                $users[]=(int)$usersId[$i];
-            }
-            if(User::destroy($users)){
-                $this->createLog('delete user',$request->user());
-                return response()->json(['action'=>'delete','status'=>true],200);
+            if($request->user()->tokenCan('users-delete')){
+                for($i=0;$i<count($usersId);$i++){
+                    $users[]=(int)$usersId[$i];
+                }
+                if(User::destroy($users)){
+                    $this->createLog('delete user',$request->user());
+                    return response()->json(['action'=>'delete','status'=>true],200);
+                }else{
+                    $this->createLog('delete user',$request->user(),null,null,false);
+                    return response()->json(['action'=>'delete','status'=>false],200);
+                }
             }else{
-                $this->createLog('delete user',$request->user(),null,null,false);
-                return response()->json(['action'=>'delete','status'=>false],200);
+                return $this->errorMsg('permission');
             }
-            //return response()->json($users,200);
-            //dd($users);
-           /* if($user->delete()){
-
-            }else{
-
-            }*/
         }
         public function getCurrentUser(Request $request){
             return $request->user();

@@ -55,8 +55,8 @@ const styles = theme => ({
     tabsroot:{
       /*  backgroundColor: theme.palette.background.paper,*/
         marginBottom:6
-    }
-});
+    },
+})
 function TabContainer(props) {
     return <div style={{ padding: 8 * 3 }}>{props.children}</div>;
 }
@@ -67,7 +67,7 @@ class myFiles extends React.Component{
     componentDidMount() {
         const {dispatch} = this.props
         dispatch({
-            type:'files/query'
+            type:'files/query',
         })
     }
     handleRequestClose=(index)=>{
@@ -112,6 +112,8 @@ class myFiles extends React.Component{
     handleTabsChange=(event,value)=>{
         console.log(value)
         const {dispatch}=this.props
+        value===1?dispatch({type:'files/queryVideos'}):dispatch({type:'files/query'})
+
         dispatch({
             type:'files/update',
             payload:{
@@ -130,12 +132,11 @@ class myFiles extends React.Component{
                         <Tabs value={tabs} onChange={this.handleTabsChange} indicatorColor="primary" centered>
                             <Tab label="Images" />
                             <Tab label="Videos" />
-                            <Tab label="Masonry" />
                         </Tabs>
                     </AppBar>
                     { tabs===0 &&
                     <GridList cellHeight={160} className={classes.gridList} cols={3}>
-                        {filesList.filter((item)=>{return (item.type==='image/png' ||item.type==='image/jpeg' )}).map((item,index) =>{
+                        {filesList.map((item,index) =>{
                             return(
                                 <GridListTile key={index} cols={1} className={style.gridItem}>
                                     <img src={item.path} style={{width:'100%',height:'100%'}} alt=""/>
@@ -180,7 +181,7 @@ class myFiles extends React.Component{
 
                     { tabs===1 &&
                 <GridList cellHeight={160} className={classes.gridList} cols={3}>
-                    {filesList.filter((item)=>{return (item.type==='video/mp4' )}).map((item,index) =>{
+                    {filesList.map((item,index) =>{
                         return(
                             <GridListTile key={index} cols={1} className={style.gridItem}>
                                 <CardMedia
@@ -233,52 +234,6 @@ class myFiles extends React.Component{
                     })}
                 </GridList>
                 }
-                    { tabs===2 &&
-                        <div className="container">
-                            <GridList className={classes.gridList} cols={3}>
-                                {filesList.filter((item)=>{return (item.type==='image/png' ||item.type==='image/jpeg' )}).map((item,index) =>{
-                                    return(
-                                        <GridListTile key={index} cols={1}>
-                                            <img src={item.path} style={{width:'100%',height:'100%'}} alt=""/>
-                                            <div className={style.mask}>
-                                                <div className={style.Delete}><Icon type="delete" className={style.DeleteIcon} onClick={()=>this.handleAlertOpen(index,item.id)}  /></div>
-                                                <div className={style.Play} ><Icon type="eye-o" className={style.PlayIcon} onClick={()=>this.handleOpen(index)} /></div>
-                                            </div>
-                                            <Dialog open={alert[index]} onRequestClose={()=>this.handleAlertClose(index)}>
-                                                <DialogTitle>{"Delete ？"}</DialogTitle>
-                                                <DialogContent>
-                                                    <DialogContentText>
-                                                        ARE YOU SURE YOU DON'T NEED IT ANY MORE?<br/>
-                                                        （{item.original_name}）
-                                                    </DialogContentText>
-                                                </DialogContent>
-                                                <DialogActions>
-                                                    <Button onClick={()=>this.handleDelete(item.id)} color="primary">
-                                                        YES
-                                                    </Button>
-                                                    <Button onClick={()=>this.handleAlertClose(index)} color="primary" autoFocus>
-                                                        NO
-                                                    </Button>
-                                                </DialogActions>
-                                            </Dialog>
-                                            <Dialog open={open[index]} onRequestClose={()=>this.handleRequestClose(index)} maxWidth="md">
-                                                <DialogTitle>{item.original_name}</DialogTitle>
-                                                <DialogContent>
-                                                    <img src={item.path} style={{width:'100%'}} alt=""/>
-                                                </DialogContent>
-                                                <DialogActions>
-                                                    <Button onClick={()=>this.handleRequestClose(index)} color="primary">
-                                                        Close
-                                                    </Button>
-                                                </DialogActions>
-                                            </Dialog>
-
-                                        </GridListTile>
-                                    )
-                                })}
-                            </GridList>
-                        </div>
-                    }
                 </div>
 
             </div>

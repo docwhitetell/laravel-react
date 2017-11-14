@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 
 Route::get('/login', 'Api\PassportController@loginform');
 Route::post('/login', 'Api\PassportController@login');
-Route::get('/refresh', 'Api\PassportController@refresh');
+Route::post('/refresh', 'Api\PassportController@refresh');
 Route::post('/register', 'Api\RegisterController@register');
 
 Route::group(['middleware' => ['auth:api','cors']], function () {
@@ -33,12 +33,13 @@ Route::group(['middleware' => ['auth:api','cors']], function () {
 /*user note*/
 
 /*files*/
-    Route::get('/user/files', 'Api\FileController@userFiles');
+    Route::get('/user/imgs', 'Api\FileController@userImgs');
+    Route::get('/user/videos', 'Api\FileController@userVideos');
+    Route::post('/file/upload', 'Api\FileController@recieveFile');
     Route::get('/user/files/delete', 'Api\FileController@delete');
 });
 
 
-Route::middleware(['cors'])->any('/file/upload', 'Api\FileController@recieveFile');
 
 
 

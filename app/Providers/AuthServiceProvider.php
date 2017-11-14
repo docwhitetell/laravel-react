@@ -28,8 +28,19 @@ class AuthServiceProvider extends ServiceProvider
 
         //
         Passport::routes();
-        Passport::tokensExpireIn(Carbon::now()->addDays(15));
+        Passport::tokensExpireIn(Carbon::now()->addHours(2));
+        Passport::refreshTokensExpireIn(Carbon::now()->addHours(4));
 
-        Passport::refreshTokensExpireIn(Carbon::now()->addDays(30));
+
+        Passport::tokensCan([
+            'files-upload'=>'Can upload files',
+            'files-delete'=>'Can delete his/her files on the server',
+            'users-lists'=>'Can see users lists',
+            'users-delete'=>'Can delete users',
+            'notes-lists'=>'Can see himself/herself notes',
+            'notes-create'=>'Can create notes',
+            'notes-update'=>'Can update his/her noetes',
+
+        ]);
     }
 }

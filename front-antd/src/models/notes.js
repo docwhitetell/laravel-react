@@ -33,6 +33,10 @@ export default {
         current:{},
         editTitle:'',
         editorState:EditorState.createEmpty(),
+
+        userResource:[],
+        resourcePagination: {current:1,pageSize:5},
+
     },
     subscriptions: {
         setup ({ dispatch, history }) {
@@ -47,8 +51,14 @@ export default {
                         type:'update',
                         payload:{current:null,editTitle:'',editorState:EditorState.createEmpty()}
                     })
+                    dispatch({
+                        type:'queryUserResource'
+                    })
                 }else if(match){
                     console.log(match[1]);
+                    dispatch({
+                        type:'queryUserResource'
+                    })
                     dispatch({ type: 'query', payload: { id: match[1] } })
                 }
             })
@@ -90,7 +100,22 @@ export default {
                 yield put({type:'update',payload:{current:req.data,editTitle:req.data.title,editorState:editorState}})
             }
         },
+        *queryUserResource({payload},{call,put,select}){
+            const headers={
+                'Accept':'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+                'Authorization':'Bearer '+Cookies('access_token')
+            }
+            const req=yield call(request, {url:config.api.userFiles,headers:headers})
+            if(req.status===200){
+                yield put({
+                    type:'update',
+                    payload:{userResource:req.data}
+                })
+            }
+        },
         *create({payload},{call,put,select}){
+
             yield put(routerRedux.push('/note/add'))
         },
         *createNote({payload},{call,put,select}){
