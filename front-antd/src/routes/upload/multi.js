@@ -8,7 +8,7 @@ import Button from 'material-ui/Button';
 import {connect} from 'dva'
 const filesUpload =()=>{
     return (
-        <div>
+        <div style={{marginTop:-68}}>
             <Grid container style={{display:'block',margin:20,width:'auto'}}>
                 <Grid item style={{background:'#e3e3e3',borderRadius:10}} xs={12}>
                    {/* <Dropzone/>*/}

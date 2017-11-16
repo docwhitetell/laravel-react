@@ -11,33 +11,13 @@ import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
 import MyEditor from '../../components/editor/MyEditor'
 import Grid from 'material-ui/Grid'
+import {Icon} from 'antd'
+import Slider from 'react-slick'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
 
+import styles from './styles'
 
-import style from './style.css'
-
-const styles = theme => ({
-    pageHeader:{
-        backgroundColor:theme.palette.primary[800],
-        height:100
-    },
-    pageTitle:{
-        color:theme.palette.common.white,
-        height:80,
-        lineHeight:'100px',
-        fontSize:20,
-        textIndent:20
-    },
-    gridList: {
-        height: 'auto',
-    },
-    subheader: {
-        width: '100%',
-    },
-    tabsroot:{
-        /*  backgroundColor: theme.palette.background.paper,*/
-        marginBottom:6
-    },
-})
 const noteEditor =({notes,dispatch,classes})=>{
 
     function onEditorStateChange(editorState) {
@@ -86,41 +66,103 @@ const noteEditor =({notes,dispatch,classes})=>{
             })
         }
     }
-
+    const settings = {
+        dots: false,
+        infinite: false,
+        speed: 500,
+        vertical:true,
+        swipe:true,
+        verticalSwiping: true,
+        slidesToShow: 5,
+        swipeToSlide: true,
+        slidesToScroll: 1,
+        arrows:true
+    };
         const { editorState } = notes
         return (
-            <div>
-                <div className={style.title}>
-                    <TextField
-                        margin="dense"
-                        label="Title"
-                        type="text"
-                        fullWidth
-                        value={notes.editTitle?notes.editTitle:''}
-                        className={style.titleInput}
-                        onChange={handleTitleChange}
-                    />
-                    <Button component="a" raised color="accent" href="/files-lists" target="_top">
-                        Your Resource
-                    </Button>
-                </div>
+            <div style={{marginTop:-68}}>
+
                 <Grid container spacing={0} style={{margin:0,padding:20}}>
-                    <Grid item xs={12}>
-                        <Card >
+                    <Grid item xs={12} style={{position:'relative'}}>
+                        <Card style={{width:'calc(100% - 220px)'}}>
+                            <div className={classes.title}>
+                                <TextField
+                                    margin="dense"
+                                    label="Title"
+                                    type="text"
+                                    style={{margin:'0 auto',width:300}}
+                                    fullWidth
+                                    value={notes.editTitle?notes.editTitle:''}
+                                    className={classes.titleInput}
+                                    onChange={handleTitleChange}
+                                />
+                            </div>
                             <MyEditor
-                                wrapperStyle={{minHeight: 500}}
-                                editorStyle={{minHeight: 376,}}
+                                wrapperStyle={{minHeight: 600}}
+                                editorStyle={{height: 520,}}
                                 editorState={editorState}
                                 onEditorStateChange={onEditorStateChange}
                             />
+                        </Card>
+                        <Card style={{width:200,height:600,position:'absolute',right:0,top:20}}>
+                            <Slider {...settings}>
+                                {notes.userResource.map((item,index)=>{
+                                    return (
+                                        <div style={{position:'relative',height:120}} key={index}>
+                                            {item.type==='video/mp4' && <video src={item.path} width={200} height={118}></video>}
+                                            {item.type!=='video/mp4' && <img src={item.path} width={200} height={118} alt=""/>}
+                                            <div className="mask"
+                                                 style={{
+                                                     position:'absolute',
+                                                     height:"100%",
+                                                     width:'100%',
+                                                     top:0,left:0,
+                                                     background:'rgba(0,0,0,0.4)',
+                                                     color:'#ffffff',zIndex:99999
+                                                    }}
+                                            >
+                                                {item.type==='video/mp4' &&
+                                                    <div>
+                                                        <p style={{textIndent:'1em',marginTop:10}}>{item.original_name}</p>
+                                                        <Icon type="video-camera" style={{position:'absolute',right:10,top:10}} />
+                                                    </div>
+
+                                                }
+                                                {item.type!=='video/mp4' &&
+                                                <div>
+                                                    <p style={{textIndent:'1em',marginTop:10}}>{item.original_name}</p>
+                                                    <Icon type="picture" style={{position:'absolute',right:10,top:10}} />
+                                                </div>
+
+                                                }
+                                                <Button
+                                                    data-clipboard-text={item.path}
+                                                    raised color="primary"
+                                                    className="copy-button"
+                                                    style={{position:'absolute',
+                                                        top:'50%',left:'50%',
+                                                        transform:'translate(-50%,-50%)',
+                                                        fontSize:'12px',
+                                                        padding:'0',
+                                                        height:'28px !important'
+                                                    }}
+                                                >Copy</Button>
+                                            </div>
+                                        </div>
+                                    )
+                                })}
+                            </Slider>
                         </Card>
                     </Grid>
 
                 </Grid>
 
-                <div style={{textAlign:'center'}}>
-                    <Button raised color="accent" onClick={handleSubmit}>
+                <div style={{textAlign:'center',marginBottom:20}}>
+                    <Button raised color="accent" onClick={handleSubmit} style={{marginRight:20}}>
                         SAVE
+                    </Button>
+                    <Button raised color="primary" onClick={handleSubmit}>
+                        PREVIEW
                     </Button>
                 </div>
 

@@ -32,7 +32,6 @@ export default {
                     dispatch({type:'app/update',payload:{pageHeader:'Files Lists'}})
                     dispatch({
                         type: 'query',
-                        payload:{page:1,pageSize:10}
                     })
                 }else if(pathname==='/multi-upload'){
                     dispatch({type:'app/update',payload:{pageHeader:'Multi-files drag & auto upload'}})
@@ -47,18 +46,25 @@ export default {
         *query({payload},{call,put,select}){
             const data=payload
             const res=yield call(request, {url:config.api.userImgs,headers:headers,params:data})
-            if(res.status===200){
+            if(res.status===200 ){
                 let open=[],alert=[]
-                res.data.data.map((item,index)=>{
-                    open[index]=false
-                    alert[index]=false
-                })
+                if(data){
+                    res.data.data.map((item,index)=>{
+                        open[index]=false
+                        alert[index]=false
+                    })
+                }else{
+                    res.data.map((item,index)=>{
+                        open[index]=false
+                        alert[index]=false
+                    })
+                }
                 store.set('open',open)
                 store.set('alert',alert)
                 yield put({
                     type:'update',
                     payload:{
-                        filesList:res.data.data,
+                        filesList:res.data,
                         open:open,
                         alert:alert,
                         filesPagination:{current:res.data.current_page,pageSize:parseInt(res.data.per_page),total:res.data.total}
@@ -70,7 +76,7 @@ export default {
             const res=yield call(request, {url:config.api.userVideos,headers:headers})
             if(res.status===200){
                 let open=[],alert=[]
-                res.data.data.map((item,index)=>{
+                res.data.map((item,index)=>{
                     open[index]=false
                     alert[index]=false
                 })
@@ -79,7 +85,7 @@ export default {
                 yield put({
                     type:'update',
                     payload:{
-                        filesList:res.data.data,
+                        filesList:res.data,
                         open:open,
                         alert:alert,
                         filesPagination:{current:res.data.current_page,pageSize:parseInt(res.data.per_page),total:res.data.total}

@@ -141,7 +141,7 @@ class User extends React.Component{
         props.handleSelectedAction=this.handleSelectedAction
         props.handleEmptyAction=this.handleEmptyAction
         return(
-            <div>
+            <div style={{marginTop:-68}}>
                 <div style={{margin:20}}>
                     <Table {...props}>
                         {users.data.map(n => {

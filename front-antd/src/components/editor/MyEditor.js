@@ -11,10 +11,13 @@ const toolbarConfig={
     link: { inDropdown: true },
     history: { inDropdown: true },
     image: {
-        uploadCallback: upload,
-        alt: { present: true, mandatory:true },
+        defaultSize: {
+            height: 'auto',
+            width: '100%',
+        },
     },
 }
+/*
 function upload(file) {
     const res=new Promise(
         (resolve, reject) => {
@@ -38,6 +41,7 @@ function upload(file) {
     console.log(res)
     return res
 }
+*/
 
 
 const MyEditor=(props)=> {

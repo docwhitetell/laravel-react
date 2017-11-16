@@ -7,8 +7,8 @@ const styles = theme => ({
     loading:{
         position:'absolute',
         width:'100%',
-        height:'calc(100% - 100px)',
-        top:100,
+        height:'calc(100%)',
+        top:0,
         left:0,
         background:'rgba(0,0,0,0.14)',
         zIndex:99999,

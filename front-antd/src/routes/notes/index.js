@@ -1,5 +1,5 @@
 import React from 'react'
-import PageHeader from '../../components/pageHeader/pageHeader'
+import {withStyles} from 'material-ui/styles'
 import Table from '../../components/table/index'
 import {connect} from 'dva'
 import keycode from 'keycode';
@@ -11,8 +11,8 @@ import {
 import Checkbox from 'material-ui/Checkbox';
 import IconButton from 'material-ui/IconButton';
 import EditIcon from 'material-ui-icons/Edit'
-import AddIcon from 'material-ui-icons/Add';
-import styles from './style.css'
+
+import styles from './styles'
 
 const List =({app,notes,loading,dispatch,classes})=>{
 
@@ -150,7 +150,7 @@ const List =({app,notes,loading,dispatch,classes})=>{
 
 
     return(
-        <div>
+        <div style={{marginTop:-68}}>
             <div style={{width:'90%',margin:'20px auto 10px auto'}}>
                 <Table {...props}>
                     {notes.data.map(n => {
@@ -169,11 +169,11 @@ const List =({app,notes,loading,dispatch,classes})=>{
                                     <Checkbox checked={Selected} />
                                 </TableCell>
                                 <TableCell numeric padding="none">{n.id}</TableCell>
-                                <TableCell className={styles.tableCell}>{n.title}</TableCell>
-                                <TableCell className={styles.tableCell}>{n.content}</TableCell>
-                                <TableCell className={styles.tableCell}>{n.created_at}</TableCell>
-                                <TableCell className={styles.tableCell}>{n.updated_at}</TableCell>
-                                <TableCell className={styles.tableCell}>
+                                <TableCell className={classes.tableCell}>{n.title}</TableCell>
+                                <TableCell className={classes.tableCell}>{n.content}</TableCell>
+                                <TableCell className={classes.tableCell}>{n.created_at}</TableCell>
+                                <TableCell className={classes.tableCell}>{n.updated_at}</TableCell>
+                                <TableCell className={classes.tableCell}>
                                     <IconButton aria-label="Edit" color="primary" onClick={()=>{handleEdit(n.id)}}>
                                         <EditIcon/>
                                     </IconButton>
@@ -192,4 +192,4 @@ const List =({app,notes,loading,dispatch,classes})=>{
     </div>)
 }
 
-export default connect(({app,notes,loading})=>({app,notes,loading}))(List)
+export default connect(({app,notes,loading})=>({app,notes,loading}))(withStyles(styles())(List))

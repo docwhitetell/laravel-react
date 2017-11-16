@@ -1,6 +1,7 @@
 import React from 'react'
 import { Upload, Icon, message } from 'antd';
 import Cookies from 'js-cookie'
+import config from '../../utils/config'
 const Dragger = Upload.Dragger;
 
 message.config({
@@ -12,7 +13,7 @@ const props = {
     multiple: true,
     showUploadList: false,
     accept:'.png,.jpg,.mp4',
-    action: 'http://www.gitbase.com/api/file/upload',
+    action: config.api.fileUpload,
     headers:{
         'Accept':'application/json',
         'X-Requested-With': 'XMLHttpRequest',

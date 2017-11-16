@@ -26,7 +26,7 @@ class UIEditor extends React.Component{
         const {editorState}=this.state
         const {classes}=this.props
         return (
-            <div>
+            <div style={{marginTop:-68}}>
                 <div style={{margin:20}}>
                     <Card>
                         <MyEditor

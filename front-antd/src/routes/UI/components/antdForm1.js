@@ -1,8 +1,20 @@
 import React from 'react'
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
-import styles from './antdForm1.css'
+import {withStyles} from 'material-ui/styles'
 const FormItem = Form.Item;
 
+const styles = theme => ({
+    loginForm: {
+        maxWidth: 300,
+        margin: '0 auto'
+    },
+    loginFormForgot: {
+        float: 'right'
+    },
+    loginFormButton: {
+        width: '100%'
+    }
+})
 class NormalLoginForm extends React.Component {
     handleSubmit = (e) => {
         e.preventDefault();
@@ -13,9 +25,10 @@ class NormalLoginForm extends React.Component {
         });
     }
     render() {
+        const {classes} =this.props
         const { getFieldDecorator } = this.props.form;
         return (
-            <Form onSubmit={this.handleSubmit} className={styles.loginForm}>
+            <Form onSubmit={this.handleSubmit} className={classes.loginForm}>
                 <FormItem>
                     {getFieldDecorator('userName', {
                         rules: [{ required: true, message: 'Please input your username!' }],
@@ -37,8 +50,8 @@ class NormalLoginForm extends React.Component {
                     })(
                         <Checkbox>Remember me</Checkbox>
                     )}
-                    <a className={styles.loginFormForgot} href="">Forgot password</a>
-                    <Button type="primary" htmlType="submit" className={styles.loginFormButton}>
+                    <a className={classes.loginFormForgot} href="">Forgot password</a>
+                    <Button type="primary" htmlType="submit" className={classes.loginFormButton}>
                         Log in
                     </Button>
                     Or <a href="">register now!</a>
@@ -48,4 +61,4 @@ class NormalLoginForm extends React.Component {
     }
 }
 const WrappedNormalLoginForm = Form.create()(NormalLoginForm);
-export default WrappedNormalLoginForm
+export default withStyles(styles)(WrappedNormalLoginForm)

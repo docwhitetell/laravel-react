@@ -15,50 +15,7 @@ import { withStyles } from 'material-ui/styles';
 import { GridList, GridListTile } from 'material-ui/GridList';
 import Tabs, { Tab } from 'material-ui/Tabs';
 import {Icon} from 'antd'
-import style from './myfiles.css'
-
-const sizes = [
-    { columns: 3, gutter: 10 },                   // assumed to be mobile, because of the missing mq property
-    { mq: '768px', columns: 3, gutter: 25 },
-    { mq: '1024px', columns: 4, gutter: 50 }
-]
-
-// create an instance
-
-const instance = Bricks({
-    container: '.container',
-    packed:    'data-packed',        // if not prefixed with 'data-', it will be added
-    sizes:     sizes
-})
-
-
-
-const styles = theme => ({
-    pageHeader:{
-        backgroundColor:theme.palette.primary[800],
-        height:100
-    },
-    pageTitle:{
-        color:theme.palette.common.white,
-        height:80,
-        lineHeight:'100px',
-        fontSize:20,
-        textIndent:20
-    },
-    gridList: {
-        height: 'auto',
-    },
-    subheader: {
-        width: '100%',
-    },
-    tabsroot:{
-      /*  backgroundColor: theme.palette.background.paper,*/
-        marginBottom:6
-    },
-})
-function TabContainer(props) {
-    return <div style={{ padding: 8 * 3 }}>{props.children}</div>;
-}
+import styles from './styles'
 class myFiles extends React.Component{
     constructor(props){
         super(props)
@@ -124,7 +81,7 @@ class myFiles extends React.Component{
         const {files,classes}=this.props
         const {filesList,open,alert,tabs}=files
         return (
-            <div>
+            <div style={{marginTop:-68}}>
                 <div className={classes.tabsroot}  style={{maxWidth:860,margin:'20px auto'}}>
                     <AppBar position="static" color="default">
                         <Tabs value={tabs} onChange={this.handleTabsChange} indicatorColor="primary" centered>
@@ -136,11 +93,11 @@ class myFiles extends React.Component{
                     <GridList cellHeight={160} className={classes.gridList} cols={3}>
                         {filesList.map((item,index) =>{
                             return(
-                                <GridListTile key={index} cols={1} className={style.gridItem}>
+                                <GridListTile key={index} cols={1} className={classes.gridItem}>
                                     <img src={item.path} style={{width:'100%',height:'100%'}} alt=""/>
-                                    <div className={style.mask}>
-                                        <div className={style.Delete}><Icon type="delete" className={style.DeleteIcon} onClick={()=>this.handleAlertOpen(index,item.id)}  /></div>
-                                        <div className={style.Play} ><Icon type="eye-o" className={style.PlayIcon} onClick={()=>this.handleOpen(index)} /></div>
+                                    <div className={classes.mask}>
+                                        <div className={classes.Delete}><Icon type="delete" className={classes.DeleteIcon} onClick={()=>this.handleAlertOpen(index,item.id)}  /></div>
+                                        <div className={classes.Play} ><Icon type="eye-o" className={classes.PlayIcon} onClick={()=>this.handleOpen(index)} /></div>
                                     </div>
                                     <Dialog open={alert[index]} onRequestClose={()=>this.handleAlertClose(index)}>
                                         <DialogTitle>{"Delete ？"}</DialogTitle>
@@ -181,17 +138,17 @@ class myFiles extends React.Component{
                 <GridList cellHeight={160} className={classes.gridList} cols={3}>
                     {filesList.map((item,index) =>{
                         return(
-                            <GridListTile key={index} cols={1} className={style.gridItem}>
+                            <GridListTile key={index} cols={1} className={classes.gridItem}>
                                 <CardMedia
                                     style={{objectit:'fill',height:'100%'}}
                                     component="video"
                                     src={item.path}
                                     muted
                                 />
-                                <div className={style.videoMask}>
-                                    <h1 className={style.videoTitle}>{item.original_name}</h1>
-                                    <div className={style.Delete}><Icon type="delete" className={style.DeleteIcon} onClick={()=>this.handleAlertOpen(index,item.id)}  /></div>
-                                    <div className={style.Play} ><Icon type="play-circle" className={style.PlayIcon} onClick={()=>this.handleOpen(index)} /></div>
+                                <div className={classes.videoMask}>
+                                    <h1 className={classes.videoTitle}>{item.original_name}</h1>
+                                    <div className={classes.Delete}><Icon type="delete" className={classes.DeleteIcon} onClick={()=>this.handleAlertOpen(index,item.id)}  /></div>
+                                    <div className={classes.Play} ><Icon type="play-circle" className={classes.PlayIcon} onClick={()=>this.handleOpen(index)} /></div>
                                 </div>
                                 <Dialog open={alert[index]} onRequestClose={()=>this.handleAlertClose(index)}>
                                     <DialogTitle>{"Delete ？"}</DialogTitle>

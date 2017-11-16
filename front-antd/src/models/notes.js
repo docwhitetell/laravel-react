@@ -107,7 +107,7 @@ export default {
                 'X-Requested-With': 'XMLHttpRequest',
                 'Authorization':'Bearer '+Cookies('access_token')
             }
-            const req=yield call(request, {url:config.api.userFiles,headers:headers})
+            const req=yield call(request, {url:config.api.allFiles,headers:headers})
             if(req.status===200){
                 yield put({
                     type:'update',

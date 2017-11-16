@@ -27,115 +27,96 @@ module.exports = {
         blue:createMuiTheme({
             palette: {
                 primary: blue, // Purple and green play nicely together.
-                secondary:blue,
             },
         }),
         pink:createMuiTheme({
             palette: {
                 primary:pink, // Purple and green play nicely together.
-                secondary:pink,
             },
         }),
         red: createMuiTheme({
             palette: {
                 primary: red, // Purple and green play nicely together.
-                secondary:red,
             },
         }),
         purple: createMuiTheme({
             palette: {
                 primary: purple, // Purple and green play nicely together.
-                secondary:purple,
             },
         }),
         deepPurple: createMuiTheme({
             palette: {
                 primary: deepPurple, // Purple and green play nicely together.
-                secondary:deepPurple,
             },
         }),
         indigo: createMuiTheme({
             palette: {
                 primary: indigo, // Purple and green play nicely together.
-                secondary:indigo,
             },
         }),
         lightBlue: createMuiTheme({
             palette: {
                 primary: lightBlue, // Purple and green play nicely together.
-                secondary:lightBlue,
             },
         }),
         cyan: createMuiTheme({
             palette: {
                 primary:cyan, // Purple and green play nicely together.
-                secondary:cyan,
             },
         }),
         teal: createMuiTheme({
             palette: {
                 primary:teal, // Purple and green play nicely together.
-                secondary:teal,
             },
         }),
         green: createMuiTheme({
             palette: {
                 primary:green, // Purple and green play nicely together.
-                secondary:green,
             },
         }),
         lightGreen: createMuiTheme({
             palette: {
                 primary: lightGreen, // Purple and green play nicely together.
-                secondary:lightGreen,
             },
         }),
         lime: createMuiTheme({
             palette: {
                 primary: lime, // Purple and green play nicely together.
-                secondary:lime,
             },
         }),
         yellow: createMuiTheme({
             palette: {
                 primary: yellow, // Purple and green play nicely together.
-                secondary:yellow,
             },
         }),
         amber: createMuiTheme({
             palette: {
                 primary:amber, // Purple and green play nicely together.
-                secondary:amber,
             },
         }),
         orange: createMuiTheme({
             palette: {
                 primary: orange ,// Purple and green play nicely together.
-                secondary:orange,
             },
         }),
         deepOrange: createMuiTheme({
             palette: {
                 primary: deepOrange, // Purple and green play nicely together.
-                secondary:deepOrange,
             },
         }),
         brown: createMuiTheme({
             palette: {
                 primary: brown, // Purple and green play nicely together.
-                secondary:brown,
             },
         }),
         grey: createMuiTheme({
             palette: {
                 primary: grey, // Purple and green play nicely together.
-                secondary:grey,
             },
         }),
         blueGrey: createMuiTheme({
             palette: {
                 primary: blueGrey, // Purple and green play nicely together.
-                secondary:blueGrey,
             },
         })
     },

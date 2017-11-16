@@ -35,6 +35,7 @@ Route::group(['middleware' => ['auth:api','cors']], function () {
 /*files*/
     Route::get('/user/imgs', 'Api\FileController@userImgs');
     Route::get('/user/videos', 'Api\FileController@userVideos');
+    Route::get('/user/files/all', 'Api\FileController@all');
     Route::post('/file/upload', 'Api\FileController@recieveFile');
     Route::get('/user/files/delete', 'Api\FileController@delete');
 });

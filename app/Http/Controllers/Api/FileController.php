@@ -44,12 +44,24 @@ class FileController extends Controller
     }
 
     function userImgs(Request $request){
-        $files=$request->user()->resources()->where('type','!=','video/mp4')->orderBy('id', 'desc')->paginate($request->get('pageSize'));
+        if($request->get('pageSize')){
+            $files=$request->user()->resources()->where('type','!=','video/mp4')->orderBy('id', 'desc')->paginate($request->get('pageSize'));
+        }else{
+            $files=$request->user()->resources()->where('type','!=','video/mp4')->orderBy('id', 'desc')->get();
+        }
         return $files;
     }
     function userVideos(Request $request){
-        $files=$request->user()->resources()->where('type','=','video/mp4')->orderBy('id', 'desc')->paginate($request->get('pageSize'));
+        if($request->get('pageSize')){
+            $files=$request->user()->resources()->where('type','=','video/mp4')->orderBy('id', 'desc')->paginate($request->get('pageSize'));
+        }else{
+            $files=$request->user()->resources()->where('type','=','video/mp4')->orderBy('id', 'desc')->get();
+        }
         return $files;
+    }
+
+    function all(){
+        return Resources::all();
     }
     function delete(Request $request){
         $file=Resources::find($request->get('id'));

@@ -27,7 +27,7 @@ const Lists=({files,dispatch})=>{
         }
     }
     return(
-        <div>
+        <div style={{marginTop:-68}}>
             <div style={{padding:20}}>
                 <AntdTable
                     size="default"
