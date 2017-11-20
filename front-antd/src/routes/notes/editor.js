@@ -70,13 +70,21 @@ const noteEditor =({notes,dispatch,classes})=>{
         dots: false,
         infinite: false,
         speed: 500,
-        vertical:true,
+        vertical:false,
         swipe:true,
-        verticalSwiping: true,
+        verticalSwiping: false,
         slidesToShow: 5,
         swipeToSlide: true,
         slidesToScroll: 1,
-        arrows:true
+        arrows:true,
+        responsive:[
+            { breakpoint: 600, settings: { slidesToShow: 2 } },
+            { breakpoint: 768, settings: { slidesToShow: 3 } },
+            { breakpoint: 1024, settings: { slidesToShow: 4 } },
+            { breakpoint: 1312, settings: { slidesToShow: 5 } },
+            { breakpoint: 1920, settings: { slidesToShow: 6 } },
+
+        ]
     };
         const { editorState } = notes
         return (
@@ -84,7 +92,57 @@ const noteEditor =({notes,dispatch,classes})=>{
 
                 <Grid container spacing={0} style={{margin:0,padding:20}}>
                     <Grid item xs={12} style={{position:'relative'}}>
-                        <Card style={{width:'calc(100% - 220px)'}}>
+                        <Card style={{height:120,overflow:'hidden'}}>
+                            <Slider {...settings}>
+                                {notes.userResource.map((item,index)=>{
+                                    return (
+                                        <div style={{position:'relative',height:120,overflow:'hidden'}} key={index}>
+                                            {item.type==='video/mp4' && <video src={item.path} style={{width:'100%',height:'100%',objectFit:'fill'}}></video>}
+                                            {item.type!=='video/mp4' && <img src={item.path} style={{width:'100%',height:'100%',objectFit:'fill'}} alt=""/>}
+                                            <div className="mask"
+                                                 style={{
+                                                     position:'absolute',
+                                                     height:"100%",
+                                                     width:'100%',
+                                                     top:0,left:0,
+                                                     background:'rgba(0,0,0,0.4)',
+                                                     color:'#ffffff',zIndex:99999
+                                                 }}
+                                            >
+                                                {item.type==='video/mp4' &&
+                                                <div>
+                                                    <p style={{textIndent:'1em',marginTop:10}}>{item.original_name}</p>
+                                                    <Icon type="video-camera" style={{position:'absolute',right:10,top:10}} />
+                                                </div>
+
+                                                }
+                                                {item.type!=='video/mp4' &&
+                                                <div>
+                                                    <p style={{textIndent:'1em',marginTop:10}}>{item.original_name}</p>
+                                                    <Icon type="picture" style={{position:'absolute',right:10,top:10}} />
+                                                </div>
+
+                                                }
+                                                <Button
+                                                    data-clipboard-text={item.path}
+                                                    raised color="primary"
+                                                    className="copy-button"
+                                                    style={{position:'absolute',
+                                                        top:'50%',left:'50%',
+                                                        transform:'translate(-50%,-50%)',
+                                                        fontSize:'12px',
+                                                        padding:'0 12px',
+                                                        height:'28px',
+                                                        minWidth:'0',minHeight:'0'
+                                                    }}
+                                                >Copy</Button>
+                                            </div>
+                                        </div>
+                                    )
+                                })}
+                            </Slider>
+                        </Card>
+                        <Card>
                             <div className={classes.title}>
                                 <TextField
                                     margin="dense"
@@ -103,55 +161,6 @@ const noteEditor =({notes,dispatch,classes})=>{
                                 editorState={editorState}
                                 onEditorStateChange={onEditorStateChange}
                             />
-                        </Card>
-                        <Card style={{width:200,height:600,position:'absolute',right:0,top:20}}>
-                            <Slider {...settings}>
-                                {notes.userResource.map((item,index)=>{
-                                    return (
-                                        <div style={{position:'relative',height:120}} key={index}>
-                                            {item.type==='video/mp4' && <video src={item.path} width={200} height={118}></video>}
-                                            {item.type!=='video/mp4' && <img src={item.path} width={200} height={118} alt=""/>}
-                                            <div className="mask"
-                                                 style={{
-                                                     position:'absolute',
-                                                     height:"100%",
-                                                     width:'100%',
-                                                     top:0,left:0,
-                                                     background:'rgba(0,0,0,0.4)',
-                                                     color:'#ffffff',zIndex:99999
-                                                    }}
-                                            >
-                                                {item.type==='video/mp4' &&
-                                                    <div>
-                                                        <p style={{textIndent:'1em',marginTop:10}}>{item.original_name}</p>
-                                                        <Icon type="video-camera" style={{position:'absolute',right:10,top:10}} />
-                                                    </div>
-
-                                                }
-                                                {item.type!=='video/mp4' &&
-                                                <div>
-                                                    <p style={{textIndent:'1em',marginTop:10}}>{item.original_name}</p>
-                                                    <Icon type="picture" style={{position:'absolute',right:10,top:10}} />
-                                                </div>
-
-                                                }
-                                                <Button
-                                                    data-clipboard-text={item.path}
-                                                    raised color="primary"
-                                                    className="copy-button"
-                                                    style={{position:'absolute',
-                                                        top:'50%',left:'50%',
-                                                        transform:'translate(-50%,-50%)',
-                                                        fontSize:'12px',
-                                                        padding:'0',
-                                                        height:'28px !important'
-                                                    }}
-                                                >Copy</Button>
-                                            </div>
-                                        </div>
-                                    )
-                                })}
-                            </Slider>
                         </Card>
                     </Grid>
 

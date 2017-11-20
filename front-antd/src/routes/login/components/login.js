@@ -1,12 +1,16 @@
 import React from 'react'
 import {connect} from 'dva'
+import {withStyles} from 'material-ui/styles'
 import Card, {CardHeader} from 'material-ui/Card';
+import pink from 'material-ui/colors/pink'
 import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
 import Checkbox from 'material-ui/Checkbox';
-import styles from './login.css'
+import styles from './styles'
 import {message} from 'antd'
-const LoginForm = ({dispatch}) => {
+
+
+const LoginForm = ({dispatch,classes}) => {
     const state = {
         email: "",
         password: "",
@@ -38,14 +42,13 @@ const LoginForm = ({dispatch}) => {
         })
     }
     return (
-        <div className={styles.pageWrapper}>
-            <Card className={styles.loginWrapper}>
-                <CardHeader
-                    title="Login"
-                />
-                <form action="http://mylaravel.com/api/login" onSubmit={handleSubmit}>
+            <Card className={classes.loginWrapper}>
+                <h1 style={{fontWeight:300,color:'#ffffff',fontSize:'24px'}}>Login</h1>
+                <form onSubmit={handleSubmit}>
                     <TextField
-                        className={styles.formfield}
+                        className={classes.formfield}
+                        InputClassName={classes.textfieldInput}
+                        labelClassName={classes.textfieldLabel}
                         margin="dense"
                         id="email"
                         name="email"
@@ -55,7 +58,9 @@ const LoginForm = ({dispatch}) => {
                         fullWidth
                     />
                     <TextField
-                        className={styles.formfield}
+                        className={classes.formfield}
+                        InputClassName={classes.textfieldInput}
+                        labelClassName={classes.textfieldLabel}
                         margin="dense"
                         id="password"
                         name="password"
@@ -65,23 +70,22 @@ const LoginForm = ({dispatch}) => {
                         fullWidth
                     />
                     <p>
-                        <span className={styles.remember}>Remember ?</span>
+                        <span className={classes.remember}>Remember ?</span>
                         <Checkbox
                             name="remember"
+                            classes={{checked:classes.checked}}
                             onChange={handleInputOnchange}
                         />
                     </p>
-                    <p style={{position:'absolute',bottom:0,width:280}}>
-                        <span style={{textAlign:'center',display:'block',width:'100%',fontWeight:600}}>Test Account</span>
-                        <span style={{textAlign:'center',display:'block',width:'100%',fontWeight:600}}><strong>example@react.com </strong>&nbsp;&nbsp;&nbsp;<strong>123456</strong></span>
+                    <p style={{position:'absolute',bottom:0,width:'100%',left:0}}>
+                        <span style={{textAlign:'center',display:'block',width:'100%',fontWeight:600,color:'#ffffff'}}><strong>example@react.com </strong>&nbsp;&nbsp;&nbsp;<strong>123456</strong></span>
                     </p>
-                    <Button type="submit" raised color="accent" className={styles.submitButton}>
+                    <Button type="submit" className={classes.submitButton}>
                         Login
                     </Button>
                 </form>
             </Card>
-        </div>
     )
 }
 
-export default connect(({ dispatch}) => ({ dispatch}))(LoginForm)
+export default connect(({ dispatch}) => ({ dispatch}))(withStyles(styles)(LoginForm))

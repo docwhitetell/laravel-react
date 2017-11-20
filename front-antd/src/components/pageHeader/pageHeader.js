@@ -2,16 +2,17 @@ import React from 'react'
 import { withStyles } from 'material-ui/styles';
 const styles=theme=>({
     pageHeader:{
-        backgroundColor:theme.palette.primary[800],
+        backgroundColor:'inherit',
+      /*  backgroundColor:theme.palette.primary[800],*/
         height:120
     },
     pageTitle:{
-        color:theme.palette.common.white,
+        color:'#455A64',
         height:120,
         lineHeight:'80px',
         fontSize:24,
         textIndent:20,
-        fontWeight:200,
+        fontWeight:400,
         fontFamily:'inherit'
     }
 })

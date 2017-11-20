@@ -1,7 +1,7 @@
 import Cookies from 'js-cookie'
 import store from 'store'
 module.exports = {
-    name: 'Doc White',
+    name: 'Material Design',
     CORS: [],
     openPages: ['/'],
     api: {

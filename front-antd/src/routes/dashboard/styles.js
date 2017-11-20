@@ -29,7 +29,7 @@ const styles=theme=>({
             cursor:'hand',
             transition:'all 0.4s ease-in-out',
             boxShadow:'2px 2px 5px 2px rgba(0, 0, 0, 0.1), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.1)',
-            transform:'scale(1.02,1.02)'
+          /*  transform:'scale(1.02,1.02)'*/
         }
     },
     icon:{
@@ -53,11 +53,11 @@ const styles=theme=>({
         justifyContent:'center'
     },
     crTitle:{
-        color:'#424242',
+        color:'inherit',
         fontSize:'16px'
     },
     crNum:{
-        color:'#626262',
+        color:'inherit',
         fontSize:'16px',
     },
     chartItem:{

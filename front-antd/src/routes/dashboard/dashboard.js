@@ -3,6 +3,9 @@ import { connect } from 'dva';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import Grid from 'material-ui/Grid';
+import Card from 'material-ui/Card';
+import {Icon} from 'antd'
+import CountUp from 'react-countup';
 import NumberCard from './components/NumberCard'
 import DataCard from './components/DataCard'
 import TabData from './components/TabData'
@@ -38,9 +41,6 @@ const salseData=[
 
 
 const Dashboard =({dashboard,dispatch,classes})=>{
-    const NumberCards=dashboard.numberCard.map((item,index)=>{
-        return <NumberCard data={item} key={index}/>
-    })
     function handleTabChange(event, value){
         dispatch({
             type:'dashboard/update',
@@ -65,9 +65,7 @@ const Dashboard =({dashboard,dispatch,classes})=>{
     }
     return(
         <div style={{marginTop:-68}}>
-            <Grid spacing={0} container className={classes.cardRow}>
-                {NumberCards}
-            </Grid>
+            <NumberCard classes={classes}/>
             <DataCard classes={classes} data={dashboard}/>
 
             <div style={{width:'96%',margin:'0 auto',padding:4}}>

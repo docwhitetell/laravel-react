@@ -1,12 +1,12 @@
-
-const drawerWidth = 240;
+const drawerWidth = 250;
 const styles = theme => ({
     root: {
         width: '100%',
-        minHeight:'100%',
+        height:'100%',
         marginTop:0,
         zIndex: 1,
-        fontFamily: "Microsoft YaHei"
+        fontFamily: "Microsoft YaHei",
+        color:'#37474F'
     },
     appFrame: {
         position: 'relative',
@@ -15,9 +15,12 @@ const styles = theme => ({
         minHeight: '100%',
     },
     appBar: {
-        position: 'absolute',
         marginLeft: drawerWidth,
         paddingRight:'0 !important',
+        backgroundImage:"url('/assets/leftmenu.png')",
+        backgroundPosition:'-250px 0',
+        zIndex:99999,
+        backgroundRepeat:'no-repeat',
         [theme.breakpoints.up('md')]: {
             width: `calc(100% - ${drawerWidth}px)`,
         }
@@ -42,13 +45,19 @@ const styles = theme => ({
     drawerHeader: theme.mixins.toolbar,
     drawerPaper: {
         width: 250,
+        backgroundImage:"url('/assets/leftmenu.png')",
+        backgroundPosition:'left top',
+        overflow:'visible'
     },
     secondMenuItem: {
         paddingLeft: 40
     },
 
     content: {
-        backgroundColor: '#f0f2f5',
+        backgroundImage: "url('/assets/leftmenu.png')",
+        backgroundRepeat:'no-repeat',
+       /* backgroundPosition:'-250px 0',*/
+        backgroundAttachment:'fixed',
         width: '100%',
         paddingTop: 0,
         minHeight: 'calc(100vh - 56px)',
@@ -61,8 +70,14 @@ const styles = theme => ({
         },
     },
     menuIcon:{
-        color:'#424242',
-        fontSize:'16px'
+        color:'#37474F',
+        fontSize:'16px',
+    },
+    menuText:{
+        color:'#37474F',fontSize:16,fontWeight:500
+    },
+    secondMenuText:{
+        color:'#37474F',fontSize:12,fontWeight:400
     },
     fixedBottom:{
         position:'absolute',

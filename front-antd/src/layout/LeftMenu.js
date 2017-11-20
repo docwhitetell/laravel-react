@@ -36,70 +36,70 @@ const LeftMenu=({dropDown,style,classes,handleClick,handleChangeTheme,app})=>{
 
             </div>
             <Divider/>
-            <List subheader={<ListSubheader>Dashboard</ListSubheader>}>
+            <List>
                 <Link to="/dashboard">
                     <ListItem button>
                         <Icon type="pie-chart" className={classes.menuIcon} />
-                        <ListItemText primary="Dashboard"/>
+                        <ListItemText disableTypography	primary="Dashboard" classes={{root:classes.menuText}}/>
                     </ListItem>
                 </Link>
                 <Link to="/user">
                     <ListItem button>
                         <Icon type="team" className={classes.menuIcon} />
-                        <ListItemText primary="User"/>
+                        <ListItemText disableTypography primary="User" classes={{root:classes.menuText}}/>
                     </ListItem>
                 </Link>
                 <Link to="/news">
                     <ListItem button>
                         <Icon type="appstore" className={classes.menuIcon} />
-                        <ListItemText primary="News"/>
+                        <ListItemText disableTypography primary="News" classes={{root:classes.menuText}}/>
                     </ListItem>
                 </Link>
                 <ListItem button key={0} onClick={()=>{handleClick('notes')}}>
                     <Icon type="file-text" className={classes.menuIcon} />
-                    <ListItemText primary="Notes"/>
+                    <ListItemText disableTypography primary="Notes" classes={{root:classes.menuText}}/>
                     {dropDown.notes ? <ExpandLess/> : <ExpandMore/>}
                 </ListItem>
                 <Collapse in={dropDown.notes} transitionDuration="auto" unmountOnExit>
                     <Link to="/notes">
                         <ListItem button className={classes.secondMenuItem}>
                             <Icon type="bars" className={classes.menuIcon} />
-                            <ListItemText style={{fontSize: '14px'}}
-                                          primary="List"/>
+                            <ListItemText disableTypography 
+                                          primary="List" classes={{root:classes.secondMenuText}}/>
                         </ListItem>
                     </Link>
                     <Link to="/note/add">
                         <ListItem button className={classes.secondMenuItem}>
                             <Icon type="edit" className={classes.menuIcon} />
-                            <ListItemText style={{fontSize: '14px'}}
-                                          primary="Add"/>
+                            <ListItemText disableTypography 
+                                          primary="Add" classes={{root:classes.secondMenuText}}/>
                         </ListItem>
                     </Link>
                 </Collapse>
                 <ListItem button key={1} onClick={()=>{handleClick('ui')}}>
                     <Icon type="smile-o" className={classes.menuIcon} />
-                    <ListItemText primary="UI Element"/>
+                    <ListItemText disableTypography primary="UI Element" classes={{root:classes.menuText}}/>
                     {dropDown.ui ? <ExpandLess/> : <ExpandMore/>}
                 </ListItem>
                 <Collapse in={dropDown.ui} transitionDuration="auto" unmountOnExit>
                     <Link to="/UIElement/editor">
                         <ListItem button className={classes.secondMenuItem}>
                             <Icon type="edit" className={classes.menuIcon} />
-                            <ListItemText style={{fontSize: '14px'}}
+                            <ListItemText disableTypography   classes={{root:classes.secondMenuText}}
                                           primary="editor"/>
                         </ListItem>
                     </Link>
                     <Link to="/UIElement/table">
                         <ListItem button className={classes.secondMenuItem}>
                             <Icon type="file-text" className={classes.menuIcon} />
-                            <ListItemText style={{fontSize: '14px'}}
+                            <ListItemText disableTypography  classes={{root:classes.secondMenuText}}
                                           primary="table"/>
                         </ListItem>
                     </Link>
                     <Link to="/UIElement/form">
                         <ListItem button className={classes.secondMenuItem}>
                             <Icon type="file-excel" className={classes.menuIcon} />
-                            <ListItemText style={{fontSize: '14px'}}
+                            <ListItemText disableTypography  classes={{root:classes.secondMenuText}}
                                           primary="form"/>
                         </ListItem>
                     </Link>
@@ -107,29 +107,29 @@ const LeftMenu=({dropDown,style,classes,handleClick,handleChangeTheme,app})=>{
 
                 <ListItem button key={2} onClick={()=>{handleClick('upload')}}>
                     <Icon type="cloud-upload" className={classes.menuIcon} />
-                    <ListItemText primary="Upload"/>
+                    <ListItemText disableTypography primary="Upload" classes={{root:classes.menuText}}/>
                     {dropDown.upload ? <ExpandLess/> : <ExpandMore/>}
                 </ListItem>
                 <Collapse in={dropDown.upload} transitionDuration="auto" unmountOnExit>
                     <Link to="/multi-upload">
                         <ListItem button className={classes.secondMenuItem}>
                             <Icon type="upload" className={classes.menuIcon} />
-                            <ListItemText style={{fontSize: '14px'}}
-                                          primary="Multi-File Upload"/>
+                            <ListItemText disableTypography 
+                                          primary="Multi-File Upload" classes={{root:classes.secondMenuText}}/>
                         </ListItem>
                     </Link>
                     <Link to="/my-files">
                         <ListItem button className={classes.secondMenuItem}>
                             <Icon type="file" className={classes.menuIcon} />
-                            <ListItemText style={{fontSize: '14px'}}
-                                          primary="My Files"/>
+                            <ListItemText disableTypography 
+                                          primary="My Files" classes={{root:classes.secondMenuText}}/>
                         </ListItem>
                     </Link>
                     <Link to="/files-lists">
                         <ListItem button className={classes.secondMenuItem}>
                             <Icon type="bars" className={classes.menuIcon} />
-                            <ListItemText style={{fontSize: '14px'}}
-                                          primary="Files-List"/>
+                            <ListItemText disableTypography 
+                                          primary="Files-List" classes={{root:classes.secondMenuText}}/>
                         </ListItem>
                     </Link>
                 </Collapse>

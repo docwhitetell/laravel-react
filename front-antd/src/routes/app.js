@@ -89,9 +89,13 @@ const ResponsiveDrawer=({app,children,classes,theme,loading,location,dispatch})=
     };
 
     if(pathname==='/' || pathname==='/login'){
-        return (<div className={classes.root} style={{minHeight:'100vh'}}>
-            {children}
-        </div>)
+        return (
+            <MuiThemeProvider theme={app.theme}>
+                <div className={classes.root} style={{minHeight: '100vh'}}>
+                    {children}
+                </div>
+            </MuiThemeProvider>
+        )
     }else{
         return (
             <MuiThemeProvider theme={app.theme}>

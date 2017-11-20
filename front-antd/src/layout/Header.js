@@ -14,28 +14,28 @@ const SubMenu = Menu.SubMenu;
 const Header =({app,classes,handleUserLogout,handleDrawerToggle})=>{
 
     return (
-        <AppBar className={classes.appBar} color="primary">
+        <AppBar position="fixed" className={classes.appBar} color="inherit">
             <Toolbar className={classes.toolbar}>
                 <IconButton
-                    color="contrast"
+                    color="inherit"
                     aria-label="open drawer"
                     onClick={handleDrawerToggle}
                     className={classes.navIconHide}
                 >
                     <MenuIcon/>
                 </IconButton>
-                <Typography type="title" style={{color:'#ffffff'}} noWrap>
+                <Typography style={{color:'inherit',fontSize:32}} type="title" noWrap>
                     {config.name}
                 </Typography>
                 {app.user !== null &&
-                <div style={{position: 'absolute', right: '20px'}}>
+                <div style={{position: 'absolute', right: '20px',backgroundImage:"url('/assets/buttonbg1.png')",backgroundRepeat:'no-repeat',backgroundSize:'90%',backgroundPosition:'center center'}}>
                     <Menu
                         mode="horizontal"
-                        style={{backgroundColor: 'inherit', borderBottom: 'none'}}
+                        style={{backgroundColor: 'inherit', borderBottom: 'none !important'}}
                         onClick={handleUserLogout}
                         theme="light"
                     >
-                        <SubMenu title={<span style={{color: '#ffffff'}}><Icon
+                        <SubMenu title={<span style={{color: '#ffffff',fontWeight:300,fontSize:14,borderBottom:'none !important'}}><Icon
                             type="user"/>{app.user.name}</span>}>
                             <Menu.Item key="logout"><Icon type="logout"/>Logout</Menu.Item>
                         </SubMenu>

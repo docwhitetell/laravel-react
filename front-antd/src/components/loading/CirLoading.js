@@ -10,7 +10,7 @@ const styles = theme => ({
         height:'calc(100%)',
         top:0,
         left:0,
-        background:'rgba(0,0,0,0.14)',
+        background:'rgba(255,255,255,0.5)',
         zIndex:99999,
         opacity:1
     },
@@ -43,7 +43,7 @@ const styles = theme => ({
         position:'absolute',
         width:'100%',
         height:'100%',
-        background:'rgba(255,255,255,0.8)',
+       /* background:'rgba(255,255,255,0.8)',*/
     },
     hidden:{
         zIndex: -1,
