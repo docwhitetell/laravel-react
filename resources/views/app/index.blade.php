@@ -17,7 +17,7 @@
   <script>
         new Clipboard('.copy-button')
   </script>
-<script type="text/javascript" src="{{asset('/app/common.js')}}">
+
 
 </script><script type="text/javascript" src="{{asset('/app/index.js')}}"></script></body>
 </html>

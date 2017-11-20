@@ -15,6 +15,6 @@
       ]
     }
   },
-  "multipage": true,
-  "outputPath": "./dist/admin"
+  "publicPath": "/app/",
+  "outputPath": "./dist"
 }
