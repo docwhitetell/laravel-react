@@ -12,13 +12,16 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::group(['domain' => 'admin.docwhite.cn'], function () {
+    Route::get('/login', 'Api\PassportController@loginform');
+    Route::post('/login', 'Api\PassportController@login');
+    Route::post('/refresh', 'Api\PassportController@refresh');
+    Route::post('/register', 'Api\RegisterController@register');
+});
 
-Route::get('/login', 'Api\PassportController@loginform');
-Route::post('/login', 'Api\PassportController@login');
-Route::post('/refresh', 'Api\PassportController@refresh');
-Route::post('/register', 'Api\RegisterController@register');
 
-Route::group(['middleware' => ['auth:api','cors']], function () {
+
+Route::group(['middleware' => ['auth:api','cors'],'domain'=>'admin.docwhite.cn'], function () {
 /*user relate*/
     Route::get('/user', 'Api\UserController@getAllUser');
     Route::get('/current-user', 'Api\UserController@getCurrentUser');

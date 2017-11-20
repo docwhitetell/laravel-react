@@ -11,15 +11,15 @@
 |
 */
 
-Auth::routes();
+Route::group(['domain' => 'admin.docwhite.cn'], function () {
+    Auth::routes();
+    Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/home', 'HomeController@index')->name('home');
-
-Route::get('/',function (){
-    return view('welcome');
-} );
-Route::post('/fileupload', 'Api\FileController@recieveFile');
-
+    Route::get('/', function () {
+        return view('welcome');
+    });
+    Route::post('/fileupload', 'Api\FileController@recieveFile');
+});
 
 Route::group(['domain' => 'www.docwhite.cn'], function () {
     Route::get('/', function () {
