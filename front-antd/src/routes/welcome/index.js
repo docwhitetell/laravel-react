@@ -463,10 +463,6 @@ function Index({index,classes}) {
                         </div>
                     </Grid>
                     <Grid item xs={6}  sm={6} md={2}>
-                        <div className={classes.footcopyright}>
-                            <a href="https://dribbble.com/uixninja" target="_blank"><img className={classes.authorImg} src="/assets/index/designer.png" width={100} alt=""/></a>
-                            <p className={classes.author}>Designer<br/>uixNinja</p>
-                        </div>
                     </Grid>
                     <Grid item xs={12} sm={12} md={4}>
                         <h1 className={classes.footLinksTitle}>Demos</h1>
