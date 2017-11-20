@@ -4,16 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Notes extends Model
+class Blogs extends Model
 {
     //
     protected $fillable = [
         'title','content'
     ];
-    protected $table='notes';
+    protected $table='blogs';
 
 
     public function user(){
-        return $this->belongsToMany('App\User','users_notes','note_id','user_id');
+        return $this->belongsToMany('App\User','users_blogs','blog_id','user_id');
     }
 }

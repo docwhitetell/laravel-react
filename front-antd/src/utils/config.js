@@ -6,12 +6,9 @@ module.exports = {
     openPages: ['/'],
     api: {
         /*
-        domain:'http://你的laravel项目地址',
-        userLogin:'http://你的laravel项目地址/api/login',
-        userInfo:'http://你的laravel项目地址/api/current-user',
-        userList:'http://你的laravel项目地址/api/user',
-        addUser:'http://你的laravel项目地址/api/register',
-        deleteUser:'http://你的laravel项目地址/api/user/delete/'
+            //example
+            domain:'http://你的laravel项目地址',
+            //example
         */
         domain:'http://admin.docwhite.cn',
         userLogin:'http://admin.docwhite.cn/v1/login',
@@ -20,10 +17,11 @@ module.exports = {
         userList:'http://admin.docwhite.cn/v1/user',
         addUser:'http://admin.docwhite.cn/v1/register',
         deleteUser:'http://admin.docwhite.cn/v1/user/delete',
-        notes:'http://admin.docwhite.cn/v1/user/notes',
-        addNote:'http://admin.docwhite.cn/v1/user/addnote',
-        updateNote:'http://admin.docwhite.cn/v1/user/note/update',
-        deleteNote:'http://admin.docwhite.cn/v1/user/note/delete',
+        blogs:'http://admin.docwhite.cn/v1/user/blogs',
+        //blogsDetail:'http://admin.docwhite.cn/v1/user/blogs/{id}',
+        blogCreate:'http://admin.docwhite.cn/v1/user/blogs/create',
+        blogUpdate:'http://admin.docwhite.cn/v1/user/blogs/update',
+        blogDelete:'http://admin.docwhite.cn/v1/user/blogs/delete',
         fileUpload:'http://admin.docwhite.cn/v1/file/upload',
         allFiles:'http://admin.docwhite.cn/v1/user/files/all',
         userImgs:'http://admin.docwhite.cn/v1/user/imgs',

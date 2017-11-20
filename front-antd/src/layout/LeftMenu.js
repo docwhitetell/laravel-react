@@ -49,30 +49,24 @@ const LeftMenu=({dropDown,style,classes,handleClick,handleChangeTheme,app})=>{
                         <ListItemText disableTypography primary="User" classes={{root:classes.menuText}}/>
                     </ListItem>
                 </Link>
-                <Link to="/news">
-                    <ListItem button>
-                        <Icon type="appstore" className={classes.menuIcon} />
-                        <ListItemText disableTypography primary="News" classes={{root:classes.menuText}}/>
-                    </ListItem>
-                </Link>
                 <ListItem button key={0} onClick={()=>{handleClick('notes')}}>
-                    <Icon type="file-text" className={classes.menuIcon} />
-                    <ListItemText disableTypography primary="Notes" classes={{root:classes.menuText}}/>
+                    <Icon type="appstore" className={classes.menuIcon} />
+                    <ListItemText disableTypography primary="Blogs" classes={{root:classes.menuText}}/>
                     {dropDown.notes ? <ExpandLess/> : <ExpandMore/>}
                 </ListItem>
                 <Collapse in={dropDown.notes} transitionDuration="auto" unmountOnExit>
-                    <Link to="/notes">
+                    <Link to="/blogs">
                         <ListItem button className={classes.secondMenuItem}>
                             <Icon type="bars" className={classes.menuIcon} />
                             <ListItemText disableTypography 
                                           primary="List" classes={{root:classes.secondMenuText}}/>
                         </ListItem>
                     </Link>
-                    <Link to="/note/add">
+                    <Link to="/blogs/create">
                         <ListItem button className={classes.secondMenuItem}>
                             <Icon type="edit" className={classes.menuIcon} />
                             <ListItemText disableTypography 
-                                          primary="Add" classes={{root:classes.secondMenuText}}/>
+                                          primary="New Blog" classes={{root:classes.secondMenuText}}/>
                         </ListItem>
                     </Link>
                 </Collapse>

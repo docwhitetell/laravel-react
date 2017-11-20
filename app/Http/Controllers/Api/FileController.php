@@ -60,8 +60,8 @@ class FileController extends Controller
         return $files;
     }
 
-    function all(){
-        return Resources::all();
+    function all(Request $request){
+        return $request->user()->resources;
     }
     function delete(Request $request){
         $file=Resources::find($request->get('id'));

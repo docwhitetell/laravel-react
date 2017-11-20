@@ -16,78 +16,60 @@ function RouterConfig({ history ,app}) {
     const routes=[
         {
             path:'/',
-            name:'welcome',
             models:()=>[import('./models/index')],
             component:()=>import('./routes/welcome/index')
         },
         {
             path:'/login',
-            name:'login',
             models:()=>[import('./models/login')],
             component:()=>import('./routes/login/login')
         },
         {
             path:'/dashboard',
-            name:'Dashboard',
             models:()=>[import('./models/dashboard')],
             component:()=>import('./routes/dashboard/dashboard')
         },
         {
             path:'/user',
-            name:'User',
             models:()=>[import('./models/users')],
             component:()=>import('./routes/user/user')
         },{
-            path:'/news',
-            name:'News',
-            models:()=>[import('./models/news')],
-            component:()=>import('./routes/news/news')
+            path:'/blogs',
+            models:()=>[import('./models/blogs')],
+            component:()=>import('./routes/blogs/index')
         },
         {
-            path:'/note/add',
-            name:'Notes',
-            models:()=>[import('./models/notes')],
-            component:()=>import('./routes/notes/editor')
+            path:'/blogs/create',
+            models:()=>[import('./models/blogs')],
+            component:()=>import('./routes/blogs/editor')
         },
         {
-            path:'/edit/:id',
-            name:'Notes',
-            models:()=>[import('./models/notes')],
-            component:()=>import('./routes/notes/editor')
-        },
-        {
-            path:'/notes',
-            name:'Notes',
-            models:()=>[import('./models/notes')],
-            component:()=>import('./routes/notes/index')
+            path:'/blogs/edit/:id',
+            models:()=>[import('./models/blogs')],
+            component:()=>import('./routes/blogs/editor')
         },
         {
             path:'/UIElement/editor',
-            name:'UIElement',
             models:()=>[import('./models/ui')],
             component:()=>import('./routes/UI/editor')
         },
         {
             path:'/UIElement/table',
-            name:'UIElement',
             models:()=>[import('./models/ui')],
             component:()=>import('./routes/UI/table')
         },
         {
             path:'/UIElement/form',
-            name:'UIElement',
             models:()=>[import('./models/ui')],
             component:()=>import('./routes/UI/form')
         },
         {
             path:'/multi-upload',
-            name:'Upload',
             models:()=>[import('./models/files')],
             component:()=>import('./routes/upload/multi')
         },
         {
             path:'/my-files',
-            name:'Files',
             models:()=>[import('./models/files')],
             component:()=>import('./routes/upload/myFiles')
         },

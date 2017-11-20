@@ -6,13 +6,9 @@ import config from '../utils/config'
 export default {
     namespace: 'dashboard',
     state: {
-        nd: [],
-        pd: [],
-        ud: [],
-        bd: [],
+
         numberCard: [],
         tabs: 0,
-        menuEl:null,
         cardMenu:false,
         loading:true,
         search: [],
@@ -23,7 +19,38 @@ export default {
             {name:'Clothing bags',percent:'14.83%',sales:2341,color:'#2196F3'},
             {name:'Maternal and child products',percent:'7.80',sales:1231,color:'#009688'},
             {name:'Other',percent:'7.80%',sales:1231,color:'#FFEB3B'},
+        ],
+        data:[
+            {
+                name:'data.no1',
+                value:1264,
+            },
+            {
+                name:'data.no2',
+                value:1864,
+            },
+            {
+                name:'data.no3',
+                value:1064,
+            },
+            {
+                name:'data.no4',
+                value:2264,
+            },  {
+                name:'data.no5',
+                value:5264,
+            },
+            {
+                name:'data.no6',
+                value:2664,
+            },
+            {
+                name:'data.no7',
+                value:3864,
+            },
+
         ]
+
     },
 
     subscriptions: {
@@ -31,9 +58,6 @@ export default {
             history.listen((location) => {
                 if (location.pathname === '/dashboard') {
                     dispatch({type:'app/update',payload:{pageHeader:'Dashboard'}})
-                    dispatch({
-                        type: 'getData',
-                    })
                 }
             })
         },

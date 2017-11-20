@@ -14,17 +14,17 @@ import EditIcon from 'material-ui-icons/Edit'
 
 import styles from './styles'
 
-const List =({app,notes,loading,dispatch,classes})=>{
+const List =({app,blogs,loading,dispatch,classes})=>{
 
     function handleSelectAllClick(event, checked) {
         if (checked) {
             dispatch({
-                type:'notes/update',
-                payload:{ selected: notes.data.map(n => n.id) }
+                type:'blogs/update',
+                payload:{ selected: blogs.data.map(n => n.id) }
             })
         }else{
             dispatch({
-                type:'notes/update',
+                type:'blogs/update',
                 payload:{ selected:  []  }
             })
         }
@@ -32,16 +32,16 @@ const List =({app,notes,loading,dispatch,classes})=>{
     function handleRequestSort(event, property) {
         const orderBy = property;
         let order = 'desc';
-        if (notes.orderBy === property && notes.order === 'desc') {
+        if (blogs.orderBy === property && blogs.order === 'desc') {
             order = 'asc';
         }
         const data =
             order === 'desc'
-                ? notes.data.sort((a, b) => (b[orderBy] < a[orderBy] ? -1 : 1))
-                : notes.data.sort((a, b) => (a[orderBy] < b[orderBy] ? -1 : 1));
+                ? blogs.data.sort((a, b) => (b[orderBy] < a[orderBy] ? -1 : 1))
+                : blogs.data.sort((a, b) => (a[orderBy] < b[orderBy] ? -1 : 1));
 
         dispatch({
-            type:'notes/update',
+            type:'blogs/update',
             payload:{ data, order, orderBy }
         })
     }
@@ -51,7 +51,7 @@ const List =({app,notes,loading,dispatch,classes})=>{
         }
     }
     function handleClick(event, id) {
-        const { selected } = notes;
+        const { selected } = blogs;
         const selectedIndex = selected.indexOf(id);
         let newSelected = [];
 
@@ -68,70 +68,70 @@ const List =({app,notes,loading,dispatch,classes})=>{
             );
         }
         dispatch({
-            type:'notes/update',
+            type:'blogs/update',
             payload:{ selected: newSelected }
         })
     }
      function handleChangePage(event, page)  {
          let newState;
-         if(page+1<=notes.last_page){
+         if(page+1<=blogs.last_page){
              newState={
-                 page:page+1,rowsPerPage:notes.rowsPerPage
+                 page:page+1,rowsPerPage:blogs.rowsPerPage
              }
          }else{
              newState={
-                 page:page,rowsPerPage:notes.rowsPerPage
+                 page:page,rowsPerPage:blogs.rowsPerPage
              }
          }
          dispatch({
-             type:'notes/getUserList',
+             type:'blogs/getUserList',
              payload:newState
          })
      }
      function handleChangeRowsPerPage(event) {
          const newSize={rowsPerPage:event.target.value,page:1}
          dispatch({
-             type:'notes/changeRowsPerPage',
+             type:'blogs/changeRowsPerPage',
              payload:newSize
          })
      }
    /*  handleDialogOpenOrHide=()=>{
         const {dispatch}=this.props
         dispatch({
-            type:'notes/showOrHideDialog'
+            type:'blogs/showOrHideDialog'
         })
     }*/
 
     function isSelected(id) {
-        return notes.selected.indexOf(id) !== -1;
+        return blogs.selected.indexOf(id) !== -1;
     }
     function handleSelectedAction(){
         dispatch({
-            type:'notes/deleteNote',
-            payload:notes.selected
+            type:'blogs/deleteBlog',
+            payload:blogs.selected
         })
     }
     function handleEmptyAction(){
 
     }
 
-    function handleAddNote() {
+    function handleCreateBlog() {
         dispatch({
-            type:'notes/create'
+            type:'blogs/create'
         })
     }
     const handleEdit=(id)=>{
         console.log(id)
         dispatch({
-            type:'notes/edit',
+            type:'blogs/edit',
             payload:id
         })
     }
 
     const props={}
     props.theme=app.currentTheme
-    props.table=notes
-    props.column=notes.column
+    props.table=blogs
+    props.column=blogs.column
     props.loading=loading
     props.dispatch=dispatch
 
@@ -153,7 +153,7 @@ const List =({app,notes,loading,dispatch,classes})=>{
         <div style={{marginTop:-68}}>
             <div style={{width:'90%',margin:'20px auto 10px auto'}}>
                 <Table {...props}>
-                    {notes.data.map(n => {
+                    {blogs.data.map(n => {
                         const Selected = isSelected(n.id);
                         return (
                             <TableRow
@@ -185,11 +185,11 @@ const List =({app,notes,loading,dispatch,classes})=>{
             </div>
 
             <div style={{width:'90%',margin:'10px auto'}}>
-                <Button raised color="primary" onClick={handleAddNote} style={{width:'100%'}}>
-                    New Note
+                <Button raised color="primary" onClick={handleCreateBlog} style={{width:'100%'}}>
+                    New Blog
                 </Button>
             </div>
     </div>)
 }
 
-export default connect(({app,notes,loading})=>({app,notes,loading}))(withStyles(styles())(List))
+export default connect(({app,blogs,loading})=>({app,blogs,loading}))(withStyles(styles)(List))

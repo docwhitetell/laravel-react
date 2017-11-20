@@ -28,11 +28,11 @@ Route::group(['middleware' => ['auth:api','cors'],'domain'=>'admin.docwhite.cn']
     Route::get('/user/delete', 'Api\UserController@deleteUser');
 /*user relate*/
 /*user note*/
-    Route::post('/user/addnote', 'Api\NoteController@addnote');
-    Route::get('/user/notes', 'Api\NoteController@usernotes');
-    Route::post('/user/note/update', 'Api\NoteController@update');
-    Route::get('/user/notes/{id}', 'Api\NoteController@detail');
-    Route::post('/user/note/delete', 'Api\NoteController@delete');
+    Route::post('/user/blogs/create', 'Api\BlogController@create');
+    Route::get('/user/blogs', 'Api\BlogController@userblogs');
+    Route::post('/user/blogs/update', 'Api\BlogController@update');
+    Route::get('/user/blogs/{id}', 'Api\BlogController@detail');
+    Route::post('/user/blogs/delete', 'Api\BlogController@delete');
 /*user note*/
 
 /*files*/

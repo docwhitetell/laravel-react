@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Logs;
-use App\Models\Notes;
+use App\Models\Blogs;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -44,7 +44,7 @@ class UserController extends Controller
 
         public function addnote(Request $request){
             $data=$request->get('note');
-            $note=new Notes();
+            $note=new Blogs();
             $note->title=$data['title'];
             $note->content=$data['content'];
             if($note->save()){

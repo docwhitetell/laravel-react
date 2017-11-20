@@ -9,7 +9,7 @@ import { EditorState, convertToRaw, ContentState } from 'draft-js';
 import htmlToDraft from 'html-to-draftjs';
 export default {
 
-    namespace: 'notes',
+    namespace: 'blogs',
     state:{
         msg:null,
         data:[],
@@ -21,7 +21,7 @@ export default {
             {id: 'updated_at', numeric: false, disablePadding: false, label: 'updated_at'},
             {id: 'action', numeric: false, disablePadding: false, label: 'Edit'},
         ],
-        title:'Notes',
+        title:'Blogs',
         order: 'asc',
         orderBy: 'id',
         selected: [],
@@ -41,13 +41,14 @@ export default {
     subscriptions: {
         setup ({ dispatch, history }) {
             history.listen((location) => {
-                const match = pathToRegexp('/edit/:id').exec(location.pathname)
-                dispatch({type:'app/update',payload:{pageHeader:'Notes'}})
-                if (location.pathname === '/notes') {
+                const match = pathToRegexp('/blogs/edit/:id').exec(location.pathname)
+                if (location.pathname === '/blogs') {
+                    dispatch({type:'app/update',payload:{pageHeader:'My Blogs'}})
                     dispatch({
-                        type: 'getUserNote',
+                        type: 'getUserBlogs',
                     })
-                }else if(location.pathname==='/note/add'){
+                }else if(location.pathname==='/blogs/create'){
+                    dispatch({type:'app/update',payload:{pageHeader:'New Blog'}})
                     dispatch({
                         type:'update',
                         payload:{current:null,editTitle:'',editorState:EditorState.createEmpty()}
@@ -56,7 +57,7 @@ export default {
                         type:'queryUserResource'
                     })
                 }else if(match){
-                    console.log(match[1]);
+                    dispatch({type:'app/update',payload:{pageHeader:'Blog Update'}})
                     dispatch({
                         type:'queryUserResource'
                     })
@@ -67,13 +68,8 @@ export default {
     },
 
     effects: {
-        *getUserNote({payload},{call,put,select}){
-            const headers={
-                'Accept':'application/json',
-                'X-Requested-With': 'XMLHttpRequest',
-                'Authorization':'Bearer '+Cookies('access_token')
-            }
-            const req=yield call(request,{url:config.api.notes,headers:headers})
+        *getUserBlogs({payload},{call,put,select}){
+            const req=yield call(request,{url:config.api.blogs,withtoken:true})
             if(req.status===200){
                 yield put({
                     type:'update',
@@ -82,12 +78,7 @@ export default {
             }
         },
         *query({payload},{call,put,select}){
-            const headers={
-                'Accept':'application/json',
-                'X-Requested-With': 'XMLHttpRequest',
-                'Authorization':'Bearer '+Cookies('access_token')
-            }
-            const req=yield call(request,{url:config.api.notes+'/'+payload.id,headers:headers})
+            const req=yield call(request,{url:`${config.api.blogs}/${payload.id}`,withtoken:true})
             if(req.status===200){
                 const html=req.data.content
                 //console.log(html)
@@ -102,12 +93,7 @@ export default {
             }
         },
         *queryUserResource({payload},{call,put,select}){
-            const headers={
-                'Accept':'application/json',
-                'X-Requested-With': 'XMLHttpRequest',
-                'Authorization':'Bearer '+Cookies('access_token')
-            }
-            const req=yield call(request, {url:config.api.allFiles,headers:headers})
+            const req=yield call(request, {url:config.api.allFiles,withtoken:true})
             if(req.status===200){
                 yield put({
                     type:'update',
@@ -116,45 +102,29 @@ export default {
             }
         },
         *create({payload},{call,put,select}){
-
-            yield put(routerRedux.push('/note/add'))
+            yield put(routerRedux.push('/blogs/create'))
         },
-        *createNote({payload},{call,put,select}){
-            const headers={
-                'Accept':'application/json',
-                'X-Requested-With': 'XMLHttpRequest',
-                'Authorization':'Bearer '+Cookies('access_token')
-            }
+        *createBlog({payload},{call,put,select}){
             const data={note:payload}
-            const req=yield call(request,{url:config.api.addNote,headers:headers,data:data,method:'post'})
+            const req=yield call(request,{url:config.api.blogCreate,withtoken:true,data:data,method:'post'})
             yield put({
                 type:'update'
             })
-            yield put(routerRedux.push('/notes'))
+            yield put(routerRedux.push('/blogs'))
         },
-        *updateNote({payload},{call,put,select}){
-            const headers={
-                'Accept':'application/json',
-                'X-Requested-With': 'XMLHttpRequest',
-                'Authorization':'Bearer '+Cookies('access_token')
-            }
-            const data={note:payload}
-            const req=yield call(request,{url:config.api.updateNote,headers:headers,data:data,method:'post'})
+        *updateBlog({payload},{call,put,select}){
+            const data={blog:payload}
+            const req=yield call(request,{url:config.api.blogUpdate,withtoken:true,data:data,method:'post'})
         },
         *edit({payload},{call,put,select}){
             console.log(payload)
-            yield put(routerRedux.push('/edit/'+payload))
+            yield put(routerRedux.push(`/blogs/edit/${payload}`))
         },
-        *deleteNote({payload},{call,put,select}){
-            const headers={
-                'Accept':'application/json',
-                'X-Requested-With': 'XMLHttpRequest',
-                'Authorization':'Bearer '+Cookies('access_token')
-            }
-            const data={note:payload}
-            const req=yield call(request,{url:config.api.deleteNote,headers:headers,data:data,method:'post'})
+        *deleteBlog({payload},{call,put,select}){
+            const data={blog:payload}
+            const req=yield call(request,{url:config.api.blogDelete,withtoken:true,data:data,method:'post'})
             if(req.data.status){
-                yield put({type:'getUserNote'})
+                yield put({type:'getUserBlogs'})
             }
         }
     },

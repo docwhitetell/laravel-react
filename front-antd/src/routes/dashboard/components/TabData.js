@@ -13,11 +13,11 @@ import LinesChartWithXY from '../../../components/charts/LineChartWithXY'
 
 
 
-const TabData=({classes,data,handleTabChange})=>{
+const TabData=({dashboard,classes,data,handleTabChange})=>{
     return(
         <Card style={{width:'100%',minHeight:400}}>
             <AppBar position="static" style={{position:'relative'}}>
-                <Tabs value={data.tabs} onChange={handleTabChange} style={{width:'50%'}}>
+                <Tabs value={dashboard.tabs} onChange={handleTabChange} style={{width:'50%'}}>
                     <Tab label="Sales Number" />
                     <Tab label="Visits" />
                 </Tabs>
@@ -38,13 +38,13 @@ const TabData=({classes,data,handleTabChange})=>{
                     />
                 </form>
             </AppBar>
-            {data.tabs === 0 &&
+            {dashboard.tabs === 0 &&
             <Grid container spacing={0}>
                 <Grid item xs={12} sm={6}  md={7} lg={8}>
                     <BarsChartWithXY
                         height={352}
-                        data={data.pd}
-                        dataKey="pv"
+                        data={data}
+                        dataKey="value"
                         margin={{top: 20, right: 20, left: -20, bottom: 20}}
                         stroke='#000'
                         fill="#8884d8"/>
@@ -96,13 +96,13 @@ const TabData=({classes,data,handleTabChange})=>{
                 </Grid>
             </Grid>
             }
-            {data.tabs === 1 &&
+            {dashboard.tabs === 1 &&
             <Grid container spacing={0}>
                 <Grid item xs={12} sm={6}  md={7} lg={8}>
                     <LinesChartWithXY
                         height={352}
-                        data={data.bd}
-                        dataKey="pv"
+                        data={data}
+                        dataKey="value"
                         XAxisKey="name"
                         margin={{top: 20, right: 20, left: -20, bottom: 0}}
                         stroke="#8884d8"

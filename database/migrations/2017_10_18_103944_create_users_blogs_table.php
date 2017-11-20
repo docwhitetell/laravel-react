@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateNotesTable extends Migration
+class CreateUsersBlogsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateNotesTable extends Migration
      */
     public function up()
     {
-        Schema::create('notes', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
-            $table->increments('id')->index();
-            $table->string('title',50)->index();
-            $table->text('content')->nullable();
-            $table->timestamps();
+        Schema::create('users_blogs', function (Blueprint $table) {
+            $table->integer('user_id')->unsigned()->index();
+            $table->integer('blog_id')->index()->unsigned();
+            $table->primary('blog_id');
         });
     }
 
@@ -29,6 +27,6 @@ class CreateNotesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('notes');
+        Schema::dropIfExists('users_blogs');
     }
 }

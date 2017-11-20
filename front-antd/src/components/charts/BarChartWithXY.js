@@ -9,7 +9,7 @@ const BarsChart=({height,data,dataKey,margin,stroke,fill})=>{
             <BarChart heightt={height} data={data} stackOffset="sign"
                       margin={margin}>
                 <ReferenceLine y={0} stroke={stroke}/>
-                 <XAxis dataKey={dataKey}/>
+                 <XAxis dataKey='name'/>
                 <YAxis/>
                 <CartesianGrid strokeDasharray="3 3"/>
                 <Tooltip/>

@@ -9,11 +9,6 @@ message.config({
     top:100
 })
 
-const headers={
-    'Accept':'application/json',
-    'X-Requested-With': 'XMLHttpRequest',
-    'Authorization':'Bearer '+Cookies('access_token')
-}
 export default {
 
     namespace: 'users',
@@ -62,7 +57,7 @@ export default {
     effects: {
         *getUserList({payload},{put,call,select}){
             yield put({type:'loading'})
-            const res=yield call(request, {url:config.api.userList,headers:headers,params:payload})
+            const res=yield call(request, {url:config.api.userList,withtoken:true,params:payload})
                 if(res.status===200){
                     const {current_page,data,total,last_page}=res.data
                     const newState={
@@ -78,7 +73,7 @@ export default {
 
             const params={users:payload}
             /*发起删除异步请求*/
-            const res=yield call(request, {url:config.api.deleteUser,headers:headers,params:params})
+            const res=yield call(request, {url:config.api.deleteUser,withtoken:true,params:params})
 
             res.data.error?
                 message.error(`${res.data.error}`):

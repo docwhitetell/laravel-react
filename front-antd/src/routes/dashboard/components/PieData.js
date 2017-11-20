@@ -62,9 +62,9 @@ const PieData=({data,handleChangePieData,classes})=>{
             <div style={{border:'1px solid #e8e8e8',width:'100%'}}></div>
             <ResponsiveContainer minHeight={400}>
                 <PieChart minHeight={300}>
-                    <Pie data={data.sales} dataKey='sales' innerRadius={70} outerRadius={90} fill="#82ca9d" label>
+                    <Pie data={data} dataKey='sales' innerRadius={70} outerRadius={90} fill="#82ca9d" label>
                         {
-                            data.sales.map((entry, index) => <Cell key={index} fill={entry.color}/>)
+                            data.map((entry, index) => <Cell key={index} fill={entry.color}/>)
                         }
                     </Pie>
                     <Tooltip/>

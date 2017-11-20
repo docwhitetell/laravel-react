@@ -18,40 +18,40 @@ import 'slick-carousel/slick/slick-theme.css'
 
 import styles from './styles'
 
-const noteEditor =({notes,dispatch,classes})=>{
+const noteEditor =({blogs,dispatch,classes})=>{
 
     function onEditorStateChange(editorState) {
        dispatch({
-           type:'notes/update',
+           type:'blogs/update',
            payload:{editorState:editorState}
        })
     }
     function handleSubmit(){
-        const data=draftToHtml(convertToRaw(notes.editorState.getCurrentContent()))
-        const title=notes.editTitle
-        if(notes.current){
+        const data=draftToHtml(convertToRaw(blogs.editorState.getCurrentContent()))
+        const title=blogs.editTitle
+        if(blogs.current){
             console.log('has current')
             dispatch({
-                type:'notes/updateNote',
-                payload:{title:title,content:data,id:notes.current.id}
+                type:'blogs/updateBlog',
+                payload:{title:title,content:data,id:blogs.current.id}
             })
         }else{
             dispatch({
-                type:'notes/createNote',
+                type:'blogs/createBlog',
                 payload:{title:title,content:data}
             })
         }
 
     }
     function handleTitleChange(e){
-        if(notes.current!==null) {
+        if(blogs.current!==null) {
             dispatch({
-                type:'notes/update',
+                type:'blogs/update',
                 payload:{editTitle:e.target.value}
             })
         }else{
             dispatch({
-                type:'notes/update',
+                type:'blogs/update',
                 payload:{editTitle:e.target.value}
             })
         }
@@ -61,7 +61,7 @@ const noteEditor =({notes,dispatch,classes})=>{
         if(pagination.current===dashboard.pagination.current){
         }else{
             dispatch({
-                type:'notes/getUserResource',
+                type:'blogs/getUserResource',
                 payload:pagination
             })
         }
@@ -86,7 +86,7 @@ const noteEditor =({notes,dispatch,classes})=>{
 
         ]
     };
-        const { editorState } = notes
+        const { editorState } = blogs
         return (
             <div style={{marginTop:-68}}>
 
@@ -94,7 +94,7 @@ const noteEditor =({notes,dispatch,classes})=>{
                     <Grid item xs={12} style={{position:'relative'}}>
                         <Card style={{height:120,overflow:'hidden'}}>
                             <Slider {...settings}>
-                                {notes.userResource.map((item,index)=>{
+                                {blogs.userResource.map((item,index)=>{
                                     return (
                                         <div style={{position:'relative',height:120,overflow:'hidden'}} key={index}>
                                             {item.type==='video/mp4' && <video src={item.path} style={{width:'100%',height:'100%',objectFit:'fill'}}></video>}
@@ -150,7 +150,7 @@ const noteEditor =({notes,dispatch,classes})=>{
                                     type="text"
                                     style={{margin:'0 auto',width:300}}
                                     fullWidth
-                                    value={notes.editTitle?notes.editTitle:''}
+                                    value={blogs.editTitle?blogs.editTitle:''}
                                     className={classes.titleInput}
                                     onChange={handleTitleChange}
                                 />
@@ -181,4 +181,4 @@ const noteEditor =({notes,dispatch,classes})=>{
 
 
 }
-export default connect(({notes})=>({notes}))(withStyles(styles)(noteEditor))
+export default connect(({blogs})=>({blogs}))(withStyles(styles)(noteEditor))

@@ -49,7 +49,7 @@ const DataCard =({data,classes})=>{
                               <Grid container spacing={0}  className={classes.BigWord}>
                                   <h1 className={classes.dataCardNumber}>8,848</h1>
                                   <div className={classes.dataCardExtra}>
-                                      <AreasChart height={48} data={data.pd} dataKey="pv" stroke='#E91E63' fill='#E91E63' margin={{top: 0, right: 0, left: 0, bottom: 0}}/>
+                                      <AreasChart height={48} data={data} dataKey="value" stroke='#E91E63' fill='#E91E63' margin={{top: 0, right: 0, left: 0, bottom: 0}}/>
                                   </div>
 
                                   <Grid item xs={12}  className={classes.dataCardDivider}></Grid>
@@ -79,8 +79,8 @@ const DataCard =({data,classes})=>{
                                   <div className={classes.dataCardExtra}>
                                       <BarsChart
                                           height={48}
-                                          data={data.pd}
-                                          dataKey={"pv"}
+                                          data={data}
+                                          dataKey={"value"}
                                           margin={{top: 0, right: 0, left: 0, bottom: 0}}
                                           stroke={'#000'}
                                           fill={'#2196F3'}

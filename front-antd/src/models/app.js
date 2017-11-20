@@ -114,12 +114,7 @@ export default {
 
     effects: {
         *query({payload},{put,call,select}){
-                const headers={
-                    'Accept':'application/json',
-                    'X-Requested-With': 'XMLHttpRequest',
-                    'Authorization':'Bearer '+Cookies('access_token')
-                }
-                const res=yield call(request, {url:config.api.userInfo,headers:headers,method:'get'})
+                const res=yield call(request, {url:config.api.userInfo,withtoken:true,method:'get'})
                 console.log('query end')
                 if(res){
                     if(res.status===200){

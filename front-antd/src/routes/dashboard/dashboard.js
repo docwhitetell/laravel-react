@@ -66,16 +66,16 @@ const Dashboard =({dashboard,dispatch,classes})=>{
     return(
         <div style={{marginTop:-68}}>
             <NumberCard classes={classes}/>
-            <DataCard classes={classes} data={dashboard}/>
+            <DataCard classes={classes} data={dashboard.data}/>
 
             <div style={{width:'96%',margin:'0 auto',padding:4}}>
-                <TabData data={dashboard} classes={classes} handleTabChange={handleTabChange}/>
+                <TabData dashboard={dashboard} data={dashboard.data} classes={classes} handleTabChange={handleTabChange}/>
                 <Grid container spacing={8} >
                     <Grid item xs={12} lg={6}>
                         <TableData data={dashboard} handleTablePageChange={handleTablePageChange}/>
                     </Grid>
                     <Grid item xs={12} lg={6}>
-                        <PieData data={dashboard} handleChangePieData={handleChangePieData} classes={classes}/>
+                        <PieData data={dashboard.sales} handleChangePieData={handleChangePieData} classes={classes}/>
                     </Grid>
                 </Grid>
             </div>

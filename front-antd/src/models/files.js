@@ -8,11 +8,7 @@ import {message} from 'antd'
 message.config({
     top:100
 })
-const headers={
-    'Accept':'application/json',
-    'X-Requested-With': 'XMLHttpRequest',
-    'Authorization':'Bearer '+Cookies('access_token')
-}
+
 export default {
 
     namespace: 'files',
@@ -45,7 +41,7 @@ export default {
     effects: {
         *query({payload},{call,put,select}){
             const data=payload
-            const res=yield call(request, {url:config.api.userImgs,headers:headers,params:data})
+            const res=yield call(request, {url:config.api.userImgs,withtoken:true,params:data})
             if(res.status===200 ){
                 let open=[],alert=[]
                 if(data){
@@ -73,7 +69,7 @@ export default {
             }
         },
         *queryVideos({payload},{call,put,select}){
-            const res=yield call(request, {url:config.api.userVideos,headers:headers})
+            const res=yield call(request, {url:config.api.userVideos,withtoken:true})
             if(res.status===200){
                 let open=[],alert=[]
                 res.data.map((item,index)=>{
@@ -99,7 +95,7 @@ export default {
             })
 
             const data={id:payload}
-            const req=yield call(request, {url:config.api.deleteFiles,headers:headers,params:data})
+            const req=yield call(request, {url:config.api.deleteFiles,withtoken:true,params:data})
             console.log(req)
             if(req.data.success){
                 console.log('delete success')
