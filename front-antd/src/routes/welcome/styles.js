@@ -146,7 +146,7 @@ const styles=theme=>({
     mainContent:{
         position:'relative',
         zIndex:300,
-        marginBottom:240
+        marginBottom:0
     },
     about:{
         width:'90%', maxWidth:1140,
@@ -338,7 +338,283 @@ const styles=theme=>({
         fontSize:16,
         color:'#ffffff',
         textDecoration:'underline'
+    },
+    products:{
+        borderRadius:20,
+        margin:'160px auto',
+        background:'rgb(30,36,58)',
+        height:600,
+        width:'90%',
+        maxWidth:1140,
+        position:'relative'
+    },
+    productItemWrapper:{
+        position:"relative",
+        height:"auto"
+    },
+    pBg:{
+        position:'absolute',width:'100%',
+        height:'100%',
+        backgroundRepeat:'no-repeat',
+        backgroundPosition:"-2px -2px",
+        zIndex:-1,
+        overflow:'hidden',
+        borderRadius:20,
+    },
+    pMain:{
+        width:'100%',
+        height:"100%",
+        overflow:'hidden',
+        borderRadius:20,
+    },
+    pPrice:{
+        position:'absolute',
+        left:40,
+        bottom:60,
+        webkitUserSelect:'none',
+        mozUserSelect:'none',
+        msUserSelect:'none',
+        userSelect:'none',
+    },
+    pPriceBg:{
+        position:'absolute',
+        left:40,
+        bottom:0,
+        color:'rgba(0,0,0,0.1)',
+    },
+    pPriceBgBig:{
+        fontSize:120,
+        bottom:10
+    },
+    pPriceBgMid:{
+        fontSize:100,
+    },
+    pMask:{
+        position:'absolute',
+        width:'100%',height:'100%',
+        top:0,
+        opacity:0.2,
+        overflow:'hidden',
+        borderRadius:20,
+    },
+    pButton:{
+        position:'absolute',
+        borderRadius:'50%',
+        bottom:0,
+        left:'50%',
+        transform:"translate(-50%,40%)",
+        display:'flex',
+        alignItems:'center',
+        justifyContent:'center',
+        cursor:'pointer',
+        color:'#ffffff',
+        fontSize:24,
+        fontWeight:600,
+        minWidth:0
+    },
+    pButtonDenseTop:{
+        position:'absolute',
+        width:'100%',height:'100%',
+        borderRadius:'50%',
+        top:-10,
+        opacity:0.2,
+        zIndex:-1
+    },
+    pButtonDenseLeft:{
+        position:'absolute',
+        width:'100%',height:'100%',
+        borderRadius:'50%',
+        top:0,left:-6,
+        opacity:0.2,
+        zIndex:-1
+    },
+    pButtonDenseRight:{
+        position:'absolute',
+        width:'100%',height:'100%',
+        borderRadius:'50%',
+        top:0,right:-6,
+        opacity:0.2,
+        zIndex:-1
+    },
+    productItemLeft:{
+        height:360,
+        width:280,
+        borderRadius:20,
+        position:'absolute',
+        background:'#ffffff',
+        top:-30,
+        left:'50%',
+        transform:'translate(-140%,0)'
+    },
+    plMain:{
+        width:'100%',
+        height:"100%",
+        overflow:'hidden',
+        borderRadius:20,
+    },
+    plBg:{
+        backgroundImage:"url('/assets/index/2.png')",
+    },
+    plPriceBg:{
+        position:'absolute',
+        left:40,
+        bottom:0,
+        fontSize:100,
+        color:'rgba(0,0,0,0.1)',
+    },
+    plMask:{
+        background:'linear-gradient(127deg, rgb(255,240,253),rgb(254,220,250))',
+    },
+    plButton:{
+        width:64,height:64,
+        background: 'linear-gradient(127deg, rgb(38,162,200),rgb(64,195,198))',
+        fontSize:24,
+    },
+    plButtonDenseTop:{
+        background: 'linear-gradient(127deg, rgb(38,162,200),rgb(64,195,198))',
+    },
+    plButtonDenseLeft:{
+        background: 'linear-gradient(127deg, rgb(38,162,200),rgb(64,195,198))',
+    },
+    plButtonDenseRight:{
+        background: 'linear-gradient(127deg, rgb(38,162,200),rgb(64,195,198))',
+    },
+    productItemMid:{
+        height:400,
+        width:300,
+        borderRadius:20,
+        position:'absolute',
+        background:'#ffffff',
+        top:-60,
+        left:'50%',
+        transform:'translate(-50%,0)',
+        zIndex:2
+    },
+    pmBg:{
+        backgroundImage:"url('/assets/index/1.png')",
+    },
+    pmPrice:{
+        position:'absolute',
+        left:40,
+        bottom:60,
+        webkitUserSelect:'none',
+        mozUserSelect:'none',
+        msUserSelect:'none',
+        userSelect:'none',
+    },
+    pmPriceBg:{
+        position:'absolute',
+        left:40,
+        bottom:10,
+        fontSize:120,
+        color:'rgba(0,0,0,0.1)',
+    },
+    pmMask:{
+        background:'linear-gradient(127deg, rgb(255,240,253),rgb(254,220,250))',
+    },
+    pmButton:{
+        width:72,height:72,
+        background: 'linear-gradient(127deg, #AF61D1, #717BFE)',
+        fontSize:24,
+    },
+    pmButtonDenseTop:{
+        background: 'linear-gradient(127deg, #AF61D1, #717BFE)',
+    },
+    pmButtonDenseLeft:{
+        background: 'linear-gradient(127deg, #AF61D1, #717BFE)',
+    },
+    pmButtonDenseRight:{
+        background: 'linear-gradient(127deg, #AF61D1, #717BFE)',
+    },
+    productItemRight:{
+        height:360,
+        width:280,
+        borderRadius:20,
+        background:'#ffffff',
+        position:'absolute',
+        top:-30,
+        left:'50%',
+        transform:'translate(40%,0)',
+        zIndex:1,
+
+    },
+    prBg:{
+        backgroundImage:"url('/assets/index/3.png')",
+        backgroundPosition:'right top'
+    },
+    prPrice:{
+        position:'absolute',
+        left:40,
+        bottom:60,
+        webkitUserSelect:'none',
+        mozUserSelect:'none',
+        msUserSelect:'none',
+        userSelect:'none',
+    },
+    prPriceBg:{
+        position:'absolute',
+        left:40,
+        bottom:0,
+        fontSize:100,
+        color:'rgba(0,0,0,0.1)',
+    },
+    prMask:{
+        background:'linear-gradient(127deg, rgb(255,240,253),rgb(254,220,250))',
+    },
+    prButton:{
+        width:64,height:64,
+        background: 'linear-gradient(127deg, rgb(255,106,151),rgb(255,128,118))',
+    },
+    prButtonDenseTop:{
+        background: 'linear-gradient(127deg, rgb(255,106,151),rgb(255,128,118))',
+    },
+    prButtonDenseLeft:{
+        background: 'linear-gradient(127deg, rgb(255,106,151),rgb(255,128,118))',
+    },
+    prButtonDenseRight:{
+        background: 'linear-gradient(127deg, rgb(255,106,151),rgb(255,128,118))',
+    },
+
+
+    proDetails:{
+        position:'absolute',
+        bottom:0,
+        left:0,
+        width:'100%',
+        height:260,
+        display:'flex',
+        padding:'0 100px',
+        alignItems:'center',
+        justifyContent:'start'
+    },
+    pdLeft:{
+        display:'inline-block',
+        paddingRight:40
+    },
+    pdRight:{
+        display:'inline-block'
+    },
+    pdDataProgress:{
+        display:'flex',
+        justifyContent:'start',
+        marginTop:30
+    },
+    pddpName:{
+        lineHeight:'24x',
+        width:100,
+        color:'rgba(255,255,255,0.6)',
+        fontSize:16
+    },
+    moreProducts:{
+        position:'absolute',
+        bottom:0,
+        left:'50%',height:46,width:160,
+        transform:'translate(-50%,50%)',
+        background:'linear-gradient(127deg, #AF61D1, #717BFE)',
+        borderRadius:14,
+        color:'#ffffff'
     }
+
 })
 
 export default styles

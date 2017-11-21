@@ -17,7 +17,7 @@ function RouterConfig({ history ,app}) {
         {
             path:'/',
             models:()=>[import('./models/index')],
-            component:()=>import('./routes/welcome/index')
+            component:()=>import('./routes/welcome/welcome')
         },
         {
             path:'/login',

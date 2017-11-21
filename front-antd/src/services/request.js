@@ -2,12 +2,13 @@ import axios from 'axios'
 import config from '../utils/config'
 import Cookies from 'js-cookie'
 
-const  authenticHeaders={
-    'Accept':'application/json',
-    'X-Requested-With': 'XMLHttpRequest',
-    'Authorization':'Bearer '+Cookies('access_token')
-}
 export async function request(data) {
+    const  authenticHeaders={
+        'Accept':'application/json',
+        'X-Requested-With': 'XMLHttpRequest',
+        'Authorization':'Bearer '+Cookies('access_token')
+    }
+
     return axios({
         url: data.url,
         method: data.method?data.method:'get',

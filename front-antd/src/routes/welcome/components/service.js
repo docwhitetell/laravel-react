@@ -13,7 +13,7 @@ const Service=({classes})=>{
                 </div>
             </div>
             <div className={classes.work}>
-                <h1 style={{textAlign:'center',marginBottom:80}}>What's Can We Provide?</h1>
+                <h1 style={{textAlign:'center',marginBottom:80}}>What Can We Provide?</h1>
                 <Grid container spacing={40}>
                     <Grid item sm={12} md={6}>
                         <div className={classes.serviceItem}>

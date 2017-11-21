@@ -41,10 +41,11 @@ export default {
                 } else if (res.data.success) {
                     Cookies.set('access_token', res.data.token.access_token, {expires: (1 / 12), path: '/'});
                     Cookies.set('refresh_token', res.data.token.refresh_token, {expires: (1 / 6), path: '/'});
+
+                    yield put(routerRedux.push('/dashboard'))
                     yield put({
                         type: 'app/query'
                     })
-                    yield put(routerRedux.push('/dashboard'))
                 }
             } else {
                 message.error('Server has no response!')

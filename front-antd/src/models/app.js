@@ -114,7 +114,7 @@ export default {
 
     effects: {
         *query({payload},{put,call,select}){
-                const res=yield call(request, {url:config.api.userInfo,withtoken:true,method:'get'})
+                const res=yield call(request, {url:config.api.userInfo,method:'get',withtoken:true })
                 console.log('query end')
                 if(res){
                     if(res.status===200){

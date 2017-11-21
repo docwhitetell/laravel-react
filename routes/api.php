@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 Route::group(['domain' => 'admin.docwhite.cn'], function () {
-    Route::get('/login', 'Api\PassportController@loginform');
+ /*   Route::get('/login', 'Api\PassportController@loginform');*/
     Route::post('/login', 'Api\PassportController@login');
     Route::post('/refresh', 'Api\PassportController@refresh');
     Route::post('/register', 'Api\RegisterController@register');
