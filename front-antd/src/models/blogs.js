@@ -36,18 +36,18 @@ export default {
 
         userResource:[],
         resourcePagination: {current:1,pageSize:5},
-
+        frontBlogsLists:[],
     },
     subscriptions: {
         setup ({ dispatch, history }) {
             history.listen((location) => {
-                const match = pathToRegexp('/blogs/edit/:id').exec(location.pathname)
-                if (location.pathname === '/blogs') {
+                const match = pathToRegexp('/admin/blogs/edit/:id').exec(location.pathname)
+                if (location.pathname === '/admin/blogs') {
                     dispatch({type:'app/update',payload:{pageHeader:'My Blogs'}})
                     dispatch({
                         type: 'getUserBlogs',
                     })
-                }else if(location.pathname==='/blogs/create'){
+                }else if(location.pathname==='/admin/blogs/create'){
                     dispatch({type:'app/update',payload:{pageHeader:'New Blog'}})
                     dispatch({
                         type:'update',
@@ -77,6 +77,12 @@ export default {
                 })
             }
         },
+        *getFrontBlogs({payload},{call,put,select}){
+            const res=yield call(request,{url:config.api.frontBlogs})
+            if(res.status===200){
+                yield put({type:'update',payload:{frontBlogsLists:res.data.data}})
+            }
+        },
         *query({payload},{call,put,select}){
             const req=yield call(request,{url:`${config.api.blogs}/${payload.id}`,withtoken:true})
             if(req.status===200){
@@ -102,7 +108,7 @@ export default {
             }
         },
         *create({payload},{call,put,select}){
-            yield put(routerRedux.push('/blogs/create'))
+            yield put(routerRedux.push('/admin/blogs/create'))
         },
         *createBlog({payload},{call,put,select}){
             const data={note:payload}
@@ -110,7 +116,7 @@ export default {
             yield put({
                 type:'update'
             })
-            yield put(routerRedux.push('/blogs'))
+            yield put(routerRedux.push('/admin/blogs'))
         },
         *updateBlog({payload},{call,put,select}){
             const data={blog:payload}
@@ -118,7 +124,7 @@ export default {
         },
         *edit({payload},{call,put,select}){
             console.log(payload)
-            yield put(routerRedux.push(`/blogs/edit/${payload}`))
+            yield put(routerRedux.push(`/admin/blogs/edit/${payload}`))
         },
         *deleteBlog({payload},{call,put,select}){
             const data={blog:payload}

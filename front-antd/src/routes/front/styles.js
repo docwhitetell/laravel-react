@@ -1,84 +1,16 @@
-const headerHeight=54
 const styles=theme=>({
     root:{
         height:'auto',
         overflow:'hidden'
     },
-    header:{
-        position:'absolute',
-        top:64,left:'50%',
-        display:'flex',
-        width:'100%',height:`${headerHeight}px`,
-        maxWidth:'1000px',
-        padding:'0 40px',
-        transform:'translate(-50%,0)',
-        zIndex:9999,
-    },
-    navIconHide:{
-        [theme.breakpoints.up('md')]: {
-            display: 'none',
-        },
-    },
-    logo:{
-        flex:2,
-        height:`${headerHeight}px`,
-        lineHeight:`${headerHeight}px`,
-    },
-    nav:{
-        flex:4,
-        height:`${headerHeight}px`
-    },
-    navLists:{
-        height:`${headerHeight}px`,
-        textAlign:'right',
-    },
-    navItem:{
-        display:'inline-block',
-        height:`${headerHeight}px`,
-        lineHeight:`${headerHeight}px`,
-        marginRight:48,
-    },
-    navItemName:{
-        color:'#BDBDBD',
-        fontSize:'16px',
 
-        '&:hover':{
-            color:'#ffffff'
-        }
-    },
-    signIU:{
-        flex:3,
-        height:`${headerHeight}px`,
-        textAlign:'right',
-        marginTop:5
-    },
-    register:{
-        background:'rgba(255,255,255,0.16)',
-        height:'44px',
-        borderRadius:4,
-        fontSize:'16px',
-        color:'#ffffff',
-        padding:'0 24px',
-        display:'inline-block',
-        lineHeight:'44px',
-        marginRight:10,
-        float:'right'
-    },
-    login:{
-        border:'2px solid rgba(255,255,255,0.16)',
-        height:'44px',
-        borderRadius:4,
-        fontSize:'16px',
-        color:'#ffffff',
-        padding:'0 24px',
-        display:'inline-block',
-        lineHeight:'40px',
-        float:'right'
-    },
 
     banner:{
-        height:'800px',
-        background:'linear-gradient(127deg, #462EB4, #AF61D1)'
+        height:800,
+        background: 'rgb(30,36,58)',
+        [theme.breakpoints.down('md')]: {
+           height:'auto'
+        },
     },
     bannerWrapper:{
         height:'100%',
@@ -88,10 +20,25 @@ const styles=theme=>({
         position:'absolute',
         top:'300px',left:'50%',
         transform:'translate(-50%,-50%)',
-        fontSize:'40px',
+        fontSize:42,
+        width:'90%',
         color:'#ffffff',
-        fontFamily:'ChannelSlanted2e7519d26e1b090',
-        textAlign:'center'
+        textAlign:'center',
+        [theme.breakpoints.down('md')]: {
+            position:'static',
+            fontSize:36,
+            margin:'0 auto',
+            transform:'translate(0,0)',
+            paddingTop:220,
+            marginBottom:80
+        },
+        [theme.breakpoints.down('sm')]: {
+            fontSize:26,
+            paddingTop:140,
+        },
+        [theme.breakpoints.down('xs')]: {
+            fontSize:24,
+        },
     },
     titleDescription:{
         marginTop:18,
@@ -106,7 +53,8 @@ const styles=theme=>({
         width:'100%',
     },
     bannerMainImg:{
-        width:800,height:400,
+        height:400,
+        width:800,
         position:'absolute',
         left:'50%',  bottom:0,
         transform:'translate(-50%,0)',
@@ -115,7 +63,8 @@ const styles=theme=>({
         overflow:'hidden',
         backgroundImage:"url('/assets/index/banner1.png')",
         backgroundSize:'100%',
-        zIndex:200
+        zIndex:200,
+        backgroundRepeat:'no-repeat'
     },
     leftbg:{
         position:'absolute',
@@ -128,7 +77,8 @@ const styles=theme=>({
         overflow:'hidden',
         backgroundImage:"url('/assets/index/banner2.png')",
         backgroundSize:'100%',
-        opacity:0.4
+        opacity:0.4,
+        backgroundRepeat:'no-repeat'
     },
     rightbg:{
         position:'absolute',
@@ -141,7 +91,8 @@ const styles=theme=>({
         transform:'translate(-44%,0)',
         backgroundImage:"url('/assets/index/banner2.png')",
         backgroundSize:'100%',
-        opacity:0.4
+        opacity:0.4,
+        backgroundRepeat:'no-repeat'
     },
     mainContent:{
         position:'relative',
@@ -151,18 +102,23 @@ const styles=theme=>({
     about:{
         width:'90%', maxWidth:1140,
         margin:'-30px auto 0 auto',
-        height:260,
+        height:'auto',
         boxShadow:'0px 17px 27px rgba(0,0,0,0.07)',
         background:'#ffffff',
         borderRadius:5,
         display:'flex',
         alignItems:'center',
-        padding:'0 80px',
+        padding:'60px 80px',
         [theme.breakpoints.down('md')]: {
             flexDirection:'column',
             justifyContent:'center'
         },
-
+        [theme.breakpoints.down('sm')]: {
+            padding:'60px 30px',
+        },
+        [theme.breakpoints.down('xs')]: {
+            padding:'30px 18px',
+        },
     },
     aboutLeft:{
         marginRight:80,
@@ -227,130 +183,25 @@ const styles=theme=>({
         textAlign:'center',
         fontWeight:500
     },
-    footer:{
-        background:'#262741',
-        height:400,
-    },
-    registerForm:{
-        height:200,
-        width:'96%',margin:'0 auto',
-        maxWidth:1140,
-        padding:'0 40px',
-        top:-100,
-        position:'relative',
-        background: 'linear-gradient(127deg, #AF61D1, #717BFE)',
-        borderRadius:100,
-        display:'flex',
-        alignItems:'center',
-    },
-    form:{
-        display:'flex',
-        alignItems:'center',
-        flexDirection:'row',
-        justifyContent:'center',
-        flexWrap:'wrap',
-        [theme.breakpoints.down('sm')]: {
-            alignItems:'center',
-            flexDirection:'column',
-        },
-    },
-    formGroup:{
-        [theme.breakpoints.down('md')]: {
-            width:140
-        },
-    },
-    formIcon:{
-        color:'#ffffff',
-        fontSize:18,
-        marginRight:14,
-        display:'inline-block',
-        float:'left'
-    },
-    formInput:{
-        border:'none',
-        display:'inline-block',
-        background:'transparent',
-        outline:'none',
-        color:'#ffffff',
-        fontSize:14,
-        '&::-moz-placeholder':{
-            color:'#ffffff'
-        },
-        '&::-webkit-input-placeholder':{
-            color:'#ffffff',
-            fontSize:16,
-            lineHeight:'22px',
-        },
-        [theme.breakpoints.down('md')]: {
-            width:108
-        },
-        [theme.breakpoints.down('sm')]: {
-            '&::-webkit-input-placeholder':{
-                textAlign:'center'
-            },
-        },
-    },
-    footerMain:{
-        height:300,
-        position:'relative',
-        top:-100,
-        padding:'0 40px',
-        maxWidth:1140,margin:'0 auto',
-        display:'flex',
-        alignItems:'center',
-        flexDirection:'row',
-        justifyContent:'start',
-    },
-    footcopyright:{
 
-    },
-    author:{
-        color:'#ffffff',
-        fontSize:14,
-        textAlign:'center'
-    },
-    authorImg:{
-        display:'block',margin:'0 auto'
-    },
-    footLinks:{
-        [theme.breakpoints.down('md')]: {
-            display:'flex',
-            alignItems:'center',
-            flexDirection:'row',
-            justifyContent:'center',
-        },
-    },
-    footLinksTitle:{
-        textAlign:'right',color:'rgba(255,255,255,0.4)',
-        [theme.breakpoints.down('md')]: {
-            textAlign:'center',
-        },
-    },
-    footLinksItem:{
-        textAlign:'right',lineHeight:'32px',
-        [theme.breakpoints.down('md')]: {
-            display:'inline-block',
-            textAlign:'center',
-            padding:'0 20px'
-        },
-    },
-    flink:{
-        fontSize:16,
-        color:'#ffffff',
-        textDecoration:'underline'
-    },
+
+
     products:{
-        borderRadius:20,
-        margin:'160px auto',
-        background:'rgb(30,36,58)',
-        height:600,
-        width:'90%',
-        maxWidth:1140,
-        position:'relative'
+        borderRadius: 20,
+        margin: '160px auto',
+        background: 'rgb(30,36,58)',
+        height: 600,
+        width: '90%',
+        maxWidth: 1140,
+        position: 'relative',
+        [theme.breakpoints.down('md')]: {
+            width: '90%',
+            height: 'auto',
+        },
     },
     productItemWrapper:{
         position:"relative",
-        height:"auto"
+        height:"auto",
     },
     pBg:{
         position:'absolute',width:'100%',
@@ -444,7 +295,18 @@ const styles=theme=>({
         background:'#ffffff',
         top:-30,
         left:'50%',
-        transform:'translate(-140%,0)'
+        transform:'translate(-140%,0)',
+        [theme.breakpoints.down('md')]: {
+            width:280,
+            height:360,
+            position:'static',
+            margin:'20px auto',
+            transform:'translate(0,0)',
+        },
+        [theme.breakpoints.down('xs')]: {
+            width:'90%',
+            height:360,
+        },
     },
     plMain:{
         width:'100%',
@@ -488,7 +350,19 @@ const styles=theme=>({
         top:-60,
         left:'50%',
         transform:'translate(-50%,0)',
-        zIndex:2
+        zIndex:2,
+        [theme.breakpoints.down('md')]: {
+            width:280,
+            height:360,
+            position:'static',
+            margin:'20px auto',
+            transform:'translate(0,0)',
+        },
+        [theme.breakpoints.down('xs')]: {
+            width:'90%',
+            height:360,
+        },
+
     },
     pmBg:{
         backgroundImage:"url('/assets/index/1.png')",
@@ -536,7 +410,17 @@ const styles=theme=>({
         left:'50%',
         transform:'translate(40%,0)',
         zIndex:1,
-
+        [theme.breakpoints.down('md')]: {
+            width:280,
+            height:360,
+            position:'static',
+            margin:'20px auto',
+            transform:'translate(0,0)',
+        },
+        [theme.breakpoints.down('xs')]: {
+            width:'90%',
+            height:360,
+        },
     },
     prBg:{
         backgroundImage:"url('/assets/index/3.png')",
@@ -575,7 +459,9 @@ const styles=theme=>({
         background: 'linear-gradient(127deg, rgb(255,106,151),rgb(255,128,118))',
     },
 
+    slickproduct:{
 
+    },
     proDetails:{
         position:'absolute',
         bottom:0,
@@ -585,19 +471,36 @@ const styles=theme=>({
         display:'flex',
         padding:'0 100px',
         alignItems:'center',
-        justifyContent:'start'
+        justifyContent:'start',
+        [theme.breakpoints.down('md')]: {
+            position:'static',
+            marginTop:40,
+            padding:'0 60px 40px 60px',
+            flexDirection:'column',
+            height:'auto'
+        },
     },
     pdLeft:{
-        display:'inline-block',
-        paddingRight:40
+        flex:1,
+        paddingRight:40,
+        [theme.breakpoints.down('md')]: {
+            width:'90%'
+        },
     },
     pdRight:{
-        display:'inline-block'
+        flex:1,
+        [theme.breakpoints.down('md')]: {
+            width:'90%'
+        },
     },
     pdDataProgress:{
         display:'flex',
         justifyContent:'start',
-        marginTop:30
+        marginTop:30,
+        [theme.breakpoints.down('md')]: {
+            flexDirection:'row',
+            width:'90%'
+        },
     },
     pddpName:{
         lineHeight:'24x',

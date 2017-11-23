@@ -56,7 +56,7 @@ export default {
     subscriptions: {
         setupHistory ({ dispatch, history }) {
             history.listen((location) => {
-                if (location.pathname === '/dashboard') {
+                if (location.pathname === '/admin/dashboard') {
                     dispatch({type:'app/update',payload:{pageHeader:'Dashboard'}})
                 }
             })

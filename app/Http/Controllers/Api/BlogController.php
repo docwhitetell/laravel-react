@@ -17,6 +17,8 @@ class BlogController extends Controller
     /* CommonFunc 封装有一系列通用功能函数 */
     use CommonFunc;
 
+
+    /*后台控制器*/
     public function create(Request $request){
         $data=$request->get('note');
         $blog=new Blogs();
@@ -50,6 +52,13 @@ class BlogController extends Controller
         }else{
             return response()->json(['status'=>false],200);
         }
-
     }
+    /*后台控制器*/
+
+
+    /*前台控制器*/
+    public function FrontBlogs(){
+        return Blogs::paginate(6);
+    }
+    /*前台控制器*/
 }

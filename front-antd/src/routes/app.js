@@ -11,10 +11,15 @@ import Cookies from 'js-cookie'
 import LeftMenu from '../layout/LeftMenu'
 import Header from '../layout/Header'
 import Footer from '../layout/Footer'
+
+import FrontNav from './front/components/header'
+import FrontFooter from './front/components/footer'
 import CirLoading from '../components/loading/CirLoading'
 
 import PageHeader from '../components/pageHeader/pageHeader'
 
+
+import {routeMiddleware} from '../services/routeMiddleware'
 /* Material JSS */
 import styles from './styles'
 
@@ -87,8 +92,8 @@ const ResponsiveDrawer=({app,children,classes,theme,loading,location,dispatch})=
             type:'app/drawerShowHide',
         })
     };
-
-    if(pathname==='/' || pathname==='/login'){
+    /*路由过滤，判断前台还是后台页面。前天过滤页面注册在routeMiddleware 中 */
+    if(routeMiddleware(pathname)){
         return (
             <MuiThemeProvider theme={app.theme}>
                 <div className={classes.root} style={{minHeight: '100vh'}}>
@@ -131,7 +136,7 @@ const ResponsiveDrawer=({app,children,classes,theme,loading,location,dispatch})=
                             </Drawer>
                         </Hidden>
                         <main className={classes.content}>
-                            <CirLoading loading={loading.global}/>
+                            {/*<CirLoading loading={loading.global}/>*/}
                             <PageHeader title={app.pageHeader}/>
                             {children}
                         </main>

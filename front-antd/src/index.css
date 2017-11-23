@@ -5,11 +5,11 @@ html, body, :global(#root) {
   /*min-height: 100%;*/
   width: 100%;
 /*  padding-right: 0 !important;*/
-  font-family: -apple-system;
+/*  font-family: -apple-system;
   -webkit-seru-select:none;
   -moz-user-select:none;
   -ms-user-select:none;
-  user-select:none;
+  user-select:none;*/
 }
 a{
   text-decoration: none;

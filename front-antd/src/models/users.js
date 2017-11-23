@@ -42,7 +42,7 @@ export default {
     subscriptions: {
         setup ({ dispatch, history }) {
             history.listen((location) => {
-                if (location.pathname === '/user') {
+                if (location.pathname === '/admin/user') {
                     dispatch({type:'app/update', payload:{pageHeader:'Users'}})
                     const payload = location.query || { page: 1, rowsPerPage: 10 }
                     dispatch({

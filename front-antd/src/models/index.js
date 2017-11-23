@@ -16,7 +16,9 @@ const headers={
 export default {
 
     namespace: 'index',
-    state:{},
+    state:{
+        open:false
+    },
     subscriptions: {
         setup({ dispatch, history }) {
             history.listen(({ pathname }) => {

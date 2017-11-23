@@ -20,11 +20,11 @@ export default {
     subscriptions: {
         setup({ dispatch, history }) {
             history.listen(({ pathname }) => {
-                if(pathname==='/UIElement/form'){
+                if(pathname==='/admin/UIElement/form'){
                     dispatch({type:'app/update',payload:{pageHeader:'Form Components'}})
-                }else if(pathname==='/UIElement/table'){
+                }else if(pathname==='/admin/UIElement/table'){
                     dispatch({type:'app/update',payload:{pageHeader:'Table Components'}})
-                }else if(pathname==='/UIElement/editor'){
+                }else if(pathname==='/admin/UIElement/editor'){
                     dispatch({type:'app/update',payload:{pageHeader:'Editor Components'}})
                 }
             });

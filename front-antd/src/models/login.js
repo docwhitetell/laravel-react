@@ -24,7 +24,7 @@ export default {
     effects: {
         *checkLogin({payload},{put,call,select}){
             if(Cookies('access_token')){
-                yield put(routerRedux.push('/dashboard'))
+                yield put(routerRedux.push('/admin/dashboard'))
             }
         },
         * login ({payload,}, { put, call, select }) {
@@ -42,7 +42,7 @@ export default {
                     Cookies.set('access_token', res.data.token.access_token, {expires: (1 / 12), path: '/'});
                     Cookies.set('refresh_token', res.data.token.refresh_token, {expires: (1 / 6), path: '/'});
 
-                    yield put(routerRedux.push('/dashboard'))
+                    yield put(routerRedux.push('/admin/dashboard'))
                     yield put({
                         type: 'app/query'
                     })

@@ -1,14 +1,15 @@
 import React from 'react'
+import {withStyles} from 'material-ui/styles'
 import Grid from 'material-ui/Grid'
 import {Link} from 'react-router-dom'
 import {Icon} from 'antd'
-
+import styles from './footerstyles'
 import Hidden from 'material-ui/Hidden'
 
 const Footer = ({classes})=>{
     return(
         <footer className={classes.footer}>
-            <div className={classes.registerForm}>
+           {/* {withform &&  <div className={classes.registerForm}>
                 <form className={classes.form} style={{width:'100%'}}>
                     <div className={classes.formGroup}>
                         <Icon type="mail" className={classes.formIcon}/>
@@ -22,11 +23,12 @@ const Footer = ({classes})=>{
                         <Icon type="lock" className={classes.formIcon}/>
                         <input type="password" className={classes.formInput} placeholder="Password"/>
                     </div>
-                    <div className={classes.formGroup}>
-                        <Link to="/login" className={classes.register}>Sign Up</Link>
-                    </div>
+
+                    <Link to="/login" className={classes.register}>Sign Up</Link>
+
                 </form>
-            </div>
+            </div>}*/}
+
             <div className={classes.footerMain}>
                 <Grid container spacing={0} >
                     <Grid item xs={12} sm={12} md={4}>
@@ -65,4 +67,4 @@ const Footer = ({classes})=>{
     )
 }
 
-export default Footer
+export default withStyles(styles)(Footer)

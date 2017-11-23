@@ -69,7 +69,9 @@ export default {
         colors:color,
         canChoice:color.canChoice,
         pageHeader:null,
+        pageloading:true,
 
+        frontOpen:false
     },
 
     subscriptions: {
@@ -80,6 +82,7 @@ export default {
                     payload: {
                         locationPathname: location.pathname,
                         locationQuery: queryString.parse(location.search),
+                        pageloading:false,
                     },
                 })
             })
@@ -130,7 +133,7 @@ export default {
                 }
         },
         *redirectHome({payload},{put,call,select}){
-            yield put(routerRedux.push('/dashboard'))
+            yield put(routerRedux.push('/admin/dashboard'))
         },
         *logout({payload},{put,call,select}){
             store.clearAll()

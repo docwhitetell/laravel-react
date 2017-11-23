@@ -17,7 +17,12 @@ function RouterConfig({ history ,app}) {
         {
             path:'/',
             models:()=>[import('./models/index')],
-            component:()=>import('./routes/welcome/welcome')
+            component:()=>import('./routes/front/welcome')
+        },
+        {
+            path:'/blogs',
+            models:()=>[import('./models/blogs')],
+            component:()=>import('./routes/front/pages/blogs/blogs')
         },
         {
             path:'/login',
@@ -25,56 +30,56 @@ function RouterConfig({ history ,app}) {
             component:()=>import('./routes/login/login')
         },
         {
-            path:'/dashboard',
+            path:'/admin/dashboard',
             models:()=>[import('./models/dashboard')],
             component:()=>import('./routes/dashboard/dashboard')
         },
         {
-            path:'/user',
+            path:'/admin/user',
             models:()=>[import('./models/users')],
             component:()=>import('./routes/user/user')
         },{
-            path:'/blogs',
+            path:'/admin/blogs',
             models:()=>[import('./models/blogs')],
             component:()=>import('./routes/blogs/index')
         },
         {
-            path:'/blogs/create',
+            path:'/admin/blogs/create',
             models:()=>[import('./models/blogs')],
             component:()=>import('./routes/blogs/editor')
         },
         {
-            path:'/blogs/edit/:id',
+            path:'/admin/blogs/edit/:id',
             models:()=>[import('./models/blogs')],
             component:()=>import('./routes/blogs/editor')
         },
         {
-            path:'/UIElement/editor',
+            path:'/admin/UIElement/editor',
             models:()=>[import('./models/ui')],
             component:()=>import('./routes/UI/editor')
         },
         {
-            path:'/UIElement/table',
+            path:'/admin/UIElement/table',
             models:()=>[import('./models/ui')],
             component:()=>import('./routes/UI/table')
         },
         {
-            path:'/UIElement/form',
+            path:'/admin/UIElement/form',
             models:()=>[import('./models/ui')],
             component:()=>import('./routes/UI/form')
         },
         {
-            path:'/multi-upload',
+            path:'/admin/multi-upload',
             models:()=>[import('./models/files')],
             component:()=>import('./routes/upload/multi')
         },
         {
-            path:'/my-files',
+            path:'/admin/my-files',
             models:()=>[import('./models/files')],
             component:()=>import('./routes/upload/myFiles')
         },
         {
-            path:'/files-lists',
+            path:'/admin/files-lists',
             models:()=>[import('./models/files')],
             component:()=>import('./routes/upload/lists')
         }

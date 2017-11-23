@@ -26,7 +26,11 @@ module.exports = {
         allFiles:'http://admin.docwhite.cn/v1/user/files/all',
         userImgs:'http://admin.docwhite.cn/v1/user/imgs',
         userVideos:'http://admin.docwhite.cn/v1/user/videos',
-        deleteFiles:'http://admin.docwhite.cn/v1/user/files/delete'
+        deleteFiles:'http://admin.docwhite.cn/v1/user/files/delete',
+
+
+
+        frontBlogs:'http://admin.docwhite.cn/v2/blogs',
     },
     mockApi:{
         news:'http://localhost:8000/mock/news',

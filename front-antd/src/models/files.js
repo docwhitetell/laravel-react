@@ -24,14 +24,14 @@ export default {
     subscriptions: {
         setup({ dispatch, history }) {
             history.listen(({ pathname }) => {
-                if (pathname === '/files-lists') {
+                if (pathname === '/admin/files-lists') {
                     dispatch({type:'app/update',payload:{pageHeader:'Files Lists'}})
                     dispatch({
                         type: 'query',
                     })
-                }else if(pathname==='/multi-upload'){
+                }else if(pathname==='/admin/multi-upload'){
                     dispatch({type:'app/update',payload:{pageHeader:'Multi-files drag & auto upload'}})
-                }else if(pathname==='/my-files'){
+                }else if(pathname==='/admin/my-files'){
                     dispatch({type:'app/update',payload:{pageHeader:'My Files'}})
                 }
             });

@@ -15,7 +15,7 @@ const Service=({classes})=>{
             <div className={classes.work}>
                 <h1 style={{textAlign:'center',marginBottom:80}}>What Can We Provide?</h1>
                 <Grid container spacing={40}>
-                    <Grid item sm={12} md={6}>
+                    <Grid item xs={12} sm={12} md={6}>
                         <div className={classes.serviceItem}>
                             <div className={classes.borderTop}></div>
                             <div className={classes.serviceContent}>
@@ -25,7 +25,7 @@ const Service=({classes})=>{
                             </div>
                         </div>
                     </Grid>
-                    <Grid item sm={12} md={6}>
+                    <Grid item xs={12}sm={12} md={6}>
                         <div className={classes.serviceItem}>
                             <div className={classes.borderTop}></div>
                             <div className={classes.serviceContent}>

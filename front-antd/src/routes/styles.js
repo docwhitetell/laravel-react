@@ -6,7 +6,8 @@ const styles = theme => ({
         marginTop:0,
         zIndex: 1,
         fontFamily: "Microsoft YaHei",
-        color:'#37474F'
+        color:'#37474F',
+        position:'relative'
     },
     appFrame: {
         position: 'relative',
@@ -19,7 +20,6 @@ const styles = theme => ({
         paddingRight:'0 !important',
         backgroundImage:"url('/assets/leftmenu.png')",
         backgroundPosition:'-250px 0',
-        zIndex:99999,
         backgroundRepeat:'no-repeat',
         [theme.breakpoints.up('md')]: {
             width: `calc(100% - ${drawerWidth}px)`,
