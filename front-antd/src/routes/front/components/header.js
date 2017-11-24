@@ -18,7 +18,7 @@ const Header=({app,classes,dispatch})=>{
     function handleDrawerToggle() {
         dispatch({
             type:'app/update',
-            payload:{open:!app.frontOpen}
+            payload:{frontOpen:!app.frontOpen}
         })
     }
     return (

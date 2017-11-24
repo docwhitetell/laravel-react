@@ -1,12 +1,13 @@
 const styles = theme => ({
     title: {
         margin: '10px 20px',
-        textAlign: 'center',
     },
     titleInput: {
         fontSize: '24px',
     },
-
+    PosterInput:{
+        fontSize:14
+    },
     tableCell: {
         maxWidth: 200,
         height: 49,

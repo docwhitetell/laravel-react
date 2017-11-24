@@ -20,9 +20,11 @@ class BlogController extends Controller
 
     /*后台控制器*/
     public function create(Request $request){
-        $data=$request->get('note');
+        $data=$request->get('blog');
         $blog=new Blogs();
         $blog->title=$data['title'];
+        $blog->poster=$data['poster'];
+        $blog->description=$data['description'];
         $blog->content=$data['content'];
         if($blog->save()){
             $request->user()->blogs()->attach($blog->id);
@@ -59,6 +61,9 @@ class BlogController extends Controller
     /*前台控制器*/
     public function FrontBlogs(){
         return Blogs::paginate(6);
+    }
+    public function FrontBlogsDetail($id){
+        return Blogs::find($id);
     }
     /*前台控制器*/
 }

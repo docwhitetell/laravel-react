@@ -101,15 +101,17 @@ const styles=theme=>({
         position:'absolute',
         height:'100%',
         width:'100%',
-        filter:"blur(4px)",
+        filter:"blur(2px)",
         borderRadius:10,
         backgroundSize:"cover"
     },
     listsBgLeft:{
-        background:"linear-gradient(127deg, #18FFFF,#84FFFF,#0277BD)",
+        //background:"linear-gradient(127deg, #18FFFF,#84FFFF,#0277BD)",
+        background:'#ffffff'
     },
     listsBgRight:{
-        background:"linear-gradient(127deg,#0277BD ,#84FFFF,#18FFFF)",
+        //background:"linear-gradient(127deg,#0277BD ,#84FFFF,#18FFFF)",
+        background:'#ffffff'
     },
     blogPoster:{
         width:200,height:140,
@@ -133,15 +135,23 @@ const styles=theme=>({
         left:20
     },
     blogTitle:{
-        fontSize:32,
+        fontSize:28,
         fontWeight:700,
         //color:'rgba(0,0,0,0.8)',
-        color:'#ffffff'
+        color:'rgba(0,0,0,0.72)'
     },
     blogUploadTime:{
         textAlign:'right',
         fontWeight:900,
         color:'rgba(0,0,0,0.6)'
+    },
+    shareIcon:{
+        fontSize:14,
+        marginRight:10,
+        color:'rgba(0,0,0,0.6)',
+        '&:hover':{
+            color:'#2196F3'
+        }
     },
     blogDescription:{
         textOverflow:'ellipsis',
@@ -203,16 +213,19 @@ class Blogs extends React.Component{
                                                     className={classnames(classes.blogsItem, classes.floatLeft)}>{/* style={{backgroundImage:"url('/assets/index/banner1.png')",}}*/}
                                                     <div className={classnames(classes.listsBg, classes.listsBgLeft)}></div>
                                                     <div className={classnames(classes.blogPoster, classes.PosterLeft)}>
-                                                        <Link to='/blogs'><img src="/assets/index/banner1.png"
-                                                                               style={{width: '100%', height: '100%'}}
+                                                        <Link to={`/blogs/${item.id}`}><img src={item.poster}
+                                                                               style={{width: '100%', height: '100%',borderRadius:8}}
                                                                                alt=""/></Link>
                                                     </div>
                                                     <div className={classnames(classes.blogInfo, classes.blogInfoRight)}>
-                                                        <Link to="/blogs"><p className={classes.blogTitle}>{item.title}</p></Link>
-                                                        <p className={classes.blogDescription}>Material-UI components work in
-                                                            isolation. They are self-supporting, they will inject, and only inject,
-                                                            the styles they need to display.</p>
-                                                        <p className={classes.blogUploadTime}>2017-11-20</p>
+                                                        <Link to={`/blogs/${item.id}`}><p className={classes.blogTitle}>{item.title}</p></Link>
+                                                        <p className={classes.blogDescription}>{item.description}</p>
+                                                        <p className={classes.blogUploadTime}>
+                                                            <Link to="/blogs"><Icon type="heart" className={classes.shareIcon}/></Link>
+                                                            <Link to="/blogs"><Icon type="star" className={classes.shareIcon}/></Link>
+                                                            <Link to="/blogs"><Icon type="share-alt" className={classes.shareIcon}/></Link>
+                                                            {item.created_at}
+                                                            </p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -224,16 +237,19 @@ class Blogs extends React.Component{
                                                     className={classnames(classes.blogsItem, classes.floatRight)}>{/* style={{backgroundImage:"url('/assets/index/banner2.png')",}}*/}
                                                     <div className={classnames(classes.listsBg, classes.listsBgRight)}></div>
                                                     <div className={classnames(classes.blogPoster, classes.PosterRight)}>
-                                                        <Link to='/blogs' className={classnames(classes.floatRight)}><img
-                                                            src="/assets/index/banner2.png" style={{width: '100%', height: '100%'}}
+                                                        <Link to={`/blogs/${item.id}`} className={classnames(classes.floatRight)}><img
+                                                            src={item.poster} style={{width: '100%', height: '100%',borderRadius:8}}
                                                             alt=""/></Link>
                                                     </div>
                                                     <div className={classnames(classes.blogInfo, classes.blogInfoLeft)}>
-                                                        <Link to="/blogs"><p className={classes.blogTitle}>{item.title}</p></Link>
-                                                        <p className={classes.blogDescription}>Material-UI components work in
-                                                            isolation. They are self-supporting, they will inject, and only inject,
-                                                            the styles they need to display.</p>
-                                                        <p className={classes.blogUploadTime}>2017-11-20</p>
+                                                        <Link to={`/blogs/${item.id}`}><p className={classes.blogTitle}>{item.title}</p></Link>
+                                                        <p className={classes.blogDescription}>{item.description}</p>
+                                                        <p className={classes.blogUploadTime}>
+                                                            <Link to="/blogs"><Icon type="heart" className={classes.shareIcon}/></Link>
+                                                            <Link to="/blogs"><Icon type="star" className={classes.shareIcon}/></Link>
+                                                            <Link to="/blogs"><Icon type="share-alt" className={classes.shareIcon}/></Link>
+                                                            {item.created_at}
+                                                            </p>
                                                     </div>
                                                 </div>
                                             </div>

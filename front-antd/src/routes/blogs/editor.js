@@ -15,7 +15,10 @@ import {Icon} from 'antd'
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
+import { Upload, message} from 'antd';
+import Cookies from 'js-cookie'
 
+import config from '../../utils/config'
 import styles from './styles'
 
 const noteEditor =({blogs,dispatch,classes})=>{
@@ -33,39 +36,33 @@ const noteEditor =({blogs,dispatch,classes})=>{
             console.log('has current')
             dispatch({
                 type:'blogs/updateBlog',
-                payload:{title:title,content:data,id:blogs.current.id}
+                payload:{title:title,poster:blogs.editPoster,description:blogs.editDescription,content:data,id:blogs.current.id}
             })
         }else{
             dispatch({
                 type:'blogs/createBlog',
-                payload:{title:title,content:data}
+                payload:{title:title,poster:blogs.editPoster,description:blogs.editDescription,content:data}
             })
         }
 
     }
-    function handleTitleChange(e){
+
+    const handleInputChange=name=>e=>{
+        console.log(e.target.value)
         if(blogs.current!==null) {
             dispatch({
                 type:'blogs/update',
-                payload:{editTitle:e.target.value}
+                payload:{[name]:e.target.value}
             })
         }else{
             dispatch({
                 type:'blogs/update',
-                payload:{editTitle:e.target.value}
+                payload:{[name]:e.target.value}
             })
         }
+    }
 
-    }
-    function handleTablePageChange(pagination,filters, sorter) {
-        if(pagination.current===dashboard.pagination.current){
-        }else{
-            dispatch({
-                type:'blogs/getUserResource',
-                payload:pagination
-            })
-        }
-    }
+
     const settings = {
         dots: false,
         infinite: false,
@@ -86,7 +83,32 @@ const noteEditor =({blogs,dispatch,classes})=>{
 
         ]
     };
-        const { editorState } = blogs
+    const { editorState } = blogs
+
+    const props = {
+        name: 'file',
+        action: config.api.fileUpload,
+        headers:{
+            'Accept':'application/json',
+            'X-Requested-With': 'XMLHttpRequest',
+            'Authorization':'Bearer '+Cookies('access_token')
+        },
+        onChange(info) {
+            if (info.file.status !== 'uploading') {
+                console.log(info.file, info.fileList);
+            }
+            if (info.file.status === 'done') {
+                console.log(info.file.response.data.link)
+                dispatch({
+                    type:'blogs/update',
+                    payload:{editPoster:info.file.response.data.link}
+                })
+                message.success(`${info.file.name} file uploaded successfully`);
+            } else if (info.file.status === 'error') {
+                message.error(`${info.file.name} file upload failed.`);
+            }
+        },
+    };
         return (
             <div style={{marginTop:-68}}>
 
@@ -148,12 +170,42 @@ const noteEditor =({blogs,dispatch,classes})=>{
                                     margin="dense"
                                     label="Title"
                                     type="text"
-                                    style={{margin:'0 auto',width:300}}
+                                    style={{width:300}}
                                     fullWidth
                                     value={blogs.editTitle?blogs.editTitle:''}
                                     className={classes.titleInput}
-                                    onChange={handleTitleChange}
+                                    onChange={handleInputChange('editTitle')}
                                 />
+                                <br/>
+                                <div>
+                                    <TextField
+                                        margin="dense"
+                                        label="Poster"
+                                        type="text"
+                                        style={{width:400}}
+                                        fullWidth
+                                        value={blogs.editPoster?blogs.editPoster:''}
+                                        className={classes.PosterInput}
+                                        onChange={handleInputChange('editPoster')}
+                                    />
+                                    <Upload {...props}>
+                                        <Button raised color="primary">
+                                            <Icon type="upload" /> Upload
+                                        </Button>
+                                    </Upload>
+                                </div>
+
+                                <TextField
+                                    margin="dense"
+                                    label="Description"
+                                    type="text"
+                                    style={{width:'100%'}}
+                                    fullWidth
+                                    value={blogs.editDescription?blogs.editDescription:''}
+                                    className={classes.PosterInput}
+                                    onChange={handleInputChange('editDescription')}
+                                />
+
                             </div>
                             <MyEditor
                                 wrapperStyle={{minHeight: 600}}

@@ -25,6 +25,11 @@ function RouterConfig({ history ,app}) {
             component:()=>import('./routes/front/pages/blogs/blogs')
         },
         {
+            path:'/blogs/:id',
+            models:()=>[import('./models/blogs')],
+            component:()=>import('./routes/front/pages/blogs/detail')
+        },
+        {
             path:'/login',
             models:()=>[import('./models/login')],
             component:()=>import('./routes/login/login')

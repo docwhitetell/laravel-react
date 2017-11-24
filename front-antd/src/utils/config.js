@@ -31,6 +31,7 @@ module.exports = {
 
 
         frontBlogs:'http://admin.docwhite.cn/v2/blogs',
+
     },
     mockApi:{
         news:'http://localhost:8000/mock/news',

@@ -32,6 +32,8 @@ export default {
 
         current:{},
         editTitle:'',
+        editDescription:'',
+        editPoster:'',
         editorState:EditorState.createEmpty(),
 
         userResource:[],
@@ -41,7 +43,9 @@ export default {
     subscriptions: {
         setup ({ dispatch, history }) {
             history.listen((location) => {
+
                 const match = pathToRegexp('/admin/blogs/edit/:id').exec(location.pathname)
+                const match2 = pathToRegexp('/blogs/:id').exec(location.pathname)
                 if (location.pathname === '/admin/blogs') {
                     dispatch({type:'app/update',payload:{pageHeader:'My Blogs'}})
                     dispatch({
@@ -62,6 +66,8 @@ export default {
                         type:'queryUserResource'
                     })
                     dispatch({ type: 'query', payload: { id: match[1] } })
+                }else if(match2){
+                    dispatch({ type: 'FrontBlogQuery', payload: { id: match2[1] } })
                 }
             })
         },
@@ -98,6 +104,12 @@ export default {
                 yield put({type:'update',payload:{current:req.data,editTitle:req.data.title,editorState:editorState}})
             }
         },
+        *FrontBlogQuery({payload},{call,put,select}){
+            const req=yield call(request,{url:`${config.api.frontBlogs}/${payload.id}`})
+            if(req.status===200){
+                yield put({type:'update',payload:{current:req.data}})
+            }
+        },
         *queryUserResource({payload},{call,put,select}){
             const req=yield call(request, {url:config.api.allFiles,withtoken:true})
             if(req.status===200){
@@ -111,7 +123,7 @@ export default {
             yield put(routerRedux.push('/admin/blogs/create'))
         },
         *createBlog({payload},{call,put,select}){
-            const data={note:payload}
+            const data={blog:payload}
             const req=yield call(request,{url:config.api.blogCreate,withtoken:true,data:data,method:'post'})
             yield put({
                 type:'update'

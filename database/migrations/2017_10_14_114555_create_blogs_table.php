@@ -17,6 +17,8 @@ class CreateBlogsTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id')->index();
             $table->string('title',50)->index();
+            $table->string('poster')->nullable();
+            $table->string('description')->nullable();
             $table->text('content')->nullable();
             $table->timestamps();
         });
