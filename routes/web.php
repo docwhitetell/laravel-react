@@ -25,43 +25,49 @@ Route::group(['domain' => 'www.docwhite.cn'], function () {
     Route::get('/', function () {
         return view('app.index');
     });
+    Route::get('/blogs', function () {
+        return view('app.index');
+    });
+    Route::get('/blogs/{id}', function () {
+        return view('app.index');
+    });
     Route::get('/login', function () {
         return view('app.index');
     });
-    Route::get('/dashboard', function () {
+    Route::get('/admin/dashboard', function () {
         return view('app.index');
     });
-    Route::get('/user', function () {
+    Route::get('/admin/user', function () {
         return view('app.index');
     });
-    Route::get('/news', function () {
+    Route::get('/admin/news', function () {
         return view('app.index');
     });
-    Route::get('/note/add', function () {
+    Route::get('/admin/blogs/create', function () {
         return view('app.index');
     });
-    Route::get('/edit/{id}', function () {
+    Route::get('/admin/blogs/edit/{id}', function () {
         return view('app.index');
     });
-    Route::get('/notes', function () {
+    Route::get('/admin/blogs', function () {
         return view('app.index');
     });
-    Route::get('/UIElement/editor', function () {
+    Route::get('/admin/UIElement/editor', function () {
         return view('app.index');
     });
-    Route::get('/UIElement/table', function () {
+    Route::get('/admin/UIElement/table', function () {
         return view('app.index');
     });
-    Route::get('/UIElement/form', function () {
+    Route::get('/admin/UIElement/form', function () {
         return view('app.index');
     });
-    Route::get('/multi-upload', function () {
+    Route::get('/admin/multi-upload', function () {
         return view('app.index');
     });
-    Route::get('/my-files', function () {
+    Route::get('/admin/my-files', function () {
         return view('app.index');
     });
-    Route::get('/files-lists', function () {
+    Route::get('/admin/files-lists', function () {
         return view('app.index');
     });
 });
