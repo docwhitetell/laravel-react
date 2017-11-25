@@ -35,9 +35,9 @@ const styles = theme => ({
         },
         left:'50%',
         transform:'translate(-50%,30px)',
-        color:theme.palette.primary,
         fontSize:'16px',
-        zIndex:10
+        zIndex:10,
+        color:'#2196F3'
     },
     mask:{
         position:'absolute',
