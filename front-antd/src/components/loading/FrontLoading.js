@@ -22,7 +22,8 @@ const styles = theme => ({
         },
         left:'50%',
         transform:'translate(-50%,-50%)',
-        zIndex:10
+        zIndex:10,
+        color:"#2196F3"
     },
     progressFixed:{
         position:'fixed !important',
