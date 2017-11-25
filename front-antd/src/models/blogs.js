@@ -86,7 +86,9 @@ export default {
         *getFrontBlogs({payload},{call,put,select}){
             const res=yield call(request,{url:config.api.frontBlogs})
             if(res.status===200){
-                yield put({type:'update',payload:{frontBlogsLists:res.data.data}})
+                yield put({type:'update',
+                    payload:{frontBlogsLists:res.data.data,editDescription:res.data.data.description,editPoster:res.data.data.poster}
+                })
             }
         },
         *query({payload},{call,put,select}){
@@ -107,7 +109,7 @@ export default {
         *FrontBlogQuery({payload},{call,put,select}){
             const req=yield call(request,{url:`${config.api.frontBlogs}/${payload.id}`})
             if(req.status===200){
-                yield put({type:'update',payload:{current:req.data}})
+                yield put({type:'update',payload:{current:req.data,}})
             }
         },
         *queryUserResource({payload},{call,put,select}){

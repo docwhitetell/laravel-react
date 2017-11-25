@@ -39,15 +39,20 @@ const salseData=[
 
 ]
 
-
-const Dashboard =({dashboard,dispatch,classes})=>{
-    function handleTabChange(event, value){
+//{dashboard,dispatch,classes}
+class Dashboard extends React.Component{
+    constructor(props){
+        super(props)
+    }
+    handleTabChange=(event, value)=>{
+        const {dispatch}=this.props
         dispatch({
             type:'dashboard/update',
             payload:{tabs:value}
         })
     }
-    function handleTablePageChange(pagination, filters, sorter) {
+    handleTablePageChange=(pagination, filters, sorter)=>{
+        const {dashboard,dispatch}=this.props
         if(pagination.current===dashboard.pagination.current){
         }else{
             dispatch({
@@ -56,34 +61,52 @@ const Dashboard =({dashboard,dispatch,classes})=>{
             })
         }
     }
-    function handleChangePieData(index) {
+    handleChangePieData=(index)=>{
+        const {dispatch}=this.props
         console.log(index)
         dispatch({
             type:'dashboard/update',
             payload:{sales:salseData[index]}
         })
     }
-    return(
-        <div style={{marginTop:-68}}>
-            <NumberCard classes={classes}/>
-            <DataCard classes={classes} data={dashboard.data}/>
 
-            <div style={{width:'96%',margin:'0 auto',padding:4}}>
-                <TabData dashboard={dashboard} data={dashboard.data} classes={classes} handleTabChange={handleTabChange}/>
-                <Grid container spacing={8} >
-                    <Grid item xs={12} lg={6}>
-                        <TableData data={dashboard} handleTablePageChange={handleTablePageChange}/>
+    componentDidMount(){
+        const {app,dispatch}=this.props
+        if(app.pageloading){
+            dispatch({type:'app/update',payload:{pageloading:false}})
+        }
+    }
+    componentDidUpdate(){
+        const {app,dispatch}=this.props
+        if(app.pageloading){
+            dispatch({type:'app/update',payload:{pageloading:false}})
+        }
+    }
+    render(){
+        const {dashboard,dispatch,classes}=this.props
+        return(
+            <div style={{marginTop:-68}}>
+                <NumberCard classes={classes}/>
+                <DataCard classes={classes} data={dashboard.data}/>
+
+                <div style={{width:'96%',margin:'0 auto',padding:4}}>
+                    <TabData dashboard={dashboard} data={dashboard.data} classes={classes} handleTabChange={this.handleTabChange}/>
+                    <Grid container spacing={8} >
+                        <Grid item xs={12} lg={6}>
+                            <TableData data={dashboard} handleTablePageChange={this.handleTablePageChange}/>
+                        </Grid>
+                        <Grid item xs={12} lg={6}>
+                            <PieData data={dashboard.sales} handleChangePieData={this.handleChangePieData} classes={classes}/>
+                        </Grid>
                     </Grid>
-                    <Grid item xs={12} lg={6}>
-                        <PieData data={dashboard.sales} handleChangePieData={handleChangePieData} classes={classes}/>
-                    </Grid>
-                </Grid>
+                </div>
             </div>
-        </div>
-    )
+        )
+
+    }
 
 
 }
 
 
-export default connect(({dashboard})=>({dashboard}))(withStyles(styles)(Dashboard));
+export default connect(({app,dashboard})=>({app,dashboard}))(withStyles(styles)(Dashboard));

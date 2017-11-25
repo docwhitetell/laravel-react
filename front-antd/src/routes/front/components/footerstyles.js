@@ -5,6 +5,7 @@ const styles=theme=>({
         bottom:0,
         background:'#262741',
         height:300,
+        zIndex:200
     },
     registerForm:{
         height:200,

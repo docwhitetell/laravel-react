@@ -16,8 +16,26 @@ const columns = [{
     ),
 }
 ];
-const Lists=({files,dispatch})=>{
-    function handleTablePageChange(pagination,filters, sorter) {
+
+//{files,dispatch}
+class Lists extends React.Component{
+    constructor(props){
+        super(props)
+    }
+    componentDidMount(){
+        const {app,dispatch}=this.props
+        if(app.pageloading){
+            dispatch({type:'app/update',payload:{pageloading:false}})
+        }
+    }
+    componentDidUpdate(){
+        const {app,dispatch}=this.props
+        if(app.pageloading){
+            dispatch({type:'app/update',payload:{pageloading:false}})
+        }
+    }
+    handleTablePageChange=(pagination,filters, sorter)=>{
+        const {files,dispatch}=this.props
         if(pagination.current===files.filesPagination.current){
         }else{
             dispatch({
@@ -26,19 +44,23 @@ const Lists=({files,dispatch})=>{
             })
         }
     }
-    return(
-        <div style={{marginTop:-68}}>
-            <div style={{padding:20}}>
-                <AntdTable
-                    size="default"
-                    data={files.filesList}
-                    columns={columns}
-                    pagination={files.filesPagination}
-                    handleChange={handleTablePageChange}
-                />
-            </div>
+    render(){
+        const {files}=this.props
+        return(
+            <div style={{marginTop:-68}}>
+                <div style={{padding:20}}>
+                    <AntdTable
+                        size="default"
+                        data={files.filesList}
+                        columns={columns}
+                        pagination={files.filesPagination}
+                        handleChange={this.handleTablePageChange}
+                    />
+                </div>
 
-        </div>
-    )
+            </div>
+        )
+    }
+
 }
-export default connect(({files})=>({files}))(Lists)
+export default connect(({app,files})=>({app,files}))(Lists)

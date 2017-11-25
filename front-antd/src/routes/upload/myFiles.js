@@ -21,11 +21,21 @@ class myFiles extends React.Component{
         super(props)
     }
     componentDidMount() {
-        const {dispatch} = this.props
+        const {app,dispatch}=this.props
+        if(app.pageloading){
+            dispatch({type:'app/update',payload:{pageloading:false}})
+        }
         dispatch({
             type:'files/query',
         })
     }
+    componentDidUpdate(){
+        const {app,dispatch}=this.props
+        if(app.pageloading){
+            dispatch({type:'app/update',payload:{pageloading:false}})
+        }
+    }
+
     handleRequestClose=(index)=>{
         console.log(index)
         const {dispatch}=this.props
@@ -77,29 +87,35 @@ class myFiles extends React.Component{
             }
         })
     }
+
     render(){
         const {files,classes}=this.props
         const {filesList,open,alert,tabs}=files
         return (
-            <div style={{marginTop:-68}}>
-                <div className={classes.tabsroot}  style={{maxWidth:860,margin:'20px auto'}}>
+            <div style={{marginTop: -68}}>
+                <div className={classes.tabsroot} style={{maxWidth: 860, margin: '20px auto'}}>
                     <AppBar position="static" color="default">
                         <Tabs value={tabs} onChange={this.handleTabsChange} indicatorColor="primary" centered>
-                            <Tab label="Images" />
-                            <Tab label="Videos" />
+                            <Tab label="Images"/>
+                            <Tab label="Videos"/>
                         </Tabs>
                     </AppBar>
-                    { tabs===0 &&
+                    {tabs === 0 &&
                     <GridList cellHeight={160} className={classes.gridList} cols={3}>
-                        {filesList.map((item,index) =>{
-                            return(
+                        {filesList.map((item, index) => {
+                            return (
                                 <GridListTile key={index} cols={1} className={classes.gridItem}>
-                                    <img src={item.path} style={{width:'100%',height:'100%'}} alt=""/>
+                                    <img src={item.path} style={{width: '100%', height: '100%'}} alt=""/>
                                     <div className={classes.mask}>
-                                        <div className={classes.Delete}><Icon type="delete" className={classes.DeleteIcon} onClick={()=>this.handleAlertOpen(index,item.id)}  /></div>
-                                        <div className={classes.Play} ><Icon type="eye-o" className={classes.PlayIcon} onClick={()=>this.handleOpen(index)} /></div>
+                                        <div className={classes.Delete}><Icon type="delete"
+                                                                              className={classes.DeleteIcon}
+                                                                              onClick={() => this.handleAlertOpen(index, item.id)}/>
+                                        </div>
+                                        <div className={classes.Play}><Icon type="eye-o" className={classes.PlayIcon}
+                                                                            onClick={() => this.handleOpen(index)}/>
+                                        </div>
                                     </div>
-                                    <Dialog open={alert[index]} onRequestClose={()=>this.handleAlertClose(index)}>
+                                    <Dialog open={alert[index]} onRequestClose={() => this.handleAlertClose(index)}>
                                         <DialogTitle>{"Delete ？"}</DialogTitle>
                                         <DialogContent>
                                             <DialogContentText>
@@ -108,21 +124,23 @@ class myFiles extends React.Component{
                                             </DialogContentText>
                                         </DialogContent>
                                         <DialogActions>
-                                            <Button onClick={()=>this.handleDelete(item.id)} color="primary">
+                                            <Button onClick={() => this.handleDelete(item.id)} color="primary">
                                                 YES
                                             </Button>
-                                            <Button onClick={()=>this.handleAlertClose(index)} color="primary" autoFocus>
+                                            <Button onClick={() => this.handleAlertClose(index)} color="primary"
+                                                    autoFocus>
                                                 NO
                                             </Button>
                                         </DialogActions>
                                     </Dialog>
-                                    <Dialog open={open[index]} onRequestClose={()=>this.handleRequestClose(index)} maxWidth="md">
+                                    <Dialog open={open[index]} onRequestClose={() => this.handleRequestClose(index)}
+                                            maxWidth="md">
                                         <DialogTitle>{item.original_name}</DialogTitle>
                                         <DialogContent>
-                                            <img src={item.path} style={{width:'100%'}} alt=""/>
+                                            <img src={item.path} style={{width: '100%'}} alt=""/>
                                         </DialogContent>
                                         <DialogActions>
-                                            <Button onClick={()=>this.handleRequestClose(index)} color="primary">
+                                            <Button onClick={() => this.handleRequestClose(index)} color="primary">
                                                 Close
                                             </Button>
                                         </DialogActions>
@@ -134,66 +152,73 @@ class myFiles extends React.Component{
                     </GridList>
                     }
 
-                    { tabs===1 &&
-                <GridList cellHeight={160} className={classes.gridList} cols={3}>
-                    {filesList.map((item,index) =>{
-                        return(
-                            <GridListTile key={index} cols={1} className={classes.gridItem}>
-                                <CardMedia
-                                    style={{objectit:'fill',height:'100%'}}
-                                    component="video"
-                                    src={item.path}
-                                    muted
-                                />
-                                <div className={classes.videoMask}>
-                                    <h1 className={classes.videoTitle}>{item.original_name}</h1>
-                                    <div className={classes.Delete}><Icon type="delete" className={classes.DeleteIcon} onClick={()=>this.handleAlertOpen(index,item.id)}  /></div>
-                                    <div className={classes.Play} ><Icon type="play-circle" className={classes.PlayIcon} onClick={()=>this.handleOpen(index)} /></div>
-                                </div>
-                                <Dialog open={alert[index]} onRequestClose={()=>this.handleAlertClose(index)}>
-                                    <DialogTitle>{"Delete ？"}</DialogTitle>
-                                    <DialogContent>
-                                        <DialogContentText>
-                                            ARE YOU SURE YOU DON'T NEED IT ANY MORE?<br/>
-                                            （{item.original_name}）
-                                        </DialogContentText>
-                                    </DialogContent>
-                                    <DialogActions>
-                                        <Button onClick={()=>this.handleDelete(item.id)} color="primary">
-                                            YES
-                                        </Button>
-                                        <Button onClick={()=>this.handleAlertClose(index)} color="primary" autoFocus>
-                                            NO
-                                        </Button>
-                                    </DialogActions>
-                                </Dialog>
-                                <Dialog open={open[index]} onRequestClose={()=>this.handleRequestClose(index)} maxWidth="md">
-                                    <DialogTitle>{item.original_name}</DialogTitle>
-                                    <DialogContent>
-                                        <CardMedia
-                                            component="video"
-                                            src={item.path}
-                                            autoPlay
-                                            controls
-                                        />
-                                    </DialogContent>
-                                    <DialogActions>
-                                        <Button onClick={()=>this.handleRequestClose(index)} color="primary">
-                                            Close
-                                        </Button>
-                                    </DialogActions>
-                                </Dialog>
+                    {tabs === 1 &&
+                    <GridList cellHeight={160} className={classes.gridList} cols={3}>
+                        {filesList.map((item, index) => {
+                            return (
+                                <GridListTile key={index} cols={1} className={classes.gridItem}>
+                                    <CardMedia
+                                        style={{objectit: 'fill', height: '100%'}}
+                                        component="video"
+                                        src={item.path}
+                                        muted
+                                    />
+                                    <div className={classes.videoMask}>
+                                        <h1 className={classes.videoTitle}>{item.original_name}</h1>
+                                        <div className={classes.Delete}><Icon type="delete"
+                                                                              className={classes.DeleteIcon}
+                                                                              onClick={() => this.handleAlertOpen(index, item.id)}/>
+                                        </div>
+                                        <div className={classes.Play}><Icon type="play-circle"
+                                                                            className={classes.PlayIcon}
+                                                                            onClick={() => this.handleOpen(index)}/>
+                                        </div>
+                                    </div>
+                                    <Dialog open={alert[index]} onRequestClose={() => this.handleAlertClose(index)}>
+                                        <DialogTitle>{"Delete ？"}</DialogTitle>
+                                        <DialogContent>
+                                            <DialogContentText>
+                                                ARE YOU SURE YOU DON'T NEED IT ANY MORE?<br/>
+                                                （{item.original_name}）
+                                            </DialogContentText>
+                                        </DialogContent>
+                                        <DialogActions>
+                                            <Button onClick={() => this.handleDelete(item.id)} color="primary">
+                                                YES
+                                            </Button>
+                                            <Button onClick={() => this.handleAlertClose(index)} color="primary"
+                                                    autoFocus>
+                                                NO
+                                            </Button>
+                                        </DialogActions>
+                                    </Dialog>
+                                    <Dialog open={open[index]} onRequestClose={() => this.handleRequestClose(index)}
+                                            maxWidth="md">
+                                        <DialogTitle>{item.original_name}</DialogTitle>
+                                        <DialogContent>
+                                            <CardMedia
+                                                component="video"
+                                                src={item.path}
+                                                autoPlay
+                                                controls
+                                            />
+                                        </DialogContent>
+                                        <DialogActions>
+                                            <Button onClick={() => this.handleRequestClose(index)} color="primary">
+                                                Close
+                                            </Button>
+                                        </DialogActions>
+                                    </Dialog>
 
-                            </GridListTile>
-                        )
-                    })}
-                </GridList>
-                }
+                                </GridListTile>
+                            )
+                        })}
+                    </GridList>
+                    }
                 </div>
-
             </div>
         )
     }
 
 }
-export default connect(({files})=>({files}))(withStyles(styles)(myFiles));
+export default connect(({app,files})=>({app,files}))(withStyles(styles)(myFiles));

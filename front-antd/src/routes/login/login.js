@@ -134,33 +134,44 @@ const styles=theme=>({
         position:'absolute',
     }
 })
-const login=({classes})=>{
-    return (
-       <div className={classes.root}>
-           <div className={classes.page}>
-               <div className={classes.bgwrapper}>
-                   <div className={classes.bgleft}>
-                       <div className={classes.bgleftTop}></div>
-                       <div className={classes.bgleftDown}></div>
-                   </div>
-                   <div className={classes.bgmiddle}></div>
-                   <div className={classes.bgright}>
-                       <div className={classes.bgrightTop}></div>
-                       <div className={classes.bgrightDown}></div>
-                   </div>
-               </div>
-               <div className={classes.bgTitle}>
-                   <div className={classes.copyright}>
-                       <p className={classes.cplogo}>G</p>
-                   </div>
+class login extends React.Component{
+    constructor(props){
+        super(props)
+    }
+    componentDidMount(){
+        const {dispatch}=this.props
+        dispatch({type:'app/update',payload:{pageloading:false}})
+    }
+    render(){
+        const {classes}=this.props
+        return (
+            <div className={classes.root}>
+                <div className={classes.page}>
+                    <div className={classes.bgwrapper}>
+                        <div className={classes.bgleft}>
+                            <div className={classes.bgleftTop}></div>
+                            <div className={classes.bgleftDown}></div>
+                        </div>
+                        <div className={classes.bgmiddle}></div>
+                        <div className={classes.bgright}>
+                            <div className={classes.bgrightTop}></div>
+                            <div className={classes.bgrightDown}></div>
+                        </div>
+                    </div>
+                    <div className={classes.bgTitle}>
+                        <div className={classes.copyright}>
+                            <p className={classes.cplogo}>G</p>
+                        </div>
 
-                   <p className={classes.bgTitleWord}>Material</p>
-                   <p className={classes.bgTitleWord}>Design</p>
-               </div>
-           </div>
-           <LoginForm/>
-       </div>
-    )
+                        <p className={classes.bgTitleWord}>Material</p>
+                        <p className={classes.bgTitleWord}>Design</p>
+                    </div>
+                </div>
+                <LoginForm/>
+            </div>
+        )
+    }
+
 }
 
-export default withStyles(styles)(login)
+export default connect(({app})=>({app}))(withStyles(styles)(login))

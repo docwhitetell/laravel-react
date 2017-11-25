@@ -11,7 +11,17 @@ class User extends React.Component{
     constructor(props){
         super(props)
     }
-    componentDidMount() {
+    componentDidMount(){
+        const {app,dispatch}=this.props
+        if(app.pageloading){
+            dispatch({type:'app/update',payload:{pageloading:false}})
+        }
+    }
+    componentDidUpdate(){
+        const {app,dispatch}=this.props
+        if(app.pageloading){
+            dispatch({type:'app/update',payload:{pageloading:false}})
+        }
     }
     handleSelectAllClick = (event, checked) => {
         const {users,dispatch}=this.props

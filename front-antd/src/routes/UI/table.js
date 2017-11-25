@@ -1,4 +1,5 @@
 import React from 'react'
+import {connect} from 'dva'
 import {withStyles} from 'material-ui/styles'
 
 import Grid from 'material-ui/Grid'
@@ -32,36 +33,55 @@ const styles=theme=>({
         padding:20
     }
 })
-const Table=({classes})=>{
-    return(
-        <div style={{marginTop:-68}}>
-            <Grid container spacing={0}>
-                <Grid item xs={12} className={classes.formGrid}>
-                    <Card className={classes.formWrapper}>
-                        <div className={classes.formHeader}>
-                            <h1 className={classes.formTitle}>Material Design</h1>
-                        </div>
-                        <div className={classes.formContent}>
-                            <MdTable/>
-                        </div>
-                    </Card>
-                </Grid>
-                <Grid item xs={12} className={classes.formGrid}>
-                    <Card className={classes.formWrapper}>
-                        <div className={classes.formHeader}>
-                            <h1 className={classes.formTitle}>Ant Design</h1>
-                        </div>
-                        <div className={classes.formContent}>
-                            <AntdTable/>
-                        </div>
-                    </Card>
+class Table extends React.Component{
+    constructor(props){
+        super(props)
+    }
+    componentDidMount(){
+        const {app,dispatch}=this.props
+        if(app.pageloading){
+            dispatch({type:'app/update',payload:{pageloading:false}})
+        }
+    }
+    componentDidUpdate(){
+        const {app,dispatch}=this.props
+        if(app.pageloading){
+            dispatch({type:'app/update',payload:{pageloading:false}})
+        }
+    }
+    render(){
+        const {classes}=this.props
+        return(
+            <div style={{marginTop:-68}}>
+                <Grid container spacing={0}>
+                    <Grid item xs={12} className={classes.formGrid}>
+                        <Card className={classes.formWrapper}>
+                            <div className={classes.formHeader}>
+                                <h1 className={classes.formTitle}>Material Design</h1>
+                            </div>
+                            <div className={classes.formContent}>
+                                <MdTable/>
+                            </div>
+                        </Card>
+                    </Grid>
+                    <Grid item xs={12} className={classes.formGrid}>
+                        <Card className={classes.formWrapper}>
+                            <div className={classes.formHeader}>
+                                <h1 className={classes.formTitle}>Ant Design</h1>
+                            </div>
+                            <div className={classes.formContent}>
+                                <AntdTable/>
+                            </div>
+                        </Card>
 
 
+                    </Grid>
                 </Grid>
-            </Grid>
-        </div>
-    )
+            </div>
+        )
+    }
+
 }
 
 
-export default withStyles(styles)(Table)
+export default connect(({app})=>({app}))(withStyles(styles)(Table))

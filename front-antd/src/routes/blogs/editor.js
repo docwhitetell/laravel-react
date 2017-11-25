@@ -20,16 +20,33 @@ import Cookies from 'js-cookie'
 
 import config from '../../utils/config'
 import styles from './styles'
+//{blogs,dispatch,classes}
+class noteEditor extends React.Component{
+    constructor(props){
+        super(props)
+    }
+    componentDidMount(){
+        const {app,dispatch}=this.props
+        if(app.pageloading){
+            dispatch({type:'app/update',payload:{pageloading:false}})
+        }
+    }
+    componentDidUpdate(){
+        const {app,dispatch}=this.props
+        if(app.pageloading){
+            dispatch({type:'app/update',payload:{pageloading:false}})
+        }
+    }
 
-const noteEditor =({blogs,dispatch,classes})=>{
-
-    function onEditorStateChange(editorState) {
+    onEditorStateChange=(editorState) =>{
+        const {dispatch}=this.props
        dispatch({
            type:'blogs/update',
            payload:{editorState:editorState}
        })
     }
-    function handleSubmit(){
+    handleSubmit=()=>{
+        const {blogs,dispatch}=this.props
         const data=draftToHtml(convertToRaw(blogs.editorState.getCurrentContent()))
         const title=blogs.editTitle
         if(blogs.current){
@@ -47,7 +64,8 @@ const noteEditor =({blogs,dispatch,classes})=>{
 
     }
 
-    const handleInputChange=name=>e=>{
+    handleInputChange=name=>e=>{
+        const {blogs,dispatch}=this.props
         console.log(e.target.value)
         if(blogs.current!==null) {
             dispatch({
@@ -62,53 +80,54 @@ const noteEditor =({blogs,dispatch,classes})=>{
         }
     }
 
+    render(){
+        const {blogs,dispatch,classes}=this.props
+        const settings = {
+            dots: false,
+            infinite: false,
+            speed: 500,
+            vertical:false,
+            swipe:true,
+            verticalSwiping: false,
+            slidesToShow: 5,
+            swipeToSlide: true,
+            slidesToScroll: 1,
+            arrows:true,
+            responsive:[
+                { breakpoint: 600, settings: { slidesToShow: 2 } },
+                { breakpoint: 768, settings: { slidesToShow: 3 } },
+                { breakpoint: 1024, settings: { slidesToShow: 4 } },
+                { breakpoint: 1312, settings: { slidesToShow: 5 } },
+                { breakpoint: 1920, settings: { slidesToShow: 6 } },
 
-    const settings = {
-        dots: false,
-        infinite: false,
-        speed: 500,
-        vertical:false,
-        swipe:true,
-        verticalSwiping: false,
-        slidesToShow: 5,
-        swipeToSlide: true,
-        slidesToScroll: 1,
-        arrows:true,
-        responsive:[
-            { breakpoint: 600, settings: { slidesToShow: 2 } },
-            { breakpoint: 768, settings: { slidesToShow: 3 } },
-            { breakpoint: 1024, settings: { slidesToShow: 4 } },
-            { breakpoint: 1312, settings: { slidesToShow: 5 } },
-            { breakpoint: 1920, settings: { slidesToShow: 6 } },
+            ]
+        };
+        const { editorState } = blogs
 
-        ]
-    };
-    const { editorState } = blogs
-
-    const props = {
-        name: 'file',
-        action: config.api.fileUpload,
-        headers:{
-            'Accept':'application/json',
-            'X-Requested-With': 'XMLHttpRequest',
-            'Authorization':'Bearer '+Cookies('access_token')
-        },
-        onChange(info) {
-            if (info.file.status !== 'uploading') {
-                console.log(info.file, info.fileList);
-            }
-            if (info.file.status === 'done') {
-                console.log(info.file.response.data.link)
-                dispatch({
-                    type:'blogs/update',
-                    payload:{editPoster:info.file.response.data.link}
-                })
-                message.success(`${info.file.name} file uploaded successfully`);
-            } else if (info.file.status === 'error') {
-                message.error(`${info.file.name} file upload failed.`);
-            }
-        },
-    };
+        const props = {
+            name: 'file',
+            action: config.api.fileUpload,
+            headers:{
+                'Accept':'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+                'Authorization':'Bearer '+Cookies('access_token')
+            },
+            onChange(info) {
+                if (info.file.status !== 'uploading') {
+                    console.log(info.file, info.fileList);
+                }
+                if (info.file.status === 'done') {
+                    console.log(info.file.response.data.link)
+                    dispatch({
+                        type:'blogs/update',
+                        payload:{editPoster:info.file.response.data.link}
+                    })
+                    message.success(`${info.file.name} file uploaded successfully`);
+                } else if (info.file.status === 'error') {
+                    message.error(`${info.file.name} file upload failed.`);
+                }
+            },
+        };
         return (
             <div style={{marginTop:-68}}>
 
@@ -174,7 +193,7 @@ const noteEditor =({blogs,dispatch,classes})=>{
                                     fullWidth
                                     value={blogs.editTitle?blogs.editTitle:''}
                                     className={classes.titleInput}
-                                    onChange={handleInputChange('editTitle')}
+                                    onChange={this.handleInputChange('editTitle')}
                                 />
                                 <br/>
                                 <div>
@@ -186,7 +205,7 @@ const noteEditor =({blogs,dispatch,classes})=>{
                                         fullWidth
                                         value={blogs.editPoster?blogs.editPoster:''}
                                         className={classes.PosterInput}
-                                        onChange={handleInputChange('editPoster')}
+                                        onChange={this.handleInputChange('editPoster')}
                                     />
                                     <Upload {...props}>
                                         <Button raised color="primary">
@@ -203,7 +222,7 @@ const noteEditor =({blogs,dispatch,classes})=>{
                                     fullWidth
                                     value={blogs.editDescription?blogs.editDescription:''}
                                     className={classes.PosterInput}
-                                    onChange={handleInputChange('editDescription')}
+                                    onChange={this.handleInputChange('editDescription')}
                                 />
 
                             </div>
@@ -211,7 +230,7 @@ const noteEditor =({blogs,dispatch,classes})=>{
                                 wrapperStyle={{minHeight: 600}}
                                 editorStyle={{height: 520,}}
                                 editorState={editorState}
-                                onEditorStateChange={onEditorStateChange}
+                                onEditorStateChange={this.onEditorStateChange}
                             />
                         </Card>
                     </Grid>
@@ -219,10 +238,10 @@ const noteEditor =({blogs,dispatch,classes})=>{
                 </Grid>
 
                 <div style={{textAlign:'center',marginBottom:20}}>
-                    <Button raised color="accent" onClick={handleSubmit} style={{marginRight:20}}>
+                    <Button raised color="accent" onClick={this.handleSubmit} style={{marginRight:20}}>
                         SAVE
                     </Button>
-                    <Button raised color="primary" onClick={handleSubmit}>
+                    <Button raised color="primary" onClick={this.handleSubmit}>
                         PREVIEW
                     </Button>
                 </div>
@@ -231,6 +250,8 @@ const noteEditor =({blogs,dispatch,classes})=>{
 
         )
 
+    }
+
 
 }
-export default connect(({blogs})=>({blogs}))(withStyles(styles)(noteEditor))
+export default connect(({app,blogs})=>({app,blogs}))(withStyles(styles)(noteEditor))

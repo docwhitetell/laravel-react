@@ -16,6 +16,18 @@ class UIEditor extends React.Component{
             editorState:EditorState.createEmpty(),
         }
     }
+    componentDidMount(){
+        const {app,dispatch}=this.props
+        if(app.pageloading){
+            dispatch({type:'app/update',payload:{pageloading:false}})
+        }
+    }
+    componentDidUpdate(){
+        const {app,dispatch}=this.props
+        if(app.pageloading){
+            dispatch({type:'app/update',payload:{pageloading:false}})
+        }
+    }
      onEditorStateChange=(editorState)=>{
         console.log(draftToHtml(convertToRaw(editorState.getCurrentContent())))
         this.setState({
@@ -56,4 +68,4 @@ class UIEditor extends React.Component{
 
 
 }
-export default connect(({editor})=>({editor}))(UIEditor)
+export default connect(({app,editor})=>({app,editor}))(UIEditor)

@@ -78,11 +78,11 @@ export default {
         setupHistory ({ dispatch, history }) {
             history.listen((location) => {
                 dispatch({
-                    type: 'updateState',
+                    type: 'update',
                     payload: {
                         locationPathname: location.pathname,
                         locationQuery: queryString.parse(location.search),
-                        pageloading:false,
+                        pageloading:true,
                     },
                 })
             })

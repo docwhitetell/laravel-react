@@ -93,39 +93,51 @@ const styles=theme=>({
         }
     }
 })
-const Detail=({blogs,classes})=>{
-    return (
-        <div>
-            <Nav/>
-            {blogs.current &&
-            <div className={classes.content}>
-                <div className={classes.poster} style={{backgroundImage:`url(${blogs.current.poster})`}}>
-                    <div className={classes.blogsTitle}>
-                        {blogs.current.title}
-                    </div>
-                    <div className={classes.posterMask}></div>
-                </div>
+class Detail extends React.Component{
+    constructor(props){
+        super(props)
+    }
 
-                <div className={classes.mainArticle}>
-                    <div className={classes.articleHead}>
-                        <h1 className={classes.mainTitle}>{blogs.current.title} </h1>
-                        <p style={{fontSize: 14,color:'rgba(0,0,0,0.4)'}}>{blogs.current.created_at}
-                            <Link to="/blogs" style={{float: 'right', marginRight: 100}}>
-                                <Icon type="share-alt" className={classes.articleShareIcon}/>
-                                <Icon type="github" className={classes.articleShareIcon}/>
-                            </Link>
-                        </p>
-                        <img src="/assets/blogs/authorimg.jpg" style={{position:'absolute',right:-60,top:-40,borderRadius:'50%'}} width={100} alt=""/>
+    componentDidMount(){
+        const {dispatch}=this.props
+        dispatch({type:'app/update',payload:{pageloading:false}})
+    }
+    render(){
+        const {blogs,classes}=this.props
+        return (
+            <div>
+                <Nav/>
+                {blogs.current &&
+                <div className={classes.content}>
+                    <div className={classes.poster} style={{backgroundImage:`url(${blogs.current.poster})`}}>
+                        <div className={classes.blogsTitle}>
+                            {blogs.current.title}
+                        </div>
+                        <div className={classes.posterMask}></div>
                     </div>
-                    <div className={classes.articlebody} dangerouslySetInnerHTML={{__html:blogs.current.content }}></div>
+
+                    <div className={classes.mainArticle}>
+                        <div className={classes.articleHead}>
+                            <h1 className={classes.mainTitle}>{blogs.current.title} </h1>
+                            <p style={{fontSize: 14,color:'rgba(0,0,0,0.4)'}}>{blogs.current.created_at}
+                                <Link to="/blogs" style={{float: 'right', marginRight: 100}}>
+                                    <Icon type="share-alt" className={classes.articleShareIcon}/>
+                                    <Icon type="github" className={classes.articleShareIcon}/>
+                                </Link>
+                            </p>
+                            <img src="/assets/blogs/authorimg.jpg" style={{position:'absolute',right:-60,top:-40,borderRadius:'50%'}} width={100} alt=""/>
+                        </div>
+                        <div className={classes.articlebody} dangerouslySetInnerHTML={{__html:blogs.current.content }}></div>
+                    </div>
                 </div>
+                }
+
+                <Footer/>
             </div>
-            }
 
-            <Footer/>
-        </div>
+        )
+    }
 
-    )
 }
 
 

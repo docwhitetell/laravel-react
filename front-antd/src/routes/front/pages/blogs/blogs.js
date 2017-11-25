@@ -177,6 +177,7 @@ class Blogs extends React.Component{
         dispatch({
             type:"blogs/getFrontBlogs"
         })
+        dispatch({type:'app/update',payload:{pageloading:false}})
     }
 
     render(){

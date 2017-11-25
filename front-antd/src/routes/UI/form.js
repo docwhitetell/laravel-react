@@ -1,4 +1,5 @@
 import React from 'react'
+import {connect} from 'dva'
 import {withStyles} from 'material-ui/styles'
 import Grid from 'material-ui/Grid'
 import Card from 'material-ui/Card'
@@ -88,6 +89,18 @@ class Form extends React.Component{
             checkedF: true,
             checkedG: true,
             radio:null,
+        }
+    }
+    componentDidMount(){
+        const {app,dispatch}=this.props
+        if(app.pageloading){
+            dispatch({type:'app/update',payload:{pageloading:false}})
+        }
+    }
+    componentDidUpdate(){
+        const {app,dispatch}=this.props
+        if(app.pageloading){
+            dispatch({type:'app/update',payload:{pageloading:false}})
         }
     }
     handleChange=(e)=>{
@@ -295,4 +308,4 @@ class Form extends React.Component{
     }
 
 }
-export default withStyles(styles)(Form)
+export default connect(({app})=>({app}))(withStyles(styles)(Form))

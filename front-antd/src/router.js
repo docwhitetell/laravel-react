@@ -46,7 +46,7 @@ function RouterConfig({ history ,app}) {
         },{
             path:'/admin/blogs',
             models:()=>[import('./models/blogs')],
-            component:()=>import('./routes/blogs/index')
+            component:()=>import('./routes/blogs/lists')
         },
         {
             path:'/admin/blogs/create',

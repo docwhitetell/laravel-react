@@ -18,7 +18,7 @@ const styles = theme => ({
         position:'fixed',
         top:'50vh',
         [theme.breakpoints.up('md')]: {
-            left: 'calc( 50vw  + 120px)',
+            left: 'calc( 50vw)',
         },
         left:'50%',
         transform:'translate(-50%,-50%)',
@@ -31,7 +31,7 @@ const styles = theme => ({
         position:'fixed',
         top:'50vh',
         [theme.breakpoints.up('md')]: {
-            left: 'calc( 50vw + 120px)',
+            left: 'calc( 50vw)',
         },
         left:'50%',
         transform:'translate(-50%,30px)',
@@ -43,7 +43,7 @@ const styles = theme => ({
         position:'absolute',
         width:'100%',
         height:'100%',
-       /* background:'rgba(255,255,255,0.8)',*/
+        /* background:'rgba(255,255,255,0.8)',*/
     },
     hidden:{
         zIndex: -1,
