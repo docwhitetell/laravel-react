@@ -2,7 +2,7 @@ const headerHeight=54
 const styles=theme=>({
     header:{
         position:'absolute',
-        top:64,left:'50%',
+        top:20,left:'50%',
         width:'100%',height:`${headerHeight}px`,
         maxWidth:'1000px',
         padding:'0 40px',
@@ -10,7 +10,7 @@ const styles=theme=>({
         zIndex:300,
         [theme.breakpoints.down('sm')]: {
             padding:'0 20px',
-            top:24
+            top:20
         },
         [theme.breakpoints.down('xs')]: {
             padding:'0 10px',
@@ -37,7 +37,7 @@ const styles=theme=>({
         },
     },
     headerLogo:{
-        color:'rgba(0,0,0,0.7)',fontSize:'32px',fontWeight:700,
+        color:'rgba(0,0,0,0.8)',fontSize:'32px',fontWeight:700,
         [theme.breakpoints.down('sm')]: {
             fontSize:'32px',
             lineHeight:'20px',
@@ -59,11 +59,11 @@ const styles=theme=>({
         marginRight:48,
     },
     navItemName:{
-        color:'rgba(0,0,0,0.6)',
+        color:'rgba(255,255,255,0.8)',
         fontSize:16,
         fontWeight:700,
         '&:hover':{
-            color:"rgba(0,0,0,0.8)",
+            color:"#ffffff",
             fontWeight:900,
             textDecoration:'underline'
         }
@@ -104,12 +104,12 @@ const styles=theme=>({
         },
     },
     login:{
-        border:'2px solid rgba(0,0,0,0.2)',
+        border:'2px solid rgba(255,255,255,0.4)',
         height:'44px',
         borderRadius:4,
         fontSize:16,
         fontWeight:700,
-        color:'rgba(0,0,0,0.6)',
+        color:'rgba(255,255,255,0.8)',
         padding:'0 24px',
         display:'inline-block',
         lineHeight:'40px',
@@ -121,8 +121,8 @@ const styles=theme=>({
             lineHeight:"32px"
         },
         '&:hover':{
-            color:"rgba(0,0,0,0.8)",
-            border:'2px solid rgba(0,0,0,0.4)',
+            border:'2px solid #ffffff',
+            color:'#ffffff',
         }
     },
 

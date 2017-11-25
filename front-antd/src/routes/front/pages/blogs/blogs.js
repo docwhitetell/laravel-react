@@ -159,7 +159,7 @@ class Blogs extends React.Component{
                                                                         width: '90%',
                                                                         left: '5%'
                                                                     }}>
-                                                                        {item.description}{item.description}{item.description}
+                                                                        {item.description}
                                                                         <br/>
                                                                         <span style={{fontSize:12}}>{item.created_at}</span>
                                                                         </p>

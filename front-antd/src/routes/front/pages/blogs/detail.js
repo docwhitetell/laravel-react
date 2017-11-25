@@ -28,7 +28,7 @@ const styles=theme=>({
         position:'relative',
         zIndex:200,
         padding:'0 40px',
-        textShadow:'3px 2px 2px #FFFFFF',
+        textShadow:'1px 1px 1px #FFFFFF',
         [theme.breakpoints.down('md')]: {
             fontSize:38,
         },

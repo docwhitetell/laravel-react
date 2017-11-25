@@ -51,8 +51,16 @@ class Index extends React.Component{
     }
 
     componentDidMount(){
-        const {dispatch}=this.props
-        dispatch({type:'app/update',payload:{pageloading:false}})
+        const {app,dispatch}=this.props
+        if(app.pageloading){
+            dispatch({type:'app/update',payload:{pageloading:false}})
+        }
+    }
+    componentDidUpdate(){
+        const {app,dispatch}=this.props
+        if(app.pageloading){
+            dispatch({type:'app/update',payload:{pageloading:false}})
+        }
     }
     render(){
         const settings = {
