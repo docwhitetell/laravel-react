@@ -95,3 +95,9 @@ div.intro {
   top: 0;
   left: 0;
 }
+
+.ant-pagination-prev{
+  padding:8px 16px !important;
+}
+
+

@@ -7,10 +7,20 @@ const styles=theme=>({
 
     banner:{
         height:800,
-        background: 'rgb(30,36,58)',
+        //background: 'rgb(30,36,58)',
+
         [theme.breakpoints.down('md')]: {
            height:'auto'
         },
+    },
+    bannerBg:{
+        position:'absolute',
+        height:'100%',width:'100%',
+        backgroundImage:"url('/assets/blogs/headbg.png')",
+        backgroundSize:"100%",
+        backgroundPosition:'left bottom',
+        transform:'rotate(180deg)',
+        backgroundRepeat:"no-repeat",
     },
     bannerWrapper:{
         height:'100%',
@@ -22,7 +32,7 @@ const styles=theme=>({
         transform:'translate(-50%,-50%)',
         fontSize:42,
         width:'90%',
-        color:'#ffffff',
+        color:'rgba(0,0,0,0.76)',
         textAlign:'center',
         [theme.breakpoints.down('md')]: {
             position:'static',
@@ -44,7 +54,8 @@ const styles=theme=>({
         marginTop:18,
         fontFamily:'apple',
         fontSize:'16px',
-        color:'rgba(255,255,255,0.45)'
+        fontWeight:600,
+        color:'rgba(0,0,0,0.6)',
     },
     bannerImg:{
         position:'absolute',
@@ -189,7 +200,7 @@ const styles=theme=>({
     products:{
         borderRadius: 20,
         margin: '160px auto',
-        background: 'rgb(30,36,58)',
+        background: 'linear-gradient(127deg, rgb(0,202,198), rgb(0,154,204))',
         height: 600,
         width: '90%',
         maxWidth: 1140,
@@ -261,7 +272,8 @@ const styles=theme=>({
         color:'#ffffff',
         fontSize:24,
         fontWeight:600,
-        minWidth:0
+        minWidth:0,
+        boxShadow:'0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12)'
     },
     pButtonDenseTop:{
         position:'absolute',
@@ -513,9 +525,11 @@ const styles=theme=>({
         bottom:0,
         left:'50%',height:46,width:160,
         transform:'translate(-50%,50%)',
-        background:'linear-gradient(127deg, #AF61D1, #717BFE)',
+        //background:'linear-gradient(127deg, #AF61D1, #717BFE)',
+        background:'linear-gradient(127deg, rgb(0,202,198), rgb(0,154,204))',
         borderRadius:14,
-        color:'#ffffff'
+        color:'#ffffff',
+        boxShadow:'0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12)'
     }
 
 })

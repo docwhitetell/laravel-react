@@ -37,7 +37,7 @@ const styles=theme=>({
         },
     },
     headerLogo:{
-        color:'#ffffff',fontSize:'32px',fontWeight:700,fontFamily:'baloo',
+        color:'rgba(0,0,0,0.7)',fontSize:'32px',fontWeight:700,
         [theme.breakpoints.down('sm')]: {
             fontSize:'32px',
             lineHeight:'20px',
@@ -59,11 +59,12 @@ const styles=theme=>({
         marginRight:48,
     },
     navItemName:{
-        color:'#ffffff',
-        fontSize:'16px',
-        fontWeight:300,
+        color:'rgba(0,0,0,0.6)',
+        fontSize:16,
+        fontWeight:700,
         '&:hover':{
-            color:"#ffffff",
+            color:"rgba(0,0,0,0.8)",
+            fontWeight:900,
             textDecoration:'underline'
         }
     },
@@ -88,38 +89,40 @@ const styles=theme=>({
         height:44,
         borderRadius:4,
         fontSize:16,
-        color:'#ffffff',
+        fontWeight:700,
+        color:'rgba(0,0,0,0.6)',
         padding:'0 24px',
         display:'inline-block',
         lineHeight:'44px',
         marginRight:10,
         float:'right',
+        transition:'all 0.3s',
         [theme.breakpoints.down('sm')]: {
             height:32,fontSize:14,
             padding:'0 16px',
             lineHeight:"32px"
         },
-        '&:hover':{
-            color:'#ffffff',
-        }
     },
     login:{
-        border:'2px solid rgba(255,255,255,0.16)',
+        border:'2px solid rgba(0,0,0,0.2)',
         height:'44px',
         borderRadius:4,
-        fontSize:'16px',
-        color:'#ffffff',
+        fontSize:16,
+        fontWeight:700,
+        color:'rgba(0,0,0,0.6)',
         padding:'0 24px',
         display:'inline-block',
         lineHeight:'40px',
         float:'right',
+        transition:'all 0.3s',
         [theme.breakpoints.down('sm')]: {
             height:32,fontSize:14,
             padding:'0 16px',
             lineHeight:"32px"
         },
         '&:hover':{
-            color:'#ffffff',
+            color:"rgba(0,0,0,0.8)",
+            border:'2px solid rgba(0,0,0,0.4)',
         }
     },
 

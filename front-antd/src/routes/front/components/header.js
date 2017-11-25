@@ -32,12 +32,11 @@ const Header=({app,classes,dispatch})=>{
                 >
                     <MenuIcon/>
                 </IconButton>
-                <span className={classes.headerLogo}>White</span>
+                <span className={classes.headerLogo}></span>
             </div>
             <Hidden mdDown implementation="css">
                 <div className={classes.signIU}>
-                    <Link to="/login" className={classes.login}>Sign In</Link>
-                {/*    <Link to="/login" className={classes.register}>Sign Up</Link>*/}
+                    {app.user? (<Link to="/admin/dashboard" className={classes.login}>Dashboard</Link>) :(<Link to="/login" className={classes.login}>Sign In</Link>)}
                 </div>
                 <div className={classes.nav}>
                     <ul className={classes.navLists}>

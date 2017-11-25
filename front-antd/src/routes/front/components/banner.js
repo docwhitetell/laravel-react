@@ -44,6 +44,7 @@ class Banner extends React.Component{
         return (
             <div className={classes.banner}>
                 <div className={classes.bannerWrapper}>
+                    <div className={classes.bannerBg}></div>
                     <div className={classes.bannerTitle}>
                         Doctor White Personal Website
                         <p className={classes.titleDescription}>

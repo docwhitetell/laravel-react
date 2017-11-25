@@ -243,8 +243,8 @@ class Index extends React.Component{
                                     data={{
                                         data:78,
                                         height:24,width:'calc(100% - 100px)',
-                                        color:'linear-gradient(127deg, rgb(255,101,165),rgb(255,137,101))',
-                                        bgcolor:'#000',
+                                        color:'linear-gradient(127deg, #303F9F,#1565C0)',
+                                        bgcolor:'#ffffff',
                                     }}/>
                             </div>
                             <div className={classes.pdDataProgress}>
@@ -253,8 +253,8 @@ class Index extends React.Component{
                                     data={{
                                         data:64,
                                         height:24,width:'calc(100% - 100px)',
-                                        color:'linear-gradient(127deg, rgb(100,108,254),rgb(181,70,240))',
-                                        bgcolor:'#000',
+                                        color:'linear-gradient(127deg, #1565C0,#42A5F5)',
+                                        bgcolor:'#ffffff',
                                     }}/>
                             </div>
                         </div>

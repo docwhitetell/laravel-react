@@ -3,9 +3,12 @@ const styles=theme=>({
         position:'relative',
         width:'100%',
         bottom:0,
-        background:'#262741',
+        background:'linear-gradient(127deg, rgb(0,202,198), rgb(0,154,204))',
         height:300,
-        zIndex:200
+        zIndex:200,
+        paddingTop:40,
+        borderTopLeftRadius:'50%',
+        borderTopRightRadius:'50%'
     },
     registerForm:{
         height:200,

@@ -83,6 +83,7 @@ class ResponsiveDrawer extends React.Component{
     handleUserLogout=()=>{
         Cookies.remove('access_token')
         Cookies.remove('refresh_token')
+        const {dispatch}=this.props
         dispatch({
             type:'app/logout'
         })

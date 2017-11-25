@@ -3230,7 +3230,14 @@ div.intro___3pd4J {
   padding: 10px;
   top: 0;
   left: 0;
-}/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
+}
+
+.ant-pagination-prev___3NHgZ{
+  padding:8px 16px !important;
+}
+
+
+/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
 /* stylelint-disable declaration-bang-space-before */
 /* stylelint-disable declaration-bang-space-before */
 .ant-menu {

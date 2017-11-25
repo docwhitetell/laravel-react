@@ -15,37 +15,40 @@ import EditIcon from 'material-ui-icons/Edit'
 import styles from './styles'
 //({app,blogs,loading,dispatch,classes})
 class List extends React.Component{
-    constructor(props){
+    constructor(props) {
         super(props)
     }
-    componentDidMount(){
-        const {app,dispatch}=this.props
-        if(app.pageloading){
-            dispatch({type:'app/update',payload:{pageloading:false}})
+
+    componentDidMount() {
+        const {app, dispatch} = this.props
+        if (app.pageloading) {
+            dispatch({type: 'app/update', payload: {pageloading: false}})
         }
     }
-    componentDidUpdate(){
-        const {app,dispatch}=this.props
-        if(app.pageloading){
-            dispatch({type:'app/update',payload:{pageloading:false}})
+
+    componentDidUpdate() {
+        const {app, dispatch} = this.props
+        if (app.pageloading) {
+            dispatch({type: 'app/update', payload: {pageloading: false}})
         }
     }
-    handleSelectAllClick=(event, checked)=>{
-        const {blogs,dispatch}=this.props
+
+    handleSelectAllClick = (event, checked) => {
+        const {blogs, dispatch} = this.props
         if (checked) {
             dispatch({
-                type:'blogs/update',
-                payload:{ selected: blogs.data.map(n => n.id) }
+                type: 'blogs/update',
+                payload: {selected: blogs.data.map(n => n.id)}
             })
-        }else{
+        } else {
             dispatch({
-                type:'blogs/update',
-                payload:{ selected:  []  }
+                type: 'blogs/update',
+                payload: {selected: []}
             })
         }
     }
-    handleRequestSort=(event, property)=>{
-        const {blogs,dispatch}=this.props
+    handleRequestSort = (event, property) => {
+        const {blogs, dispatch} = this.props
         const orderBy = property;
         let order = 'desc';
         if (blogs.orderBy === property && blogs.order === 'desc') {
@@ -57,18 +60,18 @@ class List extends React.Component{
                 : blogs.data.sort((a, b) => (a[orderBy] < b[orderBy] ? -1 : 1));
 
         dispatch({
-            type:'blogs/update',
-            payload:{ data, order, orderBy }
+            type: 'blogs/update',
+            payload: {data, order, orderBy}
         })
     }
-    handleKeyDown=(event, id)=>{
+    handleKeyDown = (event, id) => {
         if (keycode(event) === 'space') {
             this.handleClick(event, id);
         }
     }
-    handleClick=(event, id)=>{
-        const {blogs,dispatch}=this.props
-        const { selected } = blogs;
+    handleClick = (event, id) => {
+        const {blogs, dispatch} = this.props
+        const {selected} = blogs;
         const selectedIndex = selected.indexOf(id);
         let newSelected = [];
 
@@ -85,69 +88,64 @@ class List extends React.Component{
             );
         }
         dispatch({
-            type:'blogs/update',
-            payload:{ selected: newSelected }
+            type: 'blogs/update',
+            payload: {selected: newSelected}
         })
     }
-      handleChangePage=(event, page) =>{
-          const {blogs,dispatch}=this.props
-         let newState;
-         if(page+1<=blogs.last_page){
-             newState={
-                 page:page+1,rowsPerPage:blogs.rowsPerPage
-             }
-         }else{
-             newState={
-                 page:page,rowsPerPage:blogs.rowsPerPage
-             }
-         }
-         dispatch({
-             type:'blogs/getUserList',
-             payload:newState
-         })
-     }
-     handleChangeRowsPerPage=(event)=>{
-         const {dispatch}=this.props
-         const newSize={rowsPerPage:event.target.value,page:1}
-         dispatch({
-             type:'blogs/changeRowsPerPage',
-             payload:newSize
-         })
-     }
-   /*  handleDialogOpenOrHide=()=>{
-        const {dispatch}=this.props
+    handleChangePage = (event, page) => {
+        const {blogs, dispatch} = this.props
+        let newState;
+        if (page + 1 <= blogs.last_page) {
+            newState = {
+                page: page + 1, rowsPerPage: blogs.rowsPerPage
+            }
+        } else {
+            newState = {
+                page: page, rowsPerPage: blogs.rowsPerPage
+            }
+        }
         dispatch({
-            type:'blogs/showOrHideDialog'
+            type: 'blogs/getUserList',
+            payload: newState
         })
-    }*/
+    }
+    handleChangeRowsPerPage = (event) => {
+        const {dispatch} = this.props
+        const newSize = {rowsPerPage: event.target.value, page: 1}
+        dispatch({
+            type: 'blogs/changeRowsPerPage',
+            payload: newSize
+        })
+    }
 
-    isSelected=(id)=>{
-        const {blogs}=this.props
+
+    isSelected = (id) => {
+        const {blogs} = this.props
         return blogs.selected.indexOf(id) !== -1;
     }
-    handleSelectedAction=()=>{
-        const {blogs,dispatch}=this.props
+    handleSelectedAction = () => {
+        const {blogs, dispatch} = this.props
         dispatch({
-            type:'blogs/deleteBlog',
-            payload:blogs.selected
+            type: 'blogs/deleteBlog',
+            payload: blogs.selected
         })
     }
-    handleEmptyAction=()=>{
+    handleEmptyAction = () => {
 
     }
 
-    handleCreateBlog=()=>{
-        const {dispatch}=this.props
+    handleCreateBlog = () => {
+        const {dispatch} = this.props
         dispatch({
-            type:'blogs/create'
+            type: 'blogs/create'
         })
     }
-    handleEdit=(id)=>{
-        const {dispatch}=this.props
+    handleEdit = (id) => {
+        const {dispatch} = this.props
         console.log(id)
         dispatch({
-            type:'blogs/edit',
-            payload:id
+            type: 'blogs/edit',
+            payload: id
         })
     }
     render(){
