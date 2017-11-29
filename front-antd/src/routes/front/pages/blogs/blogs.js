@@ -6,12 +6,16 @@ import Card, { CardHeader, CardMedia, CardContent, CardActions } from 'material-
 import Divider from 'material-ui/Divider'
 import classnames from 'classnames'
 import {Link} from 'dva/router'
-
+import ScrollAnim from 'rc-scroll-anim';
+import QueueAnim from 'rc-queue-anim';
+import TweenOne from 'rc-tween-one';
 import {Icon,Pagination} from 'antd'
 import Button from 'material-ui/Button'
 import Nav from '../../components/header'
 import Footer from '../../components/footer'
 import styles from './blogstyles'
+
+const {OverPack}=ScrollAnim
 class Blogs extends React.Component{
     constructor(props){
         super(props)
@@ -38,8 +42,7 @@ class Blogs extends React.Component{
     render(){
         const {app,front,classes,dispatch}=this.props
         return(
-            <div className={classes.root}>
-                <Nav/>
+            <div className={classes.main}>
                 <div className={classes.content}>
                     <div className={classes.headerbg}>
                         <div className={classes.bgimg}></div>
@@ -48,21 +51,31 @@ class Blogs extends React.Component{
                     <div className={classes.blogsListcontent}>
                         <div className={classes.author}>
                             <div className={classes.authorimg}>
+                                <TweenOne animation={[{scale:0.8,delay:450},{scale:1,opacity:1}]} style={{opacity:0}} >
                                 <img className={classes.authorAvatar} src="/assets/blogs/authorimg.jpg" alt=""/>
+                                </TweenOne>
                             </div>
                             <div className={classes.authorInfo}>
-                                <h1 className={classes.authorName}>Doctor White</h1>
+                                <TweenOne animation={[{y:-60},{y:0,opacity:1}]} style={{opacity:0}} >
+                                    <h1 className={classes.authorName}>Doctor White</h1>
+                                </TweenOne>
+                                <TweenOne animation={[{x:100,delay:250},{x:0,opacity:1}]} style={{opacity:0}} >
                                 <p className={classes.authorPersonalInfo}> Feb 2, 1994 &nbsp;&nbsp;&nbsp;&nbsp;  <a href="" style={{fontSize:14}}><Icon type="star"/>510559413@qq.com</a></p>
                                 <p className={classes.authordesc}>Proficient in PHP, Mysql , Linux , JavaScript , React all stack engineers</p>
                                 <p className={classes.sourceCode}>Source Code&nbsp;&nbsp;&nbsp;&nbsp; <a href="https://github.com/docwhitetell/laravel-react" target="_blank"><Icon type="github" style={{fontSize:18}}/></a></p>
+                                </TweenOne>
                             </div>
                         </div>
                         <div className={classes.listsWrapper}>
+                            <TweenOne animation={[{delay:450},{opacity:1}]} style={{opacity:0}} >
                             <h3 className={classes.blogsClass}>Original Tech-Articals</h3>
+                            </TweenOne>
+                            <TweenOne animation={[{delay:650},{opacity:1}]} style={{opacity:0}} >
                             <h5 className={classes.blogsDesc}>Include Php , Mysql , Linux , JavaScript , React...Something that might be of interest to you</h5>
+                            </TweenOne>
                         </div>
 
-                        <div className={classes.blogsWrapper}>
+                        <TweenOne className={classes.blogsWrapper} animation={[{scale:0.9,delay:750},{scale:1,opacity:1}]} style={{opacity:0}} >
                             <div className={classes.blogsListContent}>
                                 <div className={classes.listsHead}>
                                     <div className={classnames(classes.listsHeadShadow1,'headShadow1')}></div>
@@ -74,14 +87,14 @@ class Blogs extends React.Component{
                                         <Button className={classnames(classes.menuButton)}>
                                             <Icon type="calendar" className={classnames(classes.menuIcon)} />
                                         </Button>
-                                        <Button className={classnames(classes.menuButton)} >
+                                      {/*  <Button className={classnames(classes.menuButton)} >
                                             <Icon type="cloud" className={classnames(classes.menuIcon)} />
-                                        </Button>
+                                        </Button>*/}
                                     </div>
                                 </div>
                                 <div className={classes.blogsList} >
                                     <div className={classes.blogsCount}>
-                                        <span style={{fontSize:28}}>Articles</span>&nbsp;&nbsp;&nbsp;&nbsp;<small style={{color:'rgba(0,0,0,0.5)',fontWeight:600,fontSize:14}}> 10 Totails</small>
+                                        <span style={{fontSize:28}}>Articles</span>&nbsp;&nbsp;&nbsp;&nbsp;<small style={{color:'rgba(0,0,0,0.5)',fontWeight:600,fontSize:14}}> {front.blogs.total} Totails</small>
                                     </div>
                                     <Grid container spacing={24}>
                                         <Grid item xs={12}>
@@ -123,46 +136,50 @@ class Blogs extends React.Component{
                                                 </div>
                                             </Card>
                                         </Grid>
-
-                                        { front.blogslist.map((item,index)=>{
-                                            return(
-                                                    <Grid item xs={12} sm={6} md={6} key={index}>
-                                                        <Card>
-                                                            <div className={classes.cardHeader}>
-                                                                <Link to={`/blogs/${item.id}`}>
-                                                                    <h1 className={classes.articleTitle}>
-                                                                        {item.title}
-                                                                    </h1>
-                                                                </Link>
-                                                            </div>
-                                                            <Divider/>
-                                                            <Link to={`/blogs/${item.id}`}>
-                                                                <div className={classes.articleDesc}>
-                                                                    <p className={classes.articleDescWord}>
-                                                                        {item.description}
-                                                                        <br/>
-                                                                        <span style={{fontSize:12}}>{item.created_at}</span>
-                                                                        </p>
-
-                                                                    <div className={classes.blogBg} style={{backgroundImage: `url(${item.poster})`}}></div>
+                                        <OverPack component={Grid} container spacing={24} style={{width:'100%',margin:0}} always={true} playScale={0.1}>
+                                            <QueueAnim component={Grid} container spacing={24} key="queue"
+                                                       leaveReverse={false}
+                                                       style={{  position: 'relative',padding:12}}
+                                            >
+                                                { front.blogslist.map((item,index)=>{
+                                                    return(
+                                                        <Grid item xs={12} sm={6} md={6} key={index}>
+                                                            <Card>
+                                                                <div className={classes.cardHeader}>
+                                                                    <Link to={`/blogs/${item.id}`}>
+                                                                        <h1 className={classes.articleTitle}>
+                                                                            {item.title}
+                                                                        </h1>
+                                                                    </Link>
                                                                 </div>
-                                                            </Link>
-                                                        </Card>
-                                                    </Grid>
-                                                )
+                                                                <Divider/>
+                                                                <Link to={`/blogs/${item.id}`}>
+                                                                    <div className={classes.articleDesc}>
+                                                                        <p className={classes.articleDescWord}>
+                                                                            {item.description}
+                                                                            <br/>
+                                                                            <span style={{fontSize:12}}>{item.created_at}</span>
+                                                                        </p>
+                                                                        <div className={classes.blogBg} style={{backgroundImage: `url(${item.poster})`}}></div>
+                                                                    </div>
+                                                                </Link>
+                                                            </Card>
+                                                        </Grid>
+                                                    )
+                                                })}
+                                            </QueueAnim>
+                                        </OverPack>
 
-                                        })}
                                     </Grid>
                                 </div>
                             </div>
-                        </div>
+                        </TweenOne>
 
                         {/*<div className={classes.paginate} style={{width:'90%',maxWidth:1000,margin:'0 auto',textAlign:'center'}}>
                             <Pagination showQuickJumper defaultCurrent={2} total={500} onChange={this.onChange} />
                         </div>*/}
                     </div>
                 </div>
-                <Footer/>
             </div>
         )
     }

@@ -1,5 +1,5 @@
 const styles=theme=>({
-    root:{
+    main:{
         height:'auto',
         overflow:'hidden',
         //backgroundColor:'rgb(30,36,58)'
@@ -266,9 +266,13 @@ const styles=theme=>({
         },
     },
     dataIcon:{
-        display:'inline-block'
+        display:'inline-block',
     },
     dataIconImg:{
+        transition:'all 0.6s ease-in-out',
+        '&:hover':
+            {transform:'rotate(360deg)'
+            },
         width:80,
         [theme.breakpoints.down('sm')]: {
             width:60,

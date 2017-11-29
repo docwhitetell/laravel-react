@@ -42,9 +42,7 @@ const Footer = ({classes})=>{
                         <div>
                             <ul className={classes.footLinks}>
                                 <li className={classes.footLinksItem}><Link to="/" className={classes.flink}>Home</Link></li>
-                                <li className={classes.footLinksItem}><Link to="/" className={classes.flink}>Profile</Link></li>
-                                <li className={classes.footLinksItem}><Link to="/" className={classes.flink}>Posts</Link></li>
-                                <li className={classes.footLinksItem}><Link to="/" className={classes.flink}>News</Link></li>
+                                <li className={classes.footLinksItem}><Link to="/blogs" className={classes.flink}>Blogs</Link></li>
                             </ul>
                         </div>
                     </Grid>

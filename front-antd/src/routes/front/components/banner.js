@@ -1,6 +1,8 @@
-import React from 'react'
-import Hidden from 'material-ui/Hidden'
+import React from 'react';
+import Hidden from 'material-ui/Hidden';
 import Slider from 'react-slick';
+import TweenOne from 'rc-tween-one';
+import QueueAnim from 'rc-queue-anim';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -45,18 +47,24 @@ class Banner extends React.Component{
             <div className={classes.banner}>
                 <div className={classes.bannerWrapper}>
                     <div className={classes.bannerBg}></div>
-                    <div className={classes.bannerTitle}>
-                        Doctor White Personal Website
-                        <p className={classes.titleDescription}>
-                            Sign up or check back for new updates
-                        </p>
-                    </div>
+
+                        <div className={classes.bannerTitle} key="title">
+                            <TweenOne animation={[{y:0},{y:90,opacity:1}]} style={{opacity:0}} >
+                            <h1 className={classes.titleWord}>Doctor White Personal Website</h1>
+                            </TweenOne>
+                            <TweenOne animation={[{y:0},{y:-60,opacity:1,delay:450}]} style={{opacity:0}} >
+                            <p className={classes.titleDescription}>
+                                Sign up or check back for new updates
+                            </p>
+                            </TweenOne>
+                        </div>
+
                     <Hidden mdDown implementation="css">
-                    <div className={classes.bannerImg}>
+                    <TweenOne className={classes.bannerImg} animation={[{y:400,delay:700},{y:0,opacity:1}]} style={{opacity:0}} >
                         <div className={classes.leftbg}></div>
                         <div className={classes.bannerMainImg}></div>
                         <div className={classes.rightbg}></div>
-                    </div>
+                    </TweenOne>
                     </Hidden>
                     <Hidden mdUp implementation="css">
                         <div style={{width:'100%',height:'60vw',overflow:'hidden'}}>

@@ -36,7 +36,7 @@ const LeftMenu=({dropDown,style,classes,handleClick,handleChangeTheme,app})=>{
 
             </div>
             <Divider/>
-            <List>
+            <List style={{padding:0}}>
                 <Link to="/admin/dashboard">
                     <ListItem button>
                         <Icon type="pie-chart" className={classes.menuIcon} />

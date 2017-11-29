@@ -1,5 +1,5 @@
 const styles=theme=>({
-    root:{
+    main:{
         height:'auto',
         overflow:'hidden'
     },
@@ -28,7 +28,8 @@ const styles=theme=>({
     },
     bannerTitle:{
         position:'absolute',
-        top:'300px',left:'50%',
+        top:'300px',
+        left:'50%',
         transform:'translate(-50%,-50%)',
         fontSize:42,
         width:'90%',
@@ -40,11 +41,33 @@ const styles=theme=>({
             margin:'0 auto',
             transform:'translate(0,0)',
             paddingTop:220,
-            marginBottom:80
+            marginBottom:80,
+            '& h1':{
+                fontSize:36,
+            }
         },
         [theme.breakpoints.down('sm')]: {
             fontSize:26,
             paddingTop:140,
+            '& h1':{
+                fontSize:26,
+            }
+        },
+        [theme.breakpoints.down('xs')]: {
+            fontSize:24,
+            '& h1':{
+                fontSize:24,
+            }
+        },
+    },
+    titleWord:{
+        fontSize:42,
+        transform:'translate(0,-90px)',
+        [theme.breakpoints.down('md')]: {
+            fontSize:36,
+        },
+        [theme.breakpoints.down('sm')]: {
+            fontSize:26,
         },
         [theme.breakpoints.down('xs')]: {
             fontSize:24,
@@ -56,6 +79,7 @@ const styles=theme=>({
         fontSize:'16px',
         fontWeight:600,
         color:'rgba(0,0,0,0.6)',
+        transform:'translate(0,60px)',
     },
     bannerImg:{
         position:'absolute',
