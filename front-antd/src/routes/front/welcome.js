@@ -12,7 +12,9 @@ import Button from 'material-ui/Button';
 import DraggableList from '../../components/draggable/DraggableList'
 import GradientProgress from '../../components/progress/gradient'
 import {Icon} from 'antd'
-
+import ScrollAnim from 'rc-scroll-anim';
+import TweenOne from 'rc-tween-one';
+const {OverPack}=ScrollAnim
 import Hidden from 'material-ui/Hidden'
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
@@ -52,6 +54,9 @@ class Index extends React.Component{
 
     componentDidMount(){
         const {app,dispatch}=this.props
+        dispatch({
+            type:'front/queryIndex'
+        })
         if(app.pageloading){
             dispatch({type:'app/update',payload:{pageloading:false}})
         }
@@ -72,12 +77,19 @@ class Index extends React.Component{
             nextArrow: <SampleNextArrow />,
             prevArrow: <SamplePrevArrow />
         };
-        const {app,classes,dispatch}=this.props
+        const {app,front,classes,dispatch}=this.props
         return (
             <div className={classes.root}>
                 <NavHeader/>
                 <Banner classes={classes}/>
-                <Service classes={classes}/>
+                <Service classes={classes} data={front} dispatch={dispatch}/>
+                <div className={classes.videos}>
+
+                </div>
+                <OverPack style={{ width:'100%',}} always={false} playScale={0.1}>
+                    <TweenOne key={'products'} animation={[{opacity:0,y:-20,scale:0.94,duration:300},{opacity:1,y:0,scale:1,duration:300}]}
+                              style={{opacity: 0, marginBottom: 10}}
+                    >
                 <div className={classes.products}>
                     <Hidden mdDown implementation="css">
                         <div className={classes.productItemWrapper}>
@@ -87,11 +99,11 @@ class Index extends React.Component{
                                     <div className={classnames(classes.pPrice)}>
                                         <h1 style={{fontSize:56, color:'rgba(0,0,0,0.86)'}}>
                                             <small style={{fontSize:32}}>$</small>
-                                            <strong>27</strong>
+                                            <strong>399</strong>
                                         </h1>
                                         <span style={{fontSize:14,fontWeight:600}}>Basic plan</span>
                                         <h1 className={classnames(classes.pPriceBg,classes.pPriceBgMid)}>
-                                            27
+                                            399
                                         </h1>
                                     </div>
                                 </div>
@@ -109,11 +121,11 @@ class Index extends React.Component{
                                     <div className={classnames(classes.pPrice)}>
                                         <h1 style={{fontSize:78, color:'rgba(0,0,0,0.86)'}}>
                                             <small style={{fontSize:42}}>$</small>
-                                            <strong>95</strong>
+                                            <strong>3999</strong>
                                         </h1>
                                         <span style={{fontSize:14,fontWeight:600}}>Professional plan</span>
                                         <h1 className={classnames(classes.pPriceBg,classes.pPriceBgBig)}>
-                                            95
+                                            3999
                                         </h1>
                                     </div>
                                 </div>
@@ -131,11 +143,11 @@ class Index extends React.Component{
                                     <div className={classnames(classes.pPrice)}>
                                         <h1 style={{fontSize:56, color:'rgba(0,0,0,0.86)'}}>
                                             <small style={{fontSize:32}}>$</small>
-                                            <strong>63</strong>
+                                            <strong>1299</strong>
                                         </h1>
                                         <span style={{fontSize:14,fontWeight:600}}>Medium plan</span>
                                         <h1 className={classnames(classes.pPriceBg,classes.pPriceBgMid)}>
-                                            63
+                                            1299
                                         </h1>
                                     </div>
                                 </div>
@@ -238,28 +250,29 @@ class Index extends React.Component{
                     </Hidden>
                     <div className={classes.proDetails}>
                         <div className={classes.pdLeft}>
-                            <h1 style={{color:'#ffffff',fontSize:28}}>Professional Plan</h1>
+                            <h1 style={{color:'#ffffff',fontSize:28}}>Exclusive customization</h1>
                             <p style={{color:'rgba(255,255,255,0.6)'}}>
-                                They don't rely on any global styles like normalize.css.
-                                You can use any of the components as demonstrated in the documentation.
+                                Based on the reaction framework of Facebook,
+                                GuGe's material design style is used to provide an infinite approximation of the operation fluency and experience of the app,
+                                while taking into account both mobile and PC browsing.
                             </p>
                         </div>
                         <div className={classes.pdRight}>
                             <div className={classes.pdDataProgress}>
-                                <span className={classes.pddpName}>500GB</span>
+                                <span className={classes.pddpName}>PC</span>
                                 <GradientProgress
                                     data={{
-                                        data:78,
+                                        data:92,
                                         height:24,width:'calc(100% - 100px)',
                                         color:'linear-gradient(127deg, #303F9F,#1565C0)',
                                         bgcolor:'#ffffff',
                                     }}/>
                             </div>
                             <div className={classes.pdDataProgress}>
-                                <span className={classes.pddpName}>3 Years</span>
+                                <span className={classes.pddpName}>Mobile</span>
                                 <GradientProgress
                                     data={{
-                                        data:64,
+                                        data:88,
                                         height:24,width:'calc(100% - 100px)',
                                         color:'linear-gradient(127deg, #1565C0,#42A5F5)',
                                         bgcolor:'#ffffff',
@@ -269,6 +282,8 @@ class Index extends React.Component{
                     </div>
                     <Button className={classes.moreProducts}>Custom <Icon type="arrow-right"/></Button>
                 </div>
+                    </TweenOne>
+                </OverPack>
                 <Footer/>
             </div>
         );
@@ -279,4 +294,4 @@ class Index extends React.Component{
 Index.propTypes = {
 };
 
-export default connect(({app})=>({app}))(withStyles(styles)(Index));
+export default connect(({app,front})=>({app,front}))(withStyles(styles)(Index));

@@ -16,12 +16,12 @@ function RouterConfig({ history ,app}) {
     const routes=[
         {
             path:'/',
-            models:()=>[import('./models/index')],
+            models:()=>[import('./models/front')],
             component:()=>import('./routes/front/welcome')
         },
         {
             path:'/blogs',
-            models:()=>[import('./models/blogs')],
+            models:()=>[import('./models/front')],
             component:()=>import('./routes/front/pages/blogs/blogs')
         },
         {

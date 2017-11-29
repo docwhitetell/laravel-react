@@ -28,9 +28,11 @@ module.exports = {
         userVideos:'http://admin.docwhite.cn/v1/user/videos',
         deleteFiles:'http://admin.docwhite.cn/v1/user/files/delete',
 
-
-
+        /*前台首页数据 api  */
+        frontIndex:'http://admin.docwhite.cn/v2/index',
+        /*前台博客文章列表 带有统计数据 api ，带 /id 则查询指定id文章  */
         frontBlogs:'http://admin.docwhite.cn/v2/blogs',
+
 
     },
     mockApi:{

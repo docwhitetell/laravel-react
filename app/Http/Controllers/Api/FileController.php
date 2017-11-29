@@ -12,7 +12,7 @@ class FileController extends Controller
     /* CommonFunc 封装有一系列通用功能函数 */
     use CommonFunc;
 
-    function recieveFile(Request $request)
+    public function recieveFile(Request $request)
     {
         $files = $request->file();
         $path = null;
@@ -43,7 +43,7 @@ class FileController extends Controller
 
     }
 
-    function userImgs(Request $request){
+    public function userImgs(Request $request){
         if($request->get('pageSize')){
             $files=$request->user()->resources()->where('type','!=','video/mp4')->orderBy('id', 'desc')->paginate($request->get('pageSize'));
         }else{
@@ -51,7 +51,7 @@ class FileController extends Controller
         }
         return $files;
     }
-    function userVideos(Request $request){
+    public function userVideos(Request $request){
         if($request->get('pageSize')){
             $files=$request->user()->resources()->where('type','=','video/mp4')->orderBy('id', 'desc')->paginate($request->get('pageSize'));
         }else{
@@ -60,10 +60,10 @@ class FileController extends Controller
         return $files;
     }
 
-    function all(Request $request){
+    public function all(Request $request){
         return $request->user()->resources;
     }
-    function delete(Request $request){
+    public function delete(Request $request){
         $file=Resources::find($request->get('id'));
         $id=$file->id;$name=$file->name;
         $user=$request->user();
@@ -81,8 +81,16 @@ class FileController extends Controller
             $msg = ['error' => 'Delete Error!You Dont Have Permission!'];
             return $msg;
         }
+    }
 
-
+    public function FrontVideos(Request $request)
+    {
+        $limit = $request->get('limit');
+        if ($limit) {
+            return Resources::where('type','video/mp4')->limit($limit)->get();
+        } else {
+            return Resources::where('type','video/mp4')->paginate(10);
+        }
     }
 
 }

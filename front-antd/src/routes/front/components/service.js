@@ -1,6 +1,35 @@
 import React from 'react'
+import classnames from 'classnames'
+import ScrollAnim from 'rc-scroll-anim';
+import TweenOne from 'rc-tween-one';
+import QueueAnim from 'rc-queue-anim';
 import Grid from 'material-ui/Grid'
-const Service=({classes})=>{
+import Hidden from 'material-ui/Hidden'
+import Button from 'material-ui/Button'
+import Dialog, {
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+} from 'material-ui/Dialog'
+import Play from 'material-ui-icons/PlayArrow'
+import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
+const {OverPack}=ScrollAnim
+const Service=({data,classes,dispatch})=>{
+    const handleRequestClose=(index)=>{
+        console.log(index)
+        dispatch({
+            type:'front/dialogClose',
+            payload:index
+        })
+    }
+    const handleOpen=(index)=>{
+        console.log(index)
+        dispatch({
+            type:'front/dialogOpen',
+            payload:index
+        })
+    }
     return(
         <div className={classes.mainContent}>
             <div className={classes.about}>
@@ -13,29 +42,86 @@ const Service=({classes})=>{
                 </div>
             </div>
             <div className={classes.work}>
-                <h1 style={{textAlign:'center',marginBottom:80}}>What Can We Provide?</h1>
-                <Grid container spacing={40}>
-                    <Grid item xs={12} sm={12} md={6}>
-                        <div className={classes.serviceItem}>
-                            <div className={classes.borderTop}></div>
-                            <div className={classes.serviceContent}>
-                                <img src="/assets/index/work1.png" width={64} height={64}  alt=""/>
-                                <h1 className={classes.serviceName} >Post Your Products</h1>
-                                <p className={classes.serviceDesc} >Please upload and show your excellent products heartily！</p>
-                            </div>
-                        </div>
+                <h1 className={classes.sectionName}>Blogs Recommend</h1>
+                    <OverPack style={{ width:'100%',}} always={false} playScale={0.1}>
+                        <Grid key='container' container spacing={40} style={{minHeight:380}}>
+                        {data.blogslist.map((item,index)=>{
+                            return(
+                                <Grid item xs={12} sm={12} md={6} key={index}>
+                                    <TweenOne key={item.title} animation={[{opacity:0,y:-2,duration:300},{opacity:1,y:0,duration:300}]}
+                                              style={{opacity: 0, marginBottom: 10}}
+                                    >
+                                        <div className={classes.serviceItem}>
+                                            <div className={classes.serviceContent}>
+                                                <div className={classes.blogPoster}
+                                                     style={{
+                                                         backgroundImage: `url(${item.poster})`,
+                                                     }} ></div>
+                                                <h1 className={classes.serviceName}>{item.title}</h1>
+                                                <p className={classes.serviceDesc}>{item.description}</p>
+                                            </div>
+                                        </div>
+                                    </TweenOne>
+                                </Grid>
+
+                            )
+                        })}
                     </Grid>
-                    <Grid item xs={12}sm={12} md={6}>
-                        <div className={classes.serviceItem}>
-                            <div className={classes.borderTop}></div>
-                            <div className={classes.serviceContent}>
-                                <img src="/assets/index/work2.png" width={64} height={64} alt=""/>
-                                <h1 className={classes.serviceName} >News release</h1>
-                                <p className={classes.serviceDesc} >It is very convenient to release your news and latest status to the outside world！</p>
-                            </div>
-                        </div>
+                    </OverPack>
+            </div>
+            <div className={classes.work}>
+                <h1 className={classes.sectionName}>Videos Recommend</h1>
+                <OverPack style={{ width:'100%',}} always={false} playScale={0.1}>
+                    <Grid key='container' container spacing={40} style={{minHeight:380}}>
+                        {data.video.map((item,index)=>{
+                            return(
+                                <Grid item xs={12} sm={12} md={6} key={index}>
+                                    <TweenOne key={item.title} animation={[{opacity:0,y:-2,duration:300},{opacity:1,y:0,duration:300}]}
+                                              style={{opacity: 0, marginBottom: 10}}
+                                    >
+                                        <div className={classes.mediaWrapper} >
+                                            <CardMedia
+                                                component="video"
+                                                src={item.path}
+                                                muted
+                                                className={classes.theMedia}
+                                            />
+                                            <div className={classes.mediaMask}>
+                                                <Button fab raised color="primary" className={classes.mediaPlayButton} onClick={() => handleOpen(index)}>
+                                                    <Play className={classnames('playicon',classes.playIcon)}/>
+                                                </Button>
+                                                <h1 className={classes.mediaName}>{item.original_name}</h1>
+                                            </div>
+                                            <Dialog open={data.dialog[index]} onRequestClose={() => handleRequestClose(index)}
+                                                    maxWidth="md">
+                                                <Hidden mdDown implementation="css">
+                                                    <DialogTitle>
+                                                        {item.original_name}
+                                                    </DialogTitle>
+                                                </Hidden>
+                                                <DialogContent className={classes.DialogContent}>
+                                                    <CardMedia
+                                                        component="video"
+                                                        src={item.path}
+                                                        autoPlay
+                                                        controls
+                                                    />
+                                                </DialogContent>
+                                                <Hidden mdDown implementation="css">
+                                                    <DialogActions>
+                                                        <Button  raised onClick={() => handleRequestClose(index)} color="accent">
+                                                            Close
+                                                        </Button>
+                                                    </DialogActions>
+                                                </Hidden>
+                                            </Dialog>
+                                        </div>
+                                    </TweenOne>
+                                </Grid>
+                            )
+                        })}
                     </Grid>
-                </Grid>
+                </OverPack>
             </div>
         </div>
     )

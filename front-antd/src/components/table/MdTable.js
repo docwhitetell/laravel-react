@@ -51,7 +51,7 @@ class EnhancedTable extends React.Component {
 
     render() {
         const {theme,table,handleSelectAllClick,
-            handleRequestSort,children,
+            handleRequestSort,children,column,
             handleChangePage,handleChangeRowsPerPage,handleSelectedAction,handleEmptyAction,
             dispatch, classes
         } = this.props;
@@ -73,7 +73,7 @@ class EnhancedTable extends React.Component {
                             onSelectAllClick={handleSelectAllClick}
                             onRequestSort={handleRequestSort}
                             rowCount={table.total}
-                            columnData={table.column}
+                            columnData={column}
                         />
                         <TableBody className={classes.tbody}>
                             {children}

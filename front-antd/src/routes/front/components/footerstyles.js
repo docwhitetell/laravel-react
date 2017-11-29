@@ -8,7 +8,11 @@ const styles=theme=>({
         zIndex:200,
         paddingTop:40,
         borderTopLeftRadius:'50%',
-        borderTopRightRadius:'50%'
+        borderTopRightRadius:'50%',
+        overflow:"hidden",
+        [theme.breakpoints.down('md')]: {
+            paddingTop:10,
+        },
     },
     registerForm:{
         height:200,

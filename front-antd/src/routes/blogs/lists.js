@@ -1,6 +1,6 @@
 import React from 'react'
 import {withStyles} from 'material-ui/styles'
-import Table from '../../components/table/index'
+import Table from '../../components/table/MdTable'
 import {connect} from 'dva'
 import keycode from 'keycode';
 import Button from 'material-ui/Button';
@@ -14,6 +14,17 @@ import EditIcon from 'material-ui-icons/Edit'
 
 import styles from './styles'
 //({app,blogs,loading,dispatch,classes})
+
+
+const column= [
+    {id: 'id', numeric: true, disablePadding: true, label: 'Id'},
+    {id: 'title', numeric: false, disablePadding: false, label: 'Title'},
+    {id: 'content', numeric: false, disablePadding: false, label: 'Content'},
+    {id: 'created_at', numeric: false, disablePadding: false, label: 'Created_at'},
+    {id: 'updated_at', numeric: false, disablePadding: false, label: 'updated_at'},
+    {id: 'action', numeric: false, disablePadding: false, label: 'Edit'},
+]
+
 class List extends React.Component{
     constructor(props) {
         super(props)
@@ -153,7 +164,7 @@ class List extends React.Component{
         const props={}
         props.theme=app.currentTheme
         props.table=blogs
-        props.column=blogs.column
+        props.column=column
         props.loading=loading
         props.dispatch=dispatch
 

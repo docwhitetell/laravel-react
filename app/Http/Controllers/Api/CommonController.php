@@ -55,6 +55,24 @@ trait CommonController
         }
     }
 
+    /*判断是否是unix时间戳 */
+    public function is_time($time){
+        if(is_numeric($time)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    /* 将unix时间戳转化为timestamp或者反过来 */
+    public function TimeTransfer($time){
+        if($this->is_time($time)){
+            return date('Y-m-d H:i:s',$time);
+        }else{
+            return strtotime($time);
+        }
+    }
+    public function TimeDistance($start,$end){
 
+    }
 
 }

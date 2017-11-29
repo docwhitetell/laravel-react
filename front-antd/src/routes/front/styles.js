@@ -75,7 +75,8 @@ const styles=theme=>({
         backgroundImage:"url('/assets/index/banner1.png')",
         backgroundSize:'100%',
         zIndex:200,
-        backgroundRepeat:'no-repeat'
+        backgroundRepeat:'no-repeat',
+        boxShadow:'0px 17px 27px rgba(0,0,0,0.07),17px 0px 27px rgba(0,0,0,0.07),0px -10px 27px rgba(0,0,0,0.07),-10px 0px 27px rgba(0,0,0,0.07)',
     },
     leftbg:{
         position:'absolute',
@@ -89,7 +90,8 @@ const styles=theme=>({
         backgroundImage:"url('/assets/index/banner2.png')",
         backgroundSize:'100%',
         opacity:0.4,
-        backgroundRepeat:'no-repeat'
+        backgroundRepeat:'no-repeat',
+        boxShadow:'0px 17px 27px rgba(0,0,0,0.07),17px 0px 27px rgba(0,0,0,0.07),0px -10px 27px rgba(0,0,0,0.07),-10px 0px 27px rgba(0,0,0,0.07)',
     },
     rightbg:{
         position:'absolute',
@@ -103,7 +105,8 @@ const styles=theme=>({
         backgroundImage:"url('/assets/index/banner2.png')",
         backgroundSize:'100%',
         opacity:0.4,
-        backgroundRepeat:'no-repeat'
+        backgroundRepeat:'no-repeat',
+        boxShadow:'0px 17px 27px rgba(0,0,0,0.07),17px 0px 27px rgba(0,0,0,0.07),0px -10px 27px rgba(0,0,0,0.07),-10px 0px 27px rgba(0,0,0,0.07)',
     },
     mainContent:{
         position:'relative',
@@ -114,7 +117,7 @@ const styles=theme=>({
         width:'90%', maxWidth:1140,
         margin:'-30px auto 0 auto',
         height:'auto',
-        boxShadow:'0px 17px 27px rgba(0,0,0,0.07)',
+        boxShadow:'0px 17px 27px rgba(0,0,0,0.07),17px 0px 27px rgba(0,0,0,0.07),0px -10px 27px rgba(0,0,0,0.07),-10px 0px 27px rgba(0,0,0,0.07)',
         background:'#ffffff',
         borderRadius:5,
         display:'flex',
@@ -178,26 +181,83 @@ const styles=theme=>({
         background:'linear-gradient(127deg, #AF61D1, #717BFE)'
     },
     serviceContent:{
-        display:'flex',
-        flexDirection:'column',
-        alignItems:'center',
+        //display:'flex',
+        //flexDirection:'column',
+        //alignItems:'center',
         height:'100%',
-        justifyContent:'center'
+        //justifyContent:'center'
+    },
+    blogPoster:{
+        //backgroundImage:`url(${item.poster})`,
+        width:'100%',height:241,top:0,left:0,
+        backgroundSize:'cover',backgroundPosition:'center center',
+        filter:'blur(2px)',
+        transition:'all 0.3s ease-in-out',
+        '&:hover':{
+            filter:'blur(0px)'
+        }
     },
     serviceName:{
         fontSize:21,
-        margin:'20px 0'
+        margin:'10px 20px',
+        textOverflow:'ellipsis',
+        whiteSpace:'nowrap',
+        overflow:'hidden'
     },
     serviceDesc:{
         fontSize:16,
-        width:'70%',
-        textAlign:'center',
-        fontWeight:500
+        height:48,
+        margin:'0 20px',
+        //textAlign:'center',
+        fontWeight:500,
+        textOverflow:'ellipsis',
+        whiteSpace:'nowrap',
+        overflow:'hidden'
     },
 
-
-
+    sectionName:{
+        textAlign:'center',marginBottom:80,fontWeight:700,fontSize:32,color:'rgba(0,0,0,0.7)'
+    },
+    mediaWrapper:{
+        position:'relative',
+    },
+    mediaMask:{
+        position:'absolute',
+        top:'50%',left:'50%',width:'100%',height:'100%',
+        transform:'translate(-50%,-50%)'
+    },
+    theMedia:{
+        objectFit: 'fill', height: '100%',
+        boxShadow:'0px 17px 27px rgba(0,0,0,0.07),17px 0px 27px rgba(0,0,0,0.07),0px -10px 27px rgba(0,0,0,0.07),-10px 0px 27px rgba(0,0,0,0.07)',
+    },
+    DialogContent:{
+        [theme.breakpoints.down('md')]:{
+            padding:24
+        },
+        [theme.breakpoints.down('sm')]:{
+            padding:12
+        }
+    },
+    mediaPlayButton:{
+        position:'absolute',top:'50%',left:'50%',
+        transform:'translate(-50%,-50%)',
+        transition:'all 0.2s 0.1s ease-in-out',
+        '&:hover':{
+            width:70,
+            height:70
+        },
+        '&:hover .playicon':{
+            width:50,height:50
+        }
+    },
+    playIcon:{
+        transition:'all 0.2s ease-in-out',
+    },
+    mediaName:{
+        color:'#ffffff',fontWeight:300,textIndent:'1rem'
+    },
     products:{
+        boxShadow:'0px 17px 27px rgba(0,0,0,0.07),17px 0px 27px rgba(0,0,0,0.07),0px -10px 27px rgba(0,0,0,0.07),-10px 0px 27px rgba(0,0,0,0.07)',
         borderRadius: 20,
         margin: '160px auto',
         background: 'linear-gradient(127deg, rgb(0,202,198), rgb(0,154,204))',
@@ -240,16 +300,16 @@ const styles=theme=>({
     },
     pPriceBg:{
         position:'absolute',
-        left:40,
-        bottom:0,
+        left:10,
+        bottom:30,
         color:'rgba(0,0,0,0.1)',
     },
     pPriceBgBig:{
-        fontSize:120,
-        bottom:10
+        fontSize:90,
+        bottom:40,
     },
     pPriceBgMid:{
-        fontSize:100,
+        fontSize:80,
     },
     pMask:{
         position:'absolute',
@@ -300,6 +360,7 @@ const styles=theme=>({
         zIndex:-1
     },
     productItemLeft:{
+        boxShadow:'0px 17px 27px rgba(0,0,0,0.07),17px 0px 27px rgba(0,0,0,0.07),0px -10px 27px rgba(0,0,0,0.07),-10px 0px 27px rgba(0,0,0,0.07)',
         height:360,
         width:280,
         borderRadius:20,
@@ -330,11 +391,8 @@ const styles=theme=>({
         backgroundImage:"url('/assets/index/2.png')",
     },
     plPriceBg:{
-        position:'absolute',
-        left:40,
-        bottom:0,
-        fontSize:100,
-        color:'rgba(0,0,0,0.1)',
+        left:-10,bottom:20,
+        fontSize:80,
     },
     plMask:{
         background:'linear-gradient(127deg, rgb(255,240,253),rgb(254,220,250))',
@@ -354,6 +412,7 @@ const styles=theme=>({
         background: 'linear-gradient(127deg, rgb(38,162,200),rgb(64,195,198))',
     },
     productItemMid:{
+        boxShadow:'0px 17px 27px rgba(0,0,0,0.07),17px 0px 27px rgba(0,0,0,0.07),0px -10px 27px rgba(0,0,0,0.07),-10px 0px 27px rgba(0,0,0,0.07)',
         height:400,
         width:300,
         borderRadius:20,
@@ -413,6 +472,7 @@ const styles=theme=>({
         background: 'linear-gradient(127deg, #AF61D1, #717BFE)',
     },
     productItemRight:{
+        boxShadow:'0px 17px 27px rgba(0,0,0,0.07),17px 0px 27px rgba(0,0,0,0.07),0px -10px 27px rgba(0,0,0,0.07),-10px 0px 27px rgba(0,0,0,0.07)',
         height:360,
         width:280,
         borderRadius:20,

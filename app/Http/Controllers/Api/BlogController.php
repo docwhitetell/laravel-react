@@ -7,7 +7,7 @@ use App\Models\Blogs;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use DateTime;
 
 use App\Http\Controllers\Api\CommonController as CommonFunc;
 use Mockery\Matcher\Not;
@@ -55,15 +55,8 @@ class BlogController extends Controller
             return response()->json(['status'=>false],200);
         }
     }
+
     /*后台控制器*/
 
 
-    /*前台控制器*/
-    public function FrontBlogs(){
-        return Blogs::paginate(6);
-    }
-    public function FrontBlogsDetail($id){
-        return Blogs::find($id);
-    }
-    /*前台控制器*/
 }

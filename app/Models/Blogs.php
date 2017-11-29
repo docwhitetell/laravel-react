@@ -8,7 +8,7 @@ class Blogs extends Model
 {
     //
     protected $fillable = [
-        'title','poster','description','content'
+        'title','classes','poster','description','content'
     ];
     protected $table='blogs';
 

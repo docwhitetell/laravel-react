@@ -10,7 +10,6 @@ import Footer from '../../components/footer'
 const styles=theme=>({
     content:{
         //backgroundColor:'rgb(30,36,58)',
-        backgroundColor:'#f7f7f7',
         padding:'0 0 60px 0'
     },
     poster:{
@@ -28,7 +27,7 @@ const styles=theme=>({
         position:'relative',
         zIndex:200,
         padding:'0 40px',
-        textShadow:'1px 1px 1px #FFFFFF',
+        //textShadow:'1px 1px 1px #FFFFFF',
         [theme.breakpoints.down('md')]: {
             fontSize:38,
         },
@@ -50,10 +49,12 @@ const styles=theme=>({
         maxWidth:800,
         margin:'0 auto',
         backgroundColor:'#ffffff',
-        borderRadius:20,
+        borderTopLeftRadius:20,
+        borderTopRightRadius:20,
         marginTop:40,
         padding:'20px 40px',
-        boxShadow:'0 4px 10px rgba(0,0,0,0.1),4px 0px 10px rgba(0,0,0,0.1)',
+        position:'relative',
+        //boxShadow:'0 4px 10px rgba(0,0,0,0.1),4px 0px 10px rgba(0,0,0,0.1)',
         [theme.breakpoints.down('xs')]: {
             padding:'20px 10px',
         },
@@ -68,6 +69,8 @@ const styles=theme=>({
     },
     articlebody:{
         marginLeft:40,
+        //maxWidth:800,
+        margin:'0 auto',
         [theme.breakpoints.down('md')]: {
             marginLeft:0,
         },
@@ -91,6 +94,14 @@ const styles=theme=>({
         '&:hover':{
             color:'#2196F3'
         }
+    },
+    floatPart:{
+        position:'fixed',
+        top:20
+    },
+    floatPartInner:{
+        position:'relative',
+        margin:'0 auto'
     }
 })
 class Detail extends React.Component{
@@ -126,8 +137,14 @@ class Detail extends React.Component{
                                 </Link>
                             </p>
                             <img src="/assets/blogs/authorimg.jpg" style={{position:'absolute',right:-60,top:-40,borderRadius:'50%'}} width={100} alt=""/>
+
                         </div>
                         <div className={classes.articlebody} dangerouslySetInnerHTML={{__html:blogs.current.content }}></div>
+                        <div className={classes.floatPart}>
+                            <div className={classes.floatPartInner}>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
                 }

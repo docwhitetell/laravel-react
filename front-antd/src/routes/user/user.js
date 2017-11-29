@@ -1,5 +1,5 @@
 import React from 'react'
-import Table from '../../components/table/index'
+import Table from '../../components/table/MdTable'
 import {connect} from 'dva'
 import keycode from 'keycode';
 import {
@@ -7,6 +7,12 @@ import {
     TableRow,
 } from 'material-ui/Table';
 import Checkbox from 'material-ui/Checkbox';
+const column= [
+        {id: 'id', numeric: true, disablePadding: true, label: 'Id'},
+        {id: 'name', numeric: false, disablePadding: false, label: 'Name'},
+        {id: 'email', numeric: false, disablePadding: false, label: 'email'},
+        {id: 'created_at', numeric: false, disablePadding: false, label: 'Created_at'},
+        ];
 class User extends React.Component{
     constructor(props){
         super(props)
@@ -140,7 +146,7 @@ class User extends React.Component{
         const props={}
         props.theme=app.currentTheme
         props.table=users
-        /*props.column=this.props.users.column*/
+        props.column= column
         props.dispatch=this.props.dispatch
         props.handleSelectAllClick=this.handleSelectAllClick
         props.handleRequestSort=this.handleRequestSort

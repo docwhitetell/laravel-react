@@ -92,23 +92,41 @@ export default {
             console.log(new Date())
             let pathname=history.location.pathname
             routeMiddleware(pathname)
+            /*路由过滤，当前页面是后台页面*/
             if(!routeMiddleware(pathname)){
                 const user=store.get('user')
+                /*存在access_token*/
                 if(Cookies('access_token')){
+                    console.log('access pass')
                     dispatch({type: 'query'})
-                }else if(!Cookies('access_token')){
+                }
+                /*access_token不存在*/
+                else if(!Cookies('access_token')){
+                    /*如果存在refrsh_token 则拿refresh_token 去刷新获得新的 token令牌 */
                     if(Cookies('refresh_token')){
                         //获取access_token ,登录
                         console.log('need refresh token')
                         dispatch({
                             type:'refresh'
                         })
-                    }else{
+                    }
+                    /* 否则退出登录 */
+                    else{
+                        console.log('should log out')
                         dispatch({type:'logout'})
                     }
-                }else{
+                }
+                else{
                     console.log(' quering')
                     dispatch({type: 'query'})
+                }
+            }
+            else{
+                /*路由过滤，当前页面是前台页面*/
+                if(!Cookies('access_token')&& !Cookies('refresh_token')){
+                    console.log('has no user loging')
+                    dispatch({type:'logout'})
+                    store.remove('user')
                 }
             }
 
@@ -139,6 +157,7 @@ export default {
             store.clearAll()
             Cookies.remove('access_token')
             Cookies.remove('refresh_token')
+            yield put({type:"update",payload:{user:null}})
             yield put(routerRedux.push('/'))
         },
         *refresh({payload},{put,call,select}){

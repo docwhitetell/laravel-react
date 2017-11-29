@@ -13,14 +13,6 @@ export default {
     state:{
         msg:null,
         data:[],
-        column: [
-            {id: 'id', numeric: true, disablePadding: true, label: 'Id'},
-            {id: 'title', numeric: false, disablePadding: false, label: 'Title'},
-            {id: 'content', numeric: false, disablePadding: false, label: 'Content'},
-            {id: 'created_at', numeric: false, disablePadding: false, label: 'Created_at'},
-            {id: 'updated_at', numeric: false, disablePadding: false, label: 'updated_at'},
-            {id: 'action', numeric: false, disablePadding: false, label: 'Edit'},
-        ],
         title:'Blogs',
         order: 'asc',
         orderBy: 'id',
@@ -39,6 +31,10 @@ export default {
         userResource:[],
         resourcePagination: {current:1,pageSize:5},
         frontBlogsLists:[],
+        frontBlogsData:{
+            lastSevenDayPublish:0,
+            classes:[],
+        },
     },
     subscriptions: {
         setup ({ dispatch, history }) {
@@ -80,14 +76,6 @@ export default {
                 yield put({
                     type:'update',
                     payload:{data:req.data,current:null,editTitle:'',editorState:EditorState.createEmpty()}
-                })
-            }
-        },
-        *getFrontBlogs({payload},{call,put,select}){
-            const res=yield call(request,{url:config.api.frontBlogs})
-            if(res.status===200){
-                yield put({type:'update',
-                    payload:{frontBlogsLists:res.data.data,editDescription:res.data.data.description,editPoster:res.data.data.poster}
                 })
             }
         },
