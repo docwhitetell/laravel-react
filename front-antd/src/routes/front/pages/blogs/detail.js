@@ -70,12 +70,11 @@ const styles=theme=>({
         fontSize:36,
         [theme.breakpoints.down('md')]: {
             fontSize:24,
-            paddingRigth:'40px',
+            paddingRight:'40px',
         },
         //color:'#01579B'
     },
     articlebody:{
-        marginLeft:40,
         //maxWidth:800,
         margin:'0 auto',
         [theme.breakpoints.down('md')]: {
@@ -90,14 +89,7 @@ const styles=theme=>({
 
             }
         },
-        '& p':{
-            textIndent:'2rem'
-        },
-        [theme.breakpoints.down('md')]: {
-            '& p':{
-                textIndent:'0'
-            }
-        },
+
 
     },
     articleShareIcon:{
