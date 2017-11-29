@@ -32,7 +32,9 @@ const Service=({data,classes,dispatch})=>{
     }
     return(
         <div className={classes.mainContent}>
-            <div className={classes.about}>
+            <TweenOne key={'about'} className={classes.about}
+                      animation={[{opacity:0,scale:0,delay:1000,duration:600},{scale:1,opacity:1,y:0}]}
+                      style={{opacity: 0}}>
                 <div className={classes.aboutLeft}>
                     <h1 className={classes.aboutTitle} style={{}}>About Material</h1>
                     <div className={classes.gradientDivider}></div>
@@ -40,7 +42,7 @@ const Service=({data,classes,dispatch})=>{
                 <div className={classes.aboutRight}>
                     <p className={classes.aboutWord}>Material-UI components work in isolation. They are self-supporting, they will inject, and only inject, the styles they need to display. They don't rely on any global styles like normalize.css. You can use any of the components as demonstrated in the documentation.</p>
                 </div>
-            </div>
+            </TweenOne>
             <div className={classes.work}>
                 <h1 className={classes.sectionName}>Blogs Recommend</h1>
                     <OverPack style={{ width:'100%',}} always={false} playScale={0.1}>
