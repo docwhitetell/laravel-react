@@ -123,10 +123,10 @@ export default {
             }
             else{
                 /*路由过滤，当前页面是前台页面*/
-                if(!Cookies('access_token')&& !Cookies('refresh_token')){
+                if(!Cookies('access_token')){
                     console.log('has no user loging')
-                    dispatch({type:'logout'})
                     store.remove('user')
+                    dispatch({type:'update',payload:{user:null}})
                 }
             }
 
