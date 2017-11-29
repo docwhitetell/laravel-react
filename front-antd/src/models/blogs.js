@@ -91,7 +91,7 @@ export default {
                     editorState = EditorState.createWithContent(contentState);
                 }
                 editorState=editorState?editorState:EditorState.createEmpty()
-                yield put({type:'update',payload:{current:req.data,editTitle:req.data.title,editorState:editorState}})
+                yield put({type:'update',payload:{current:req.data,editTitle:req.data.title,editDescription:req.data.description,editPoster:req.data.poster,editorState:editorState}})
             }
         },
         *FrontBlogQuery({payload},{call,put,select}){

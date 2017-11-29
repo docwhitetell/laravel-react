@@ -32,10 +32,10 @@ const styles=theme=>({
             fontSize:38,
         },
         [theme.breakpoints.down('sm')]: {
-            fontSize:36,
+            fontSize:30,
         },
         [theme.breakpoints.down('xs')]: {
-            fontSize:32,
+            fontSize:20,
         },
     },
     posterMask:{
@@ -55,6 +55,9 @@ const styles=theme=>({
         padding:'20px 40px',
         position:'relative',
         //boxShadow:'0 4px 10px rgba(0,0,0,0.1),4px 0px 10px rgba(0,0,0,0.1)',
+        [theme.breakpoints.down('sm')]: {
+            padding:'20px 10px',
+        },
         [theme.breakpoints.down('xs')]: {
             padding:'20px 10px',
         },
@@ -65,6 +68,10 @@ const styles=theme=>({
     },
     mainTitle:{
         fontSize:36,
+        [theme.breakpoints.down('md')]: {
+            fontSize:24,
+            paddingRigth:'40px',
+        },
         //color:'#01579B'
     },
     articlebody:{
@@ -85,7 +92,13 @@ const styles=theme=>({
         },
         '& p':{
             textIndent:'2rem'
-        }
+        },
+        [theme.breakpoints.down('md')]: {
+            '& p':{
+                textIndent:'0'
+            }
+        },
+
     },
     articleShareIcon:{
         marginRight:10,
