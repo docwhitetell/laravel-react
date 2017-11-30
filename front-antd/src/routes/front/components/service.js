@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'dva/router'
 import classnames from 'classnames'
 import ScrollAnim from 'rc-scroll-anim';
 import TweenOne from 'rc-tween-one';
@@ -55,11 +56,13 @@ const Service=({data,classes,dispatch})=>{
                                     >
                                         <div className={classes.serviceItem}>
                                             <div className={classes.serviceContent}>
+                                                <Link to={`/blogs/${item.id}`}>
                                                 <div className={classes.blogPoster}
                                                      style={{
                                                          backgroundImage: `url(${item.poster})`,
                                                      }} ></div>
-                                                <h1 className={classes.serviceName}>{item.title}</h1>
+                                                </Link>
+                                                <Link to={`/blogs/${item.id}`}><h1 className={classes.serviceName}>{item.title}</h1> </Link>
                                                 <p className={classes.serviceDesc}>{item.description}</p>
                                             </div>
                                         </div>

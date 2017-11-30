@@ -60,7 +60,7 @@ class Banner extends React.Component{
                         </div>
 
                     <Hidden mdDown implementation="css">
-                    <TweenOne className={classes.bannerImg} animation={[{y:400,delay:700},{y:0,opacity:1}]} style={{opacity:0}} >
+                    <TweenOne className={classes.bannerImg} animation={[{y:200,delay:700},{y:0,opacity:1}]} style={{opacity:0}} >
                         <div className={classes.leftbg}></div>
                         <div className={classes.bannerMainImg}></div>
                         <div className={classes.rightbg}></div>

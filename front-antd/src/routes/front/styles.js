@@ -197,7 +197,7 @@ const styles=theme=>({
     },
     serviceItem:{
         height:340,width:'100%',
-        boxShadow:'0px 17px 27px rgba(0,0,0,0.07)',
+        boxShadow:'0px 17px 27px rgba(0,0,0,0.07),10px 0px 27px rgba(0,0,0,0.07),0px -10px 27px rgba(0,0,0,0.07)',
         borderRadius:6,overflow:'hidden'
     },
     borderTop:{
