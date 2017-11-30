@@ -59,7 +59,8 @@ const styles=theme=>({
         marginRight:48,
     },
     navItemName:{
-        color:'rgba(255,255,255,0.8)',
+        //color:'rgba(255,255,255,0.8)',
+        color:"rgba(255,255,255,0.7)",
         fontSize:16,
         fontWeight:700,
         '&:hover':{

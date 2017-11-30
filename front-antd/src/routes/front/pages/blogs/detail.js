@@ -5,8 +5,6 @@ import classnames from 'classnames'
 import {Link} from 'dva/router'
 import {Icon} from 'antd'
 import Button from 'material-ui/Button'
-import Nav from '../../components/header'
-import Footer from '../../components/footer'
 const styles=theme=>({
     content:{
         //backgroundColor:'rgb(30,36,58)',
@@ -64,15 +62,40 @@ const styles=theme=>({
     },
     articleHead:{
         position:'relative',
-        marginBottom:30
+        marginBottom:30,
+        [theme.breakpoints.down('sm')]: {
+            marginBottom:100,
+        },
     },
     mainTitle:{
         fontSize:36,
         [theme.breakpoints.down('md')]: {
-            fontSize:24,
+            fontSize:28,
             paddingRight:'40px',
         },
+        [theme.breakpoints.down('sm')]: {
+            fontSize:24,
+            paddingRight:0,
+        },
         //color:'#01579B'
+    },
+    authorAvatar:{
+        position:'absolute',borderRadius:'50%',
+        width:100,
+        [theme.breakpoints.up('sm')]: {
+            right:-60,top:-40,
+        },
+        [theme.breakpoints.down('sm')]: {
+            width:80,
+            left:'50%',bottom:-90,
+            transform:'translate(-50%,0)'
+        },
+    },
+    link:{
+        float: 'right', marginRight: 60,
+        [theme.breakpoints.down('sm')]: {
+            marginRight: 10,
+        },
     },
     articlebody:{
         //maxWidth:800,
@@ -89,7 +112,10 @@ const styles=theme=>({
 
             }
         },
-
+        '& p':{
+            minHeight:22,
+            lineHeight:1.7,
+        }
 
     },
     articleShareIcon:{
@@ -122,7 +148,6 @@ class Detail extends React.Component{
         const {blogs,classes}=this.props
         return (
             <div>
-                <Nav/>
                 {blogs.current &&
                 <div className={classes.content}>
                     <div className={classes.poster} style={{backgroundImage:`url(${blogs.current.poster})`}}>
@@ -136,13 +161,12 @@ class Detail extends React.Component{
                         <div className={classes.articleHead}>
                             <h1 className={classes.mainTitle}>{blogs.current.title} </h1>
                             <p style={{fontSize: 14,color:'rgba(0,0,0,0.4)'}}>{blogs.current.created_at}
-                                <Link to="/blogs" style={{float: 'right', marginRight: 100}}>
+                                <Link to="/blogs" className={classes.link}>
                                     <Icon type="share-alt" className={classes.articleShareIcon}/>
                                     <Icon type="github" className={classes.articleShareIcon}/>
                                 </Link>
                             </p>
-                            <img src="/assets/blogs/authorimg.jpg" style={{position:'absolute',right:-60,top:-40,borderRadius:'50%'}} width={100} alt=""/>
-
+                            <img src="/assets/blogs/authorimg.jpg" className={classes.authorAvatar} alt=""/>
                         </div>
                         <div className={classes.articlebody} dangerouslySetInnerHTML={{__html:blogs.current.content }}></div>
                         <div className={classes.floatPart}>
@@ -153,8 +177,6 @@ class Detail extends React.Component{
                     </div>
                 </div>
                 }
-
-                <Footer/>
             </div>
 
         )

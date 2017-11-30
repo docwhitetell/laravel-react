@@ -27,6 +27,7 @@ class myFiles extends React.Component{
         }
         dispatch({
             type:'files/query',
+            payload:{pageSize:15}
         })
     }
     componentDidUpdate(){
@@ -78,14 +79,15 @@ class myFiles extends React.Component{
     handleTabsChange=(event,value)=>{
         console.log(value)
         const {dispatch}=this.props
-        value===1?dispatch({type:'files/queryVideos'}):dispatch({type:'files/query'})
-
         dispatch({
             type:'files/update',
             payload:{
-                tabs:value
+                tabs:value,
+                filesList:[],
             }
         })
+        value===1?dispatch({type:'files/queryVideos'}):dispatch({type:'files/query',payload:{pageSize:15}})
+
     }
 
     render(){

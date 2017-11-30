@@ -23,6 +23,7 @@ class BlogController extends Controller
         $data=$request->get('blog');
         $blog=new Blogs();
         $blog->title=$data['title'];
+        $blog->classes=$data['classes'];
         $blog->poster=$data['poster'];
         $blog->description=$data['description'];
         $blog->content=$data['content'];
@@ -33,15 +34,18 @@ class BlogController extends Controller
         return response()->json(['success',true],200);
     }
     public function userblogs(Request $request){
-        return $request->user()->blogs;
+        return $request->user()->blogs()->orderBy('created_at','desc')->get();
     }
     public function update(Request $request){
         $data=$request->get('blog');
-        $note=Blogs::find($data['id']);
-        $note->content=$data['content'];
-        $note->title=$data['title'];
-        $note->save();
-        return response()->json($note,200);
+        $blog=Blogs::find($data['id']);
+        $blog->title=$data['title'];
+        $blog->classes=$data['classes'];
+        $blog->poster=$data['poster'];
+        $blog->description=$data['description'];
+        $blog->content=$data['content'];
+        $blog->save();
+        return response()->json($blog,200);
     }
     public function detail($id){
         return Blogs::find($id);

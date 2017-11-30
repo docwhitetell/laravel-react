@@ -28,6 +28,7 @@ export default {
                     dispatch({type:'app/update',payload:{pageHeader:'Files Lists'}})
                     dispatch({
                         type: 'query',
+                        payload:{pageSize:10}
                     })
                 }else if(pathname==='/admin/multi-upload'){
                     dispatch({type:'app/update',payload:{pageHeader:'Multi-files drag & auto upload'}})
@@ -44,23 +45,17 @@ export default {
             const res=yield call(request, {url:config.api.userImgs,withtoken:true,params:data})
             if(res.status===200 ){
                 let open=[],alert=[]
-                if(data){
                     res.data.data.map((item,index)=>{
                         open[index]=false
                         alert[index]=false
                     })
-                }else{
-                    res.data.map((item,index)=>{
-                        open[index]=false
-                        alert[index]=false
-                    })
-                }
+
                 store.set('open',open)
                 store.set('alert',alert)
                 yield put({
                     type:'update',
                     payload:{
-                        filesList:res.data,
+                        filesList:res.data.data,
                         open:open,
                         alert:alert,
                         filesPagination:{current:res.data.current_page,pageSize:parseInt(res.data.per_page),total:res.data.total}

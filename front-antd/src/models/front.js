@@ -50,12 +50,12 @@ export default {
         },
         /*博客页 博客列表及博客统计数据 查询*/
         *queryBlogs({payload},{call,put,select}){
-            const res=yield call(request,{url:config.api.frontBlogs,})
+            const res=yield call(request,{url:config.api.frontBlogs,params:payload})
             if(res.status===200){
                 yield put({
                     type: 'update',
                     payload: {
-                        blogslist: res.data.blogs.data,
+                        blogslist: res.data.blogs,
                         blogs:{
                             lastSevenDayPublish:res.data.record.lastSevenDayPublish,
                             classes:res.data.record.classes,

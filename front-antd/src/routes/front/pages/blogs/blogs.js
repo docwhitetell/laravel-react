@@ -11,8 +11,7 @@ import QueueAnim from 'rc-queue-anim';
 import TweenOne from 'rc-tween-one';
 import {Icon,Pagination} from 'antd'
 import Button from 'material-ui/Button'
-import Nav from '../../components/header'
-import Footer from '../../components/footer'
+import Tooltip from 'material-ui/Tooltip';
 import styles from './blogstyles'
 
 const {OverPack}=ScrollAnim
@@ -38,6 +37,24 @@ class Blogs extends React.Component{
     }
     onChange =(pageNumber)=> {
         console.log('Page: ', pageNumber);
+    }
+    handleChangeClass=name=>e=>{
+        const {dispatch}=this.props
+        switch (name){
+            case 'personal':
+                dispatch({
+                    type:'front/queryBlogs',
+                    payload:{classes:'personal'}
+                })
+                break;
+            case 'all':
+                dispatch({
+                    type:'front/queryBlogs',
+                })
+                break;
+            default:
+                break;
+        }
     }
     render(){
         const {app,front,classes,dispatch}=this.props
@@ -84,12 +101,18 @@ class Blogs extends React.Component{
                                         <Icon type="appstore" style={{fontSize:30,color:'#2196F3'}}/>
                                     </Button>
                                     <div className={classes.menuLists}>
-                                        <Button className={classnames(classes.menuButton)}>
-                                            <Icon type="calendar" className={classnames(classes.menuIcon)} />
-                                        </Button>
-                                      {/*  <Button className={classnames(classes.menuButton)} >
-                                            <Icon type="cloud" className={classnames(classes.menuIcon)} />
-                                        </Button>*/}
+                                        <Tooltip placement="bottom" title="All Classes">
+                                            <Button className={classnames(classes.menuButton)}
+                                                    onClick={this.handleChangeClass('all')}>
+                                                <Icon type="calendar" className={classnames(classes.menuIcon)}/>
+                                            </Button>
+                                        </Tooltip>
+                                        <Tooltip placement="bottom" title="Personal Expirence">
+                                            <Button className={classnames(classes.menuButton)}
+                                                    onClick={this.handleChangeClass('personal')}>
+                                                <Icon type="edit" className={classnames(classes.menuIcon)}/>
+                                            </Button>
+                                        </Tooltip>
                                     </div>
                                 </div>
                                 <div className={classes.blogsList} >
@@ -136,7 +159,39 @@ class Blogs extends React.Component{
                                                 </div>
                                             </Card>
                                         </Grid>
-                                        <OverPack component={Grid} container spacing={24} style={{width:'100%',margin:0}} always={true} playScale={0.1}>
+                                        { front.blogslist.map((item,index)=>{
+                                            return(
+                                                <TweenOne component={Grid} animation={[{x:index%2===0?-60:60},{x:0,opacity:1}]} style={{opacity:0}}  item xs={12} sm={6} md={6} key={index}>
+                                                    <Card>
+                                                        <div className={classes.cardHeader}>
+                                                            <Link to={`/blogs/${item.id}`}>
+                                                                <h1 className={classes.articleTitle}>
+                                                                    {item.title}
+                                                                </h1>
+                                                            </Link>
+                                                        </div>
+                                                        <Divider/>
+                                                        <Link to={`/blogs/${item.id}`}>
+                                                            <div className={classes.articleDesc}>
+                                                                <div className={classes.articleDescWord}>
+                                                                    <p className={classes.description}>{item.description}</p>
+                                                                    <span style={{fontSize:12}}>{item.created_at}</span>
+                                                                </div>
+                                                                <div className={classes.blogBg} style={{backgroundImage: `url(${item.poster})`}}></div>
+                                                            </div>
+                                                        </Link>
+                                                    </Card>
+                                                </TweenOne>
+                                            )
+                                        })}
+                                      {/*  {front.blogslist.length===0 &&
+                                            <Grid item xs={12}>
+                                                <Card>
+                                                    <h1>Nothing yet</h1>
+                                                </Card>
+                                            </Grid>
+                                        }*/}
+                                   {/*     <OverPack component={Grid} container spacing={24} style={{width:'100%',margin:0}} always={true} playScale={0.1}>
                                             <QueueAnim component={Grid} container spacing={24} key="queue"
                                                        leaveReverse={false}
                                                        style={{  position: 'relative',padding:12}}
@@ -168,8 +223,7 @@ class Blogs extends React.Component{
                                                     )
                                                 })}
                                             </QueueAnim>
-                                        </OverPack>
-
+                                        </OverPack>*/}
                                     </Grid>
                                 </div>
                             </div>

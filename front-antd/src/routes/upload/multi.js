@@ -26,9 +26,9 @@ class filesUpload extends React.Component{
         return (
             <div style={{marginTop:-68}}>
                 <Grid container style={{display:'block',margin:20,width:'auto'}}>
-                    <Grid item style={{background:'#e3e3e3',borderRadius:10}} xs={12}>
+                    <Grid item style={{background:'#e3e3e3',borderRadius:10,marginTop:100}} xs={12}>
                         {/* <Dropzone/>*/}
-                        <AntdUpload/>
+                    {/*    <AntdUpload/>*/}
                         <AntdMultiUpload/>
                     </Grid>
                     <Grid item xs={12}>

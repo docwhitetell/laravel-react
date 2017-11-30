@@ -53,14 +53,23 @@ class FrontController extends Controller
 
     public function FrontBlogs(Request $request){
         $data['record']=$this->FrontData();
-        if($request->get('limit')){
+        $limit=$request->get('limit')?$request->get('limit'):null;
+        $classes=$request->get('classes')?$request->get('classes'):null;
+
+        $result=$classes?Blogs::orderBy('created_at','desc')->where('classes',$classes)->get():Blogs::orderBy('created_at','desc')->get();
+        $result=$limit?$result->limit($limit):$result;
+        $data['blogs']=$result;
+        //$result=$limit? Blogs::orderBy('created_at','desc')->limit($limit)->get():Blogs::orderBy('created_at','desc')->paginate(10);
+        //$data['blogs']=$classes?$result->where('classes',$classes):$result;
+        return $data;
+       /* if($request->get('limit')){
             //return $request->get('limit');
             return Blogs::orderBy('created_at','desc')->limit($request->get('limit'))->get();
         }else{
             $data['blogs']=Blogs::orderBy('created_at','desc')->paginate(10);
         }
 
-        return $data;
+        return $data;*/
     }
     public function FrontBlogsDetail($id){
         return Blogs::find($id);

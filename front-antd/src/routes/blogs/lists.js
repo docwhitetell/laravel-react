@@ -12,6 +12,16 @@ import Checkbox from 'material-ui/Checkbox';
 import IconButton from 'material-ui/IconButton';
 import EditIcon from 'material-ui-icons/Edit'
 
+import Dialog, {
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+    withMobileDialog,
+} from 'material-ui/Dialog';
+import Grid from 'material-ui/Grid'
+import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
+import Typography from 'material-ui/Typography';
 import styles from './styles'
 //({app,blogs,loading,dispatch,classes})
 
@@ -128,8 +138,6 @@ class List extends React.Component{
             payload: newSize
         })
     }
-
-
     isSelected = (id) => {
         const {blogs} = this.props
         return blogs.selected.indexOf(id) !== -1;
@@ -145,6 +153,41 @@ class List extends React.Component{
 
     }
 
+    handleDelete=(id)=>{
+        const {dispatch}=this.props
+        dispatch({
+            type:'blogs/deleteBlog',
+            payload:id
+        })
+    }
+    handleDialogOpen=(index)=>{
+        const {blogs,dispatch}=this.props
+        //console.log(index)
+        let open=blogs.open
+        open[index]=true
+        /*for(var i=0;i<open.length;i++){
+            open[i]=false
+        }*/
+        dispatch({
+            type:'blogs/update',
+            payload:{
+                open:open
+            }
+        })
+    }
+    handleRequestClose=()=>{
+        const {dispatch,blogs}=this.props
+        let open=blogs.open
+        for(var i=0;i<open.length;i++){
+            open[i]=false
+        }
+        dispatch({
+            type:'blogs/update',
+            payload:{
+                open:open
+            }
+        })
+    }
     handleCreateBlog = () => {
         const {dispatch} = this.props
         dispatch({
@@ -185,7 +228,7 @@ class List extends React.Component{
         return(
             <div style={{marginTop:-68}}>
                 <div style={{width:'90%',margin:'20px auto 10px auto'}}>
-                    <Table {...props}>
+                  {/*  <Table {...props}>
                         {blogs.data.map(n => {
                             const Selected = this.isSelected(n.id);
                             return (
@@ -214,7 +257,72 @@ class List extends React.Component{
                                 </TableRow>
                             );
                         })}
-                    </Table>
+                    </Table>*/}
+                    <Grid container spacing={24}>
+                        {blogs.data.map((item,index)=>{
+                        return(
+                            <Grid item xs={12} sm={6} md={6} lg={4} key={index}>
+                                <Card className={classes.card}>
+                                    <CardMedia
+                                        className={classes.media}
+                                        style={{height:200}}
+                                        image={item.poster}
+                                        title={item.title}
+                                    />
+                                    <CardContent style={{paddingBottom:0}}>
+                                        <Typography type="headline" component="h3"
+                                                    style={{textOverflow:'ellipsis',overflow:'hidden',whiteSpace:'nowrap',fontSize:20,fontWeight:600,color:"rgba(0,0,0,0.9)"}}>
+                                            {item.title}
+                                        </Typography>
+                                        <Typography component="p"
+                                                    style={{
+                                                        textOverflow:'ellipsis',
+                                                        whiteSpace:'nowrap',overflow:'hidden',fontWeight:600,color:"rgba(0,0,0,0.7)"
+                                                    }}>
+                                            {item.description}
+                                        </Typography>
+                                    </CardContent>
+                                    <CardActions>
+                                        <Button dense color="primary" onClick={()=>{this.handleEdit(item.id)}}>
+                                            Edit
+                                        </Button>
+                                        <Button dense color="primary" onClick={()=>{this.handleDialogOpen(index)}}>
+                                            Delete
+                                        </Button>
+                                        <Button dense color="default">
+                                            {item.created_at}
+                                        </Button>
+                                    </CardActions>
+                                </Card>
+                                <Dialog
+                                    fullScreen={false}
+                                    open={blogs.open[index]}
+                                    onRequestClose={this.handleRequestClose}
+                                >
+                                    <DialogTitle>{"Delete Your Article?"}</DialogTitle>
+                                    <DialogContent>
+                                        <DialogContentText>
+                                            Blog：{item.title}
+                                            <br/>
+                                            Are you sure you want to delete this article?Once you deleted!You can not find it back!
+                                        </DialogContentText>
+                                    </DialogContent>
+                                    <DialogActions>
+                                        <Button onClick={this.handleRequestClose} color="primary">
+                                            No
+                                        </Button>
+                                        <Button raised onClick={()=>this.handleDelete(item.id)} color="accent" autoFocus>
+                                            Yes
+                                        </Button>
+                                    </DialogActions>
+                                </Dialog>
+                            </Grid>
+
+                        )
+                    })}
+
+                    </Grid>
+
                 </div>
 
                 <div style={{width:'90%',margin:'10px auto'}}>

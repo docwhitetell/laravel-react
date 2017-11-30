@@ -3,13 +3,10 @@ import { connect } from 'dva';
 import {withStyles} from 'material-ui/styles'
 import classnames from 'classnames'
 
-import NavHeader from './components/header'
 import Banner from './components/banner'
 import Service from './components/service'
-import Footer from './components/footer'
 
 import Button from 'material-ui/Button';
-import DraggableList from '../../components/draggable/DraggableList'
 import GradientProgress from '../../components/progress/gradient'
 import {Icon} from 'antd'
 import ScrollAnim from 'rc-scroll-anim';
@@ -299,7 +296,6 @@ class Index extends React.Component{
                         </div>
                     </TweenOne>
                 </OverPack>
-
             </div>
         );
     }

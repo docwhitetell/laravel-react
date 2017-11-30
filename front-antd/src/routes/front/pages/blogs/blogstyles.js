@@ -287,7 +287,7 @@ const styles=theme=>({
         marginLeft:10
     },
     articleTitle:{
-        color:'rgba(0,0,0,0.5)',fontSize:20,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'
+        color:'rgba(0,0,0,0.7)',fontSize:20,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'
     },
     articleDesc:{
         height: 200,
@@ -296,12 +296,23 @@ const styles=theme=>({
     },
     articleDescWord:{
         position: 'absolute',
-        bottom: 10,
+        bottom: 0,
         zIndex: 200,
         color: '#ffffff',
         fontSize: 16,
-        width: '90%',
-        left: '5%'
+        width: '100%',
+        left:0,
+        padding:10,
+        backgroundColor:'rgba(0,0,0,0.3)',
+        borderTopLeftRadius:6,
+        borderTopRightRadius:6
+    },
+    description:{
+        textOverflow:'ellipsis',
+        overflow:'hidden',
+        display:'-webkit-box',
+        '-webkit-box-orient':'vertical',
+        '-webkit-line-clamp':2,
     },
     blogBg:{
         position: 'absolute',

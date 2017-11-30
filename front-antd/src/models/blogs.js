@@ -22,8 +22,10 @@ export default {
         total:0,
         last_page:null,
 
+        open:[],
         current:{},
         editTitle:'',
+        editClasses:'',
         editDescription:'',
         editPoster:'',
         editorState:EditorState.createEmpty(),
@@ -51,7 +53,7 @@ export default {
                     dispatch({type:'app/update',payload:{pageHeader:'New Blog'}})
                     dispatch({
                         type:'update',
-                        payload:{current:null,editTitle:'',editorState:EditorState.createEmpty()}
+                        payload:{current:null,editTitle:'',editClasses:'',editPoster:'',editDescription:'',editorState:EditorState.createEmpty()}
                     })
                     dispatch({
                         type:'queryUserResource'
@@ -73,9 +75,18 @@ export default {
         *getUserBlogs({payload},{call,put,select}){
             const req=yield call(request,{url:config.api.blogs,withtoken:true})
             if(req.status===200){
+                let open=[]
+                for(var i=0;i<req.data.length;i++){
+                    open[i]=false
+                }
                 yield put({
                     type:'update',
-                    payload:{data:req.data,current:null,editTitle:'',editorState:EditorState.createEmpty()}
+                    payload:{
+                        data:req.data,
+                        open:open,current:null,
+                        editTitle:'',editClasses:'',editDescription:'',
+                        editPoster:'',editorState:EditorState.createEmpty()
+                    }
                 })
             }
         },
@@ -91,7 +102,7 @@ export default {
                     editorState = EditorState.createWithContent(contentState);
                 }
                 editorState=editorState?editorState:EditorState.createEmpty()
-                yield put({type:'update',payload:{current:req.data,editTitle:req.data.title,editDescription:req.data.description,editPoster:req.data.poster,editorState:editorState}})
+                yield put({type:'update',payload:{current:req.data,editTitle:req.data.title,editClasses:req.data.classes,editDescription:req.data.description,editPoster:req.data.poster,editorState:editorState}})
             }
         },
         *FrontBlogQuery({payload},{call,put,select}){

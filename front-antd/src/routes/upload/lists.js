@@ -45,7 +45,7 @@ class Lists extends React.Component{
         }
     }
     render(){
-        const {files}=this.props
+        const {files,loading}=this.props
         return(
             <div style={{marginTop:-68}}>
                 <div style={{padding:20}}>
@@ -55,6 +55,7 @@ class Lists extends React.Component{
                         columns={columns}
                         pagination={files.filesPagination}
                         handleChange={this.handleTablePageChange}
+                        loading={loading.global}
                     />
                 </div>
 
@@ -63,4 +64,4 @@ class Lists extends React.Component{
     }
 
 }
-export default connect(({app,files})=>({app,files}))(Lists)
+export default connect(({app,files,loading})=>({app,files,loading}))(Lists)

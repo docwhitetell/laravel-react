@@ -8,6 +8,10 @@ import htmlToDraft from 'html-to-draftjs';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
 import Button from 'material-ui/Button';
+import { FormControl, FormHelperText } from 'material-ui/Form';
+import Select from 'material-ui/Select';
+import { MenuItem } from 'material-ui/Menu';
+import Input, { InputLabel } from 'material-ui/Input';
 import TextField from 'material-ui/TextField';
 import MyEditor from '../../components/editor/MyEditor'
 import Grid from 'material-ui/Grid'
@@ -53,12 +57,12 @@ class noteEditor extends React.Component{
             console.log('has current')
             dispatch({
                 type:'blogs/updateBlog',
-                payload:{title:title,poster:blogs.editPoster,description:blogs.editDescription,content:data,id:blogs.current.id}
+                payload:{title:title,classes:blogs.editClasses,poster:blogs.editPoster,description:blogs.editDescription,content:data,id:blogs.current.id}
             })
         }else{
             dispatch({
                 type:'blogs/createBlog',
-                payload:{title:title,poster:blogs.editPoster,description:blogs.editDescription,content:data}
+                payload:{title:title,classes:blogs.editClasses,poster:blogs.editPoster,description:blogs.editDescription,content:data}
             })
         }
 
@@ -133,7 +137,7 @@ class noteEditor extends React.Component{
 
                 <Grid container spacing={0} style={{margin:0,padding:20}}>
                     <Grid item xs={12} style={{position:'relative'}}>
-                        <Card style={{height:120,overflow:'hidden'}}>
+                      {/*  <Card style={{height:120,overflow:'hidden'}}>
                             <Slider {...settings}>
                                 {blogs.userResource.map((item,index)=>{
                                     return (
@@ -182,19 +186,38 @@ class noteEditor extends React.Component{
                                     )
                                 })}
                             </Slider>
-                        </Card>
+                        </Card>*/}
                         <Card>
                             <div className={classes.title}>
-                                <TextField
-                                    margin="dense"
-                                    label="Title"
-                                    type="text"
-                                    style={{width:300}}
-                                    fullWidth
-                                    value={blogs.editTitle?blogs.editTitle:''}
-                                    className={classes.titleInput}
-                                    onChange={this.handleInputChange('editTitle')}
-                                />
+                                <div style={{position:'relative'}}>
+                                    <TextField
+                                        margin="dense"
+                                        label="Title"
+                                        type="text"
+                                        style={{width:300}}
+                                        fullWidth
+                                        value={blogs.editTitle?blogs.editTitle:''}
+                                        className={classes.titleInput}
+                                        onChange={this.handleInputChange('editTitle')}
+                                    />
+                                    <FormControl style={{position:"absolute",bottom:4,marginLeft:20}}>
+                                        <InputLabel htmlFor="classes">Classes</InputLabel>
+                                        <Select
+                                            classes={{select: classes.PosterInput}}
+                                            value={blogs.editClasses ? blogs.editClasses : ''}
+                                            onChange={this.handleInputChange('editClasses')}
+                                            input={<Input name="classes" id="classes" style={{width:100}}/>}
+                                        >
+                                            <MenuItem value="">
+                                                <em>None</em>
+                                            </MenuItem>
+                                            <MenuItem value={'tech'}>Tech</MenuItem>
+                                            <MenuItem value={'personal'}>Personal</MenuItem>
+                                            <MenuItem value={'daily'}>Daily</MenuItem>
+                                        </Select>
+                                    </FormControl>
+                                </div>
+
                                 <br/>
                                 <div>
                                     <TextField
