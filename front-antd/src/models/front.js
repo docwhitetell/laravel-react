@@ -42,7 +42,7 @@ export default {
                 yield put({
                         type: 'update',
                         payload: {
-                            blogslist: res.data.blogs,
+                            blogslist: res.data.blogs.blogs,
                             video: res.data.video
                         }
                     })
