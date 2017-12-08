@@ -37,16 +37,18 @@ const Service=({data,classes,dispatch})=>{
                       animation={[{opacity:0,scale:0,delay:1000,duration:600},{scale:1,opacity:1,y:0}]}
                       style={{opacity: 0}}>
                 <div className={classes.aboutLeft}>
-                    <h1 className={classes.aboutTitle} style={{}}>About Material</h1>
+                    <h1 className={classes.aboutTitle} style={{}}>About</h1>
                     <div className={classes.gradientDivider}></div>
                 </div>
                 <div className={classes.aboutRight}>
-                    <p className={classes.aboutWord}>Material-UI components work in isolation. They are self-supporting, they will inject, and only inject, the styles they need to display. They don't rely on any global styles like normalize.css. You can use any of the components as demonstrated in the documentation.</p>
+                    <p className={classes.aboutWord}>
+                        I am a programmer who is exploring the world of all stack development.Good at using jQuery and Bootstrap frameworks and exploring ReactJs.If you have some advices. Please contact my email and help me point out my shortcomings. Thanks you
+                    </p>
                 </div>
             </TweenOne>
             <div className={classes.work}>
-                <h1 className={classes.sectionName}>Blogs Recommend</h1>
                     <OverPack style={{ width:'100%',}} always={false} playScale={0.1}>
+                        <h1 key='title' className={classes.sectionName}>Blogs</h1>
                         <Grid key='container' container spacing={40} style={{minHeight:380}}>
                         {data.blogslist.map((item,index)=>{
                             return(
@@ -75,8 +77,8 @@ const Service=({data,classes,dispatch})=>{
                     </OverPack>
             </div>
             <div className={classes.work}>
-                <h1 className={classes.sectionName}>Videos Recommend</h1>
                 <OverPack style={{ width:'100%',}} always={false} playScale={0.1}>
+                    <h1 key='title' className={classes.sectionName}>Videos </h1>
                     <Grid key='container' container spacing={40} style={{minHeight:380}}>
                         {data.video.map((item,index)=>{
                             return(

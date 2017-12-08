@@ -39,9 +39,8 @@ export default {
                         payload: res.data.error
                     })
                 } else if (res.data.success) {
-                    Cookies.set('access_token', res.data.token.access_token, {expires: (1 / 12), path: '/'});
-                    Cookies.set('refresh_token', res.data.token.refresh_token, {expires: (1 / 6), path: '/'});
-
+                    Cookies.set('access_token', res.data.token.access_token, {expires: 30, path: '/'});
+                    Cookies.set('refresh_token', res.data.token.refresh_token, {expires: 30, path: '/'});
                     yield put(routerRedux.push('/admin/dashboard'))
                     yield put({
                         type: 'app/query'

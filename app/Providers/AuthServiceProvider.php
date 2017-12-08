@@ -28,8 +28,8 @@ class AuthServiceProvider extends ServiceProvider
 
         //
         Passport::routes();
-        Passport::tokensExpireIn(Carbon::now()->addHours(2));
-        Passport::refreshTokensExpireIn(Carbon::now()->addHours(4));
+        Passport::tokensExpireIn(Carbon::now()->addDay(30));
+        Passport::refreshTokensExpireIn(Carbon::now()->addDay(30));
 
 
         Passport::tokensCan([
@@ -40,7 +40,6 @@ class AuthServiceProvider extends ServiceProvider
             'notes-lists'=>'Can see himself/herself notes',
             'notes-create'=>'Can create notes',
             'notes-update'=>'Can update his/her noetes',
-
         ]);
     }
 }

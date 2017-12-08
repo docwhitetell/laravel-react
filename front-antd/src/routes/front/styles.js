@@ -15,12 +15,50 @@ const styles=theme=>({
     },
     bannerBg:{
         position:'absolute',
-        height:'100%',width:'100%',
-        backgroundImage:"url('/assets/blogs/headbg.png')",
+        height:'50%',width:'100%',
+        [theme.breakpoints.down('md')]: {
+            height:'100%'
+        },
+        //backgroundImage:"url('/assets/blogs/headbg.png')",
         backgroundSize:"100%",
         backgroundPosition:'left bottom',
         transform:'rotate(180deg)',
         backgroundRepeat:"no-repeat",
+        overflow:'hidden',
+        '&:after,&:before':{
+          content:"''",
+          width:'400vw',
+          height:'400vw',
+          position:'absolute',
+          background:'linear-gradient(127deg, rgb(0,202,198), rgb(0,154,204))',
+            left:'50%',
+            transform:'translate(-50%,0)',
+        },
+        '&:after':{
+            bottom:"-390vw",
+            borderRadius:"45%",
+            opacity:0.3,
+            animation:'rotate 15s linear -5s infinite',
+            zIndex:10
+        },
+        '&:before':{
+            bottom:'-391vw',
+            borderRadius:"45.5%",
+            transform:'translate(-50%,0) rotate(30deg)',
+            animation:'rotate 15s linear -5s infinite',
+            zIndex:20
+        }
+    },
+    '@keyframes rotate':{
+        '0%':{
+            transform:'translate(-50%,0) rotate(0deg)'
+        },
+        '50%':{
+            transform:'translate(-50%,0.5vw) rotate(180deg)'
+        },
+        '100%':{
+            transform:'translate(-50%,0) rotate(360deg)'
+        }
     },
     bannerWrapper:{
         height:'100%',

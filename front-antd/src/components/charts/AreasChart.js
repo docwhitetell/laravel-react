@@ -4,12 +4,12 @@ import {
    AreaChart, Area
 } from 'recharts';
 
-const AreasChart=({height,data,dataKey,margin,stroke,fill})=>{
+const AreasChart=({height,data,dataKey,margin,stroke,tooltips,fill})=>{
     return(
         <ResponsiveContainer height={height}>
             <AreaChart data={data}
                        margin={margin}>
-                <Tooltip/>
+                {!tooltips && <Tooltip/>}
                 <Area type='monotone' dataKey={dataKey} stroke={stroke} fill={fill} />
             </AreaChart>
         </ResponsiveContainer>

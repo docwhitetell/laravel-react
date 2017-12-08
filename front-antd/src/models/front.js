@@ -36,8 +36,8 @@ export default {
 
     effects: {
         *queryIndex({payload},{call,put,select}){
+            yield put({type:'update',payload:{blogslist:[]}})
             const res=yield call(request,{url:config.api.frontIndex,params:{limit:2}})
-
             if(res.status===200){
                 yield put({
                         type: 'update',
@@ -50,6 +50,7 @@ export default {
         },
         /*博客页 博客列表及博客统计数据 查询*/
         *queryBlogs({payload},{call,put,select}){
+            yield put({type:'update',payload:{blogslist:[]}})
             const res=yield call(request,{url:config.api.frontBlogs,params:payload})
             if(res.status===200){
                 yield put({

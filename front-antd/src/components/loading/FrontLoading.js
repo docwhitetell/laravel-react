@@ -14,26 +14,28 @@ const styles = theme => ({
         zIndex:99999,
         opacity:1
     },
-    progress: {
+    loadingFixed:{
+      position:'fixed'
+    },
+    progressFixed:{
         position:'fixed',
-        top:'50vh',
+        left: '50vw !important',
+        top:'50vh !important'
+    },
+    progress: {
+        position:'absolute',
+        top:'50%',
         [theme.breakpoints.up('md')]: {
-            left: 'calc( 50vw)',
+            left: '50%',
         },
         left:'50%',
         transform:'translate(-50%,-50%)',
         zIndex:10,
         color:"#2196F3"
     },
-    progressFixed:{
-        position:'fixed !important',
-    },
     text: {
-        position:'fixed',
-        top:'50vh',
-        [theme.breakpoints.up('md')]: {
-            left: 'calc( 50vw)',
-        },
+        position:'absolute',
+        top:'50%',
         left:'50%',
         transform:'translate(-50%,30px)',
         fontSize:'16px',

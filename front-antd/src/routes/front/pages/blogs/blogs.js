@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'dva'
+import Loading from '../../../../components/loading/FrontLoading'
 import {withStyles} from 'material-ui/styles'
 import Grid from 'material-ui/Grid'
 import Card, { CardHeader, CardMedia, CardContent, CardActions } from 'material-ui/Card'
@@ -57,7 +58,7 @@ class Blogs extends React.Component{
         }
     }
     render(){
-        const {app,front,classes,dispatch}=this.props
+        const {app,front,classes,loading,dispatch}=this.props
         return(
             <div className={classes.main}>
                 <div className={classes.content}>
@@ -119,11 +120,11 @@ class Blogs extends React.Component{
                                     <div className={classes.blogsCount}>
                                         <span style={{fontSize:28}}>Articles</span>&nbsp;&nbsp;&nbsp;&nbsp;<small style={{color:'rgba(0,0,0,0.5)',fontWeight:600,fontSize:14}}> {front.blogs.total} Totails</small>
                                     </div>
-                                    <Grid container spacing={24}>
+                                    <Grid container spacing={24} style={{position:'relative'}}>
                                         <Grid item xs={12}>
                                             <Card>
                                                 <div className={classes.cardHeader}>
-                                                    <h1 className={classes.cardTitle}>Latest Publish Article</h1>
+                                                    <h1 className={classes.cardTitle}>Latest 7 days</h1>
                                                 </div>
                                                 <Divider/>
                                                 <div className={classes.articleData}>
@@ -152,13 +153,14 @@ class Blogs extends React.Component{
                                                             <img className={classes.dataIconImg} src="/assets/blogs/icon3.png" alt=""/>
                                                         </div>
                                                         <div className={classes.dataInfo} >
-                                                            <h1 className={classes.dataNum}>{front.blogs.total}</h1>
-                                                            <p className={classes.dataName}>Total article</p>
+                                                            <h1 className={classes.dataNum}>{front.blogs.lastSevenDayPublish}</h1>
+                                                            <p className={classes.dataName}>Lastest Total</p>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </Card>
                                         </Grid>
+                                        <Loading loading={loading.global}/>
                                         { front.blogslist.map((item,index)=>{
                                             return(
                                                 <TweenOne component={Grid} animation={[{x:index%2===0?-60:60},{x:0,opacity:1}]} style={{opacity:0}}  item xs={12} sm={6} md={6} key={index}>
@@ -238,4 +240,4 @@ class Blogs extends React.Component{
         )
     }
 }
-export default connect(({app,front})=>({app,front}))(withStyles(styles)(Blogs))
+export default connect(({app,front,loading})=>({app,front,loading}))(withStyles(styles)(Blogs))

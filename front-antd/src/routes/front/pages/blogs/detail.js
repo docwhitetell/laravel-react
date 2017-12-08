@@ -46,6 +46,7 @@ const styles=theme=>({
         width:'90%',
         maxWidth:800,
         margin:'0 auto',
+        minHeight:600,
         backgroundColor:'#ffffff',
         borderTopLeftRadius:20,
         borderTopRightRadius:20,

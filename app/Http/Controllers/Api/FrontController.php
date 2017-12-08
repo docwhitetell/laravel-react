@@ -42,9 +42,9 @@ class FrontController extends Controller
                 array_push($classes,$val->classes);
             }
         }
-        $blogs['total']=$query->count();
-        $blogs['lastSevenDayPublish']=$query->where('created_at','>=',$deadTimestamp)->count();
-        $blogs['latestPublishTime']=$query->where('created_at','>=',$deadTimestamp)->first()->created_at;
+        $blogs['total']=Blogs::all()->count();
+        $blogs['lastSevenDayPublish']=$query->count();
+        //$blogs['latestPublishTime']=$query->first()->created_at;
         $blogs['classes']=$classes;
         $query=null;
         return $blogs;
@@ -69,6 +69,7 @@ class FrontController extends Controller
             }
         }
         $data['blogs']=$result;
+        $result=null;
         return $data;
     }
     public function FrontBlogsDetail($id){

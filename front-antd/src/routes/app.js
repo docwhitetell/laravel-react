@@ -104,8 +104,8 @@ class ResponsiveDrawer extends React.Component{
         if(routeMiddleware(pathname)){
             return (
                 <MuiThemeProvider theme={app.theme}>
-                    <div className={classes.root} style={{minHeight: '100vh'}}>
-                        <Loading loading={app.pageloading}/>
+                    <div className={classes.root}>
+                        <Loading loading={app.pageloading} fixed/>
                         <FrontNav/>
                         <main style={{minHeight:'100vh'}}>
                             {children}

@@ -3,6 +3,8 @@ import Hidden from 'material-ui/Hidden';
 import Slider from 'react-slick';
 import TweenOne from 'rc-tween-one';
 import QueueAnim from 'rc-queue-anim';
+
+import AreasChart from '../../../components/charts/AreasChart'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -30,6 +32,38 @@ function SamplePrevArrow(props) {
 class Banner extends React.Component{
     constructor(props){
         super(props)
+        this.state={
+            wave:[
+                {
+                    name:'data.no1',
+                    value:1264,
+                },
+                {
+                    name:'data.no2',
+                    value:1864,
+                },
+                {
+                    name:'data.no3',
+                    value:1064,
+                },
+                {
+                    name:'data.no4',
+                    value:2264,
+                },  {
+                    name:'data.no5',
+                    value:5264,
+                },
+                {
+                    name:'data.no6',
+                    value:2664,
+                },
+                {
+                    name:'data.no7',
+                    value:3864,
+                },
+
+            ]
+        }
     }
 
     render(){
@@ -46,18 +80,19 @@ class Banner extends React.Component{
         return (
             <div className={classes.banner}>
                 <div className={classes.bannerWrapper}>
-                    <div className={classes.bannerBg}></div>
+                    <div className={classes.bannerBg}>
+                    </div>
 
-                        <div className={classes.bannerTitle} key="title">
-                            <TweenOne animation={[{y:0},{y:90,opacity:1}]} style={{opacity:0}} >
+                    <div className={classes.bannerTitle} key="title">
+                        <TweenOne animation={[{y: 0}, {y: 90, opacity: 1}]} style={{opacity: 0}}>
                             <h1 className={classes.titleWord}>Doctor White Personal Website</h1>
-                            </TweenOne>
-                            <TweenOne animation={[{y:0},{y:-60,opacity:1,delay:450}]} style={{opacity:0}} >
+                        </TweenOne>
+                        <TweenOne animation={[{y: 0}, {y: -60, opacity: 1, delay: 450}]} style={{opacity: 0}}>
                             <p className={classes.titleDescription}>
-                                Sign up or check back for new updates
+                                Share technology，Follow me and find more
                             </p>
-                            </TweenOne>
-                        </div>
+                        </TweenOne>
+                    </div>
 
                     <Hidden mdDown implementation="css">
                     <TweenOne className={classes.bannerImg} animation={[{y:200,delay:700},{y:0,opacity:1}]} style={{opacity:0}} >
