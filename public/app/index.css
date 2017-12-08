@@ -3139,6 +3139,9 @@ html, body, #root {
   -ms-user-select:none;
   user-select:none;*/
 }
+#root{
+  overflow: hidden;
+}
 a{
   text-decoration: none;
   color:#108EE9 ;
