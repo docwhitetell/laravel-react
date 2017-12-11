@@ -6,7 +6,6 @@ import Grid from 'material-ui/Grid'
 import Card, { CardHeader, CardMedia, CardContent, CardActions } from 'material-ui/Card'
 import Divider from 'material-ui/Divider'
 import classnames from 'classnames'
-import {Link} from 'dva/router'
 import ScrollAnim from 'rc-scroll-anim';
 import QueueAnim from 'rc-queue-anim';
 import TweenOne from 'rc-tween-one';
@@ -166,14 +165,14 @@ class Blogs extends React.Component{
                                                 <TweenOne component={Grid} animation={[{x:index%2===0?-60:60},{x:0,opacity:1}]} style={{opacity:0}}  item xs={12} sm={6} md={6} key={index}>
                                                     <Card>
                                                         <div className={classes.cardHeader}>
-                                                            <Link to={`/blogs/${item.id}`}>
+                                                            <a href={`/blogs/${item.id}`}>
                                                                 <h1 className={classes.articleTitle}>
                                                                     {item.title}
                                                                 </h1>
-                                                            </Link>
+                                                            </a>
                                                         </div>
                                                         <Divider/>
-                                                        <Link to={`/blogs/${item.id}`}>
+                                                        <a href={`/blogs/${item.id}`}>
                                                             <div className={classes.articleDesc}>
                                                                 <div className={classes.articleDescWord}>
                                                                     <p className={classes.description}>{item.description}</p>
@@ -181,7 +180,7 @@ class Blogs extends React.Component{
                                                                 </div>
                                                                 <div className={classes.blogBg} style={{backgroundImage: `url(${item.poster})`}}></div>
                                                             </div>
-                                                        </Link>
+                                                        </a>
                                                     </Card>
                                                 </TweenOne>
                                             )

@@ -162,10 +162,10 @@ class Detail extends React.Component{
                         <div className={classes.articleHead}>
                             <h1 className={classes.mainTitle}>{blogs.current.title} </h1>
                             <p style={{fontSize: 14,color:'rgba(0,0,0,0.4)'}}>{blogs.current.created_at}
-                                <Link to="/blogs" className={classes.link}>
+                                <a href="/blogs" className={classes.link}>
                                     <Icon type="share-alt" className={classes.articleShareIcon}/>
                                     <Icon type="github" className={classes.articleShareIcon}/>
-                                </Link>
+                                </a>
                             </p>
                             <img src="/assets/blogs/authorimg.jpg" className={classes.authorAvatar} alt=""/>
                         </div>

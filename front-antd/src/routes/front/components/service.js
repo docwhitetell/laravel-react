@@ -58,13 +58,13 @@ const Service=({data,classes,dispatch})=>{
                                     >
                                         <div className={classes.serviceItem}>
                                             <div className={classes.serviceContent}>
-                                                <Link to={`/blogs/${item.id}`}>
+                                                <a href={`/blogs/${item.id}`}>
                                                 <div className={classes.blogPoster}
                                                      style={{
                                                          backgroundImage: `url(${item.poster})`,
                                                      }} ></div>
-                                                </Link>
-                                                <Link to={`/blogs/${item.id}`}><h1 className={classes.serviceName}>{item.title}</h1> </Link>
+                                                </a>
+                                                <a href={`/blogs/${item.id}`}><h1 className={classes.serviceName}>{item.title}</h1> </a>
                                                 <p className={classes.serviceDesc}>{item.description}</p>
                                             </div>
                                         </div>

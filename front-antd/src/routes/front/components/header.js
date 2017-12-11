@@ -36,7 +36,7 @@ const Header=({app,classes,dispatch})=>{
             </div>
             <Hidden mdDown implementation="css">
                 <div className={classes.signIU}>
-                    {app.user? (<Link to="/admin/dashboard" className={classes.login}>Dashboard</Link>) :(<Link to="/login" className={classes.login}>Sign In</Link>)}
+                    {app.user? (<a href="/admin/dashboard" className={classes.login}>Dashboard</a>) :(<a href="/login" className={classes.login}>Sign In</a>)}
                 </div>
                 <div className={classes.nav}>
                     <ul className={classes.navLists}>

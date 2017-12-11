@@ -23,64 +23,46 @@ Route::group(['domain' => 'admin.docwhite.cn'], function () {
 
 Route::group(['domain' => 'www.docwhite.cn'], function () {
     Route::get('/', function () {
-        $seo['title']="Doctor White 个人技术分享";
-        $seo['Keywords']="";
-        $seo['description']="";
+        $seo['title']="Doctor White 个人技术分享网站";
+        $seo['Keywords']="Doctor White,技术分享,React,Laravel,Ubuntu,Nginx";
+        $seo['description']="全栈工程师Doctor White个人技术分享网站,前端,React,后端,Laravel,Ubuntu,Nginx,Apache,由于使用AWS服务器搭建LNMP,网速有点慢,技术分享";
         return view('app.index',['seo'=>$seo]);
     });
     Route::get('/blogs', function () {
         $seo['title']="个人博客 - Doctor White 个人技术分享";
-        $seo['Keywords']="";
-        $seo['description']="";
+        $seo['Keywords']=null;
+        $seo['description']=null;
         return view('app.index',['seo'=>$seo]);
     });
     Route::get('/blogs/{id}', function ($id) {
-        $seo['title']=\App\Models\Blogs::find($id)->title;
+        $blog=\App\Models\Blogs::fint($id);
+        $seo['title']=$blog->title;
         $seo['title']=$seo['title']." - Doctor White 个人技术分享";
-        $seo['Keywords']="";
-        $seo['description']="";
+        $seo['Keywords']=null;
+        $seo['description']=$blog->description;
         return view('app.index',['seo'=>$seo]);
     });
     Route::get('/login', function () {
         $seo['title']="登录 - Doctor White 个人技术分享";
-        $seo['Keywords']="";
-        $seo['description']="";
         return view('app.index',['seo'=>$seo]);
     });
     Route::get('/admin/dashboard', function () {
-        $seo['title']="Dashboard - Doctor White 个人技术分享";
-        $seo['Keywords']="";
-        $seo['description']="";
-        return view('app.index',['seo'=>$seo]);
+        return view('app.index');
     });
     Route::get('/admin/user', function () {
-        $seo['title']="用户列表 - Doctor White 个人技术分享";
-        $seo['Keywords']="";
-        $seo['description']="";
-        return view('app.index',['seo'=>$seo]);
+        return view('app.index');
     });
     Route::get('/admin/blogs/create', function () {
-        $seo['title']="新文章 - Doctor White 个人技术分享";
-        $seo['Keywords']="";
-        $seo['description']="";
-        return view('app.index',['seo'=>$seo]);
+        return view('app.index');
     });
     Route::get('/admin/blogs/edit/{id}', function () {
-        $seo['title']="编辑 - Doctor White 个人技术分享";
-        $seo['Keywords']="";
-        $seo['description']="";
-        return view('app.index',['seo'=>$seo]);
+        return view('app.index');
     });
     Route::get('/admin/blogs', function () {
-        $seo['title']="博客文章列表 - Doctor White 个人技术分享";
-        $seo['Keywords']="";
-        $seo['description']="";
-        return view('app.index',['seo'=>$seo]);
+        return view('app.index');
     });
     Route::get('/admin/UIElement/editor', function () {
-        $seo['title']="用户列表 - Doctor White 个人技术分享";
-        $seo['Keywords']="";
-        $seo['description']="";
+
         return view('app.index');
     });
     Route::get('/admin/UIElement/table', function () {
