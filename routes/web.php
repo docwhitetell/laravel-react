@@ -35,7 +35,7 @@ Route::group(['domain' => 'www.docwhite.cn'], function () {
         return view('app.index',['seo'=>$seo]);
     });
     Route::get('/blogs/{id}', function ($id) {
-        $blog=\App\Models\Blogs::fint($id);
+        $blog=\App\Models\Blogs::find($id);
         $seo['title']=$blog->title;
         $seo['title']=$seo['title']." - Doctor White 个人技术分享";
         $seo['Keywords']=null;
