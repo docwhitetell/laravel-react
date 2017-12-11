@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Doctor White</title>
+  <title>{{$seo['title']??'Doctor White 个人技术分享'}}</title>
+  <meta name="description" content="{{$seo['description']}}">
+  <meta name="Keywords" content="{{$seo['Keywords']}}">
   <link rel="shortcut icon" href="{{asset('/app/favicon.ico')}}">
   <link rel="stylesheet" href="{{asset('/app/index.css')}}" />
   <link rel="stylesheet" href="{{asset('/app/filepicker.css')}}" />

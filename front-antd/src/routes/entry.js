@@ -28,7 +28,7 @@ class ResponsiveDrawer extends React.Component{
         super(props)
     }
     handleChangeTheme=(e)=>{
-        const {dispatch}=this.props
+        const {app,dispatch}=this.props
         const value=e.target.value
         const currentColor=value
         store.set('currentColor',currentColor)
@@ -100,7 +100,7 @@ class ResponsiveDrawer extends React.Component{
         const {dropDown ,mobileOpen}=app
         let { pathname } = location
         pathname = pathname.startsWith('/') ? pathname : `/${pathname}`
-        /*路由过滤，判断前台还是后台页面。前天过滤页面注册在routeMiddleware 中 */
+        /*路由过滤，判断前台还是后台页面。前台过滤页面注册在routeMiddleware 中 */
         if(routeMiddleware(pathname)){
             return (
                 <MuiThemeProvider theme={app.theme}>
@@ -111,7 +111,7 @@ class ResponsiveDrawer extends React.Component{
                             {children}
                         </main>
 
-                        <FrontFooter/>
+                        {pathname!='/login' && <FrontFooter/>}
                     </div>
                 </MuiThemeProvider>
             )

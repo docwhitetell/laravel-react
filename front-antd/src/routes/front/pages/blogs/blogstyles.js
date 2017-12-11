@@ -310,6 +310,7 @@ const styles=theme=>({
     description:{
         textOverflow:'ellipsis',
         overflow:'hidden',
+        height:48,
         display:'-webkit-box',
         '-webkit-box-orient':'vertical',
         '-webkit-line-clamp':2,

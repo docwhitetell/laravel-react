@@ -40,9 +40,9 @@ const Header=({app,classes,dispatch})=>{
                 </div>
                 <div className={classes.nav}>
                     <ul className={classes.navLists}>
-                        <li className={classes.navItem}><Link to="/" className={classes.navItemName}>Home</Link>
+                        <li className={classes.navItem}><a href="/" className={classes.navItemName}>Home</a>
                         </li>
-                        <li className={classes.navItem}><Link to="/blogs" className={classes.navItemName}>Blogs</Link>
+                        <li className={classes.navItem}><a href="/blogs" className={classes.navItemName}>Blogs</a>
                         </li>
                     </ul>
                 </div>
@@ -64,21 +64,21 @@ const Header=({app,classes,dispatch})=>{
                     </div>
                     <Divider/>
                     <List style={{width:250}}>
-                        <Link to="/" className={classes.drawerListLink}>
+                        <a href="/" className={classes.drawerListLink}>
                             <ListItem button className={classes.drawerListItem}>
                                Home
                             </ListItem>
-                        </Link>
-                        <Link to="/blogs" className={classes.drawerListLink}>
+                        </a>
+                        <a href="/blogs" className={classes.drawerListLink}>
                             <ListItem button className={classes.drawerListItem}>
                                My Blogs
                             </ListItem>
-                        </Link>
-                        <Link to="/login" className={classes.drawerListLogin}>
+                        </a>
+                        <a href="/login" className={classes.drawerListLogin}>
                             <ListItem button className={classes.drawerListItem}>
                                 <Button raised  color="accent">Sign In</Button>
                             </ListItem>
-                        </Link>
+                        </a>
                     </List>
                 </div>
             </Drawer>

@@ -78,18 +78,18 @@ class Blogs extends React.Component{
                                     <h1 className={classes.authorName}>Doctor White</h1>
                                 </TweenOne>
                                 <TweenOne animation={[{x:100,delay:250},{x:0,opacity:1}]} style={{opacity:0}} >
-                                <p className={classes.authorPersonalInfo}> Feb 2, 1994 &nbsp;&nbsp;&nbsp;&nbsp;  <a href="" style={{fontSize:14}}><Icon type="star"/>510559413@qq.com</a></p>
-                                <p className={classes.authordesc}>Proficient in PHP, Mysql , Linux , JavaScript , React all stack engineers</p>
+                                <p className={classes.authorPersonalInfo}> Feb 2, 1994 &nbsp;&nbsp;&nbsp;&nbsp;Zhongshan CN&nbsp;&nbsp;&nbsp;&nbsp;  <a href="" style={{fontSize:14}}><Icon type="star"/>510559413@qq.com</a></p>
+                                <p className={classes.authordesc}>走在成为全栈工程师的路上，分享所思所学所想</p>
                                 <p className={classes.sourceCode}>Source Code&nbsp;&nbsp;&nbsp;&nbsp; <a href="https://github.com/docwhitetell/laravel-react" target="_blank"><Icon type="github" style={{fontSize:18}}/></a></p>
                                 </TweenOne>
                             </div>
                         </div>
                         <div className={classes.listsWrapper}>
                             <TweenOne animation={[{delay:450},{opacity:1}]} style={{opacity:0}} >
-                            <h3 className={classes.blogsClass}>Original Tech-Articals</h3>
+                            <h3 className={classes.blogsClass}></h3>
                             </TweenOne>
                             <TweenOne animation={[{delay:650},{opacity:1}]} style={{opacity:0}} >
-                            <h5 className={classes.blogsDesc}>Include Php , Mysql , Linux , JavaScript , React...Something that might be of interest to you</h5>
+                            <h5 className={classes.blogsDesc}></h5>
                             </TweenOne>
                         </div>
 
@@ -102,13 +102,13 @@ class Blogs extends React.Component{
                                         <Icon type="appstore" style={{fontSize:30,color:'#2196F3'}}/>
                                     </Button>
                                     <div className={classes.menuLists}>
-                                        <Tooltip placement="bottom" title="All Classes">
+                                        <Tooltip placement="bottom" title="所有">
                                             <Button className={classnames(classes.menuButton)}
                                                     onClick={this.handleChangeClass('all')}>
                                                 <Icon type="calendar" className={classnames(classes.menuIcon)}/>
                                             </Button>
                                         </Tooltip>
-                                        <Tooltip placement="bottom" title="Personal Expirence">
+                                        <Tooltip placement="bottom" title="其他">
                                             <Button className={classnames(classes.menuButton)}
                                                     onClick={this.handleChangeClass('personal')}>
                                                 <Icon type="edit" className={classnames(classes.menuIcon)}/>
@@ -118,13 +118,13 @@ class Blogs extends React.Component{
                                 </div>
                                 <div className={classes.blogsList} >
                                     <div className={classes.blogsCount}>
-                                        <span style={{fontSize:28}}>Articles</span>&nbsp;&nbsp;&nbsp;&nbsp;<small style={{color:'rgba(0,0,0,0.5)',fontWeight:600,fontSize:14}}> {front.blogs.total} Totails</small>
+                                        <span style={{fontSize:28}}>文章</span>&nbsp;&nbsp;&nbsp;&nbsp;<small style={{color:'rgba(0,0,0,0.5)',fontWeight:600,fontSize:14}}> {front.blogs.total} Total</small>
                                     </div>
                                     <Grid container spacing={24} style={{position:'relative'}}>
                                         <Grid item xs={12}>
                                             <Card>
                                                 <div className={classes.cardHeader}>
-                                                    <h1 className={classes.cardTitle}>Latest 7 days</h1>
+                                                    <h1 className={classes.cardTitle}>过去一周</h1>
                                                 </div>
                                                 <Divider/>
                                                 <div className={classes.articleData}>
@@ -136,7 +136,7 @@ class Blogs extends React.Component{
                                                             <h1 className={classes.dataNum}>
                                                                 {front.blogs.lastSevenDayPublish}
                                                                 </h1>
-                                                            <p className={classes.dataName}>Latest Blogs</p>
+                                                            <p className={classes.dataName}>新发布</p>
                                                         </div>
                                                     </div>
                                                     <div className={classes.dataItem}>
@@ -145,7 +145,7 @@ class Blogs extends React.Component{
                                                         </div>
                                                         <div className={classes.dataInfo}>
                                                             <h1 className={classes.dataNum}>{front.blogs.classes.length}</h1>
-                                                            <p className={classes.dataName}>Different Classes</p>
+                                                            <p className={classes.dataName}>文章类型</p>
                                                         </div>
                                                     </div>
                                                     <div className={classes.dataItem}>
@@ -154,7 +154,7 @@ class Blogs extends React.Component{
                                                         </div>
                                                         <div className={classes.dataInfo} >
                                                             <h1 className={classes.dataNum}>{front.blogs.lastSevenDayPublish}</h1>
-                                                            <p className={classes.dataName}>Lastest Total</p>
+                                                            <p className={classes.dataName}>total</p>
                                                         </div>
                                                     </div>
                                                 </div>

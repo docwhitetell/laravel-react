@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Switch, Redirect,routerRedux } from 'dva/router';
 import dynamic from 'dva/dynamic';
-import Layout from './routes/app'
+import Layout from './routes/entry'
 import PageHeader from './components/pageHeader/pageHeader'
 const {ConnectedRouter}=routerRedux
 function RouterConfig({ history ,app}) {

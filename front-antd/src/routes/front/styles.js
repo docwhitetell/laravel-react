@@ -15,39 +15,16 @@ const styles=theme=>({
     },
     bannerBg:{
         position:'absolute',
-        height:'50%',width:'100%',
+        height:'100%',width:'100%',
         [theme.breakpoints.down('md')]: {
             height:'100%'
         },
-        //backgroundImage:"url('/assets/blogs/headbg.png')",
+        backgroundImage:"url('/assets/blogs/headbg.png')",
         backgroundSize:"100%",
         backgroundPosition:'left bottom',
         transform:'rotate(180deg)',
         backgroundRepeat:"no-repeat",
-        overflow:'hidden',
-        '&:after,&:before':{
-          content:"''",
-          width:'400vw',
-          height:'400vw',
-          position:'absolute',
-          background:'linear-gradient(127deg, rgb(0,202,198), rgb(0,154,204))',
-            left:'50%',
-            transform:'translate(-50%,0)',
-        },
-        '&:after':{
-            bottom:"-390vw",
-            borderRadius:"45%",
-            opacity:0.3,
-            animation:'rotate 15s linear -5s infinite',
-            zIndex:10
-        },
-        '&:before':{
-            bottom:'-391vw',
-            borderRadius:"45.5%",
-            transform:'translate(-50%,0) rotate(30deg)',
-            animation:'rotate 15s linear -5s infinite',
-            zIndex:20
-        }
+        //overflow:'hidden',
     },
     '@keyframes rotate':{
         '0%':{
@@ -100,6 +77,7 @@ const styles=theme=>({
     },
     titleWord:{
         fontSize:42,
+        color:'rgba(0,0,0,0.7)',
         transform:'translate(0,-90px)',
         [theme.breakpoints.down('md')]: {
             fontSize:36,
