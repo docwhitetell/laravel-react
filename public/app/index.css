@@ -3128,16 +3128,8 @@ samp {
 }
 
 html, body, #root {
- /* height: auto !important;*/
-  margin: 0;
-  /*min-height: 100%;*/
   width: 100%;
-/*  padding-right: 0 !important;*/
-/*  font-family: -apple-system;
-  -webkit-seru-select:none;
-  -moz-user-select:none;
-  -ms-user-select:none;
-  user-select:none;*/
+  margin: 0;
 }
 #root{
   overflow: hidden;
