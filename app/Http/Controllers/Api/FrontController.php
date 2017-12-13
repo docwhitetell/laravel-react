@@ -20,7 +20,7 @@ class FrontController extends Controller
     /*前台控制器*/
     public function FrontIndex(Request $request){
         $data['blogs']=$this->FrontBlogs($request);
-        $data['video']=$this->GetVideos($request);
+        //$data['video']=$this->GetVideos($request);
         return $data;
     }
 
@@ -56,17 +56,23 @@ class FrontController extends Controller
         $limit=$request->get('limit')?$request->get('limit'):null;
         $classes=$request->get('classes')?$request->get('classes'):null;
         if($classes){
-            if($limit){
+            $result=$limit?
+                Blogs::orderBy('created_at','desc')->where('classes',$classes)->limit($limit)->get():
+                Blogs::orderBy('created_at','desc')->where('classes',$classes)->get();
+         /*   if($limit){
                 $result=Blogs::orderBy('created_at','desc')->where('classes',$classes)->limit($limit)->get();
             }else{
                 $result=Blogs::orderBy('created_at','desc')->where('classes',$classes)->get();
-            }
+            }*/
         }else{
-            if($limit){
+            $result=$limit?
+                Blogs::orderBy('created_at','desc')->limit($limit)->get():
+                Blogs::orderBy('created_at','desc')->get();
+            /*if($limit){
                 $result=Blogs::orderBy('created_at','desc')->limit($limit)->get();
             }else{
                 $result=Blogs::orderBy('created_at','desc')->get();
-            }
+            }*/
         }
         $data['blogs']=$result;
         $result=null;

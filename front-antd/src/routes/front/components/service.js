@@ -76,7 +76,7 @@ const Service=({data,classes,dispatch})=>{
                     </Grid>
                     </OverPack>
             </div>
-            <div className={classes.work}>
+        {/*    <div className={classes.work}>
                 <OverPack style={{ width:'100%',}} always={false} playScale={0.1}>
                     <h1 key='title' className={classes.sectionName}>Videos </h1>
                     <Grid key='container' container spacing={40} style={{minHeight:380}}>
@@ -129,7 +129,7 @@ const Service=({data,classes,dispatch})=>{
                         })}
                     </Grid>
                 </OverPack>
-            </div>
+            </div>*/}
         </div>
     )
 }

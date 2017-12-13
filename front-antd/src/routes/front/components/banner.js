@@ -96,17 +96,21 @@ class Banner extends React.Component{
 
                     <Hidden mdDown implementation="css">
                     <TweenOne className={classes.bannerImg} animation={[{y:200,delay:700},{y:0,opacity:1}]} style={{opacity:0}} >
-                        <div className={classes.leftbg}></div>
-                        <div className={classes.bannerMainImg}></div>
-                        <div className={classes.rightbg}></div>
+                        <div className={classes.leftbg}>
+                            <img src="/assets/index/banner1.png" style={{width:'100%'}} alt=""/>
+                        </div>
+                        <div className={classes.bannerMainImg}>
+                            <img src="/assets/index/banner1.png" style={{width:'100%'}} alt=""/>
+                        </div>
+                        <div className={classes.rightbg}>
+                            <img src="/assets/index/banner1.png" style={{width:'100%'}} alt=""/>
+                        </div>
                     </TweenOne>
                     </Hidden>
                     <Hidden mdUp implementation="css">
                         <div style={{width:'100%',height:'60vw',overflow:'hidden'}}>
                             <Slider {...settings}>
-                                <div><img src="/assets/index/banner2.png" style={{width:'100%'}} alt=""/></div>
-                                <div><img src="/assets/index/banner2.png" style={{width:'100%'}} alt=""/></div>
-                                <div><img src="/assets/index/banner2.png" style={{width:'100%'}} alt=""/></div>
+                                <div><img src="/assets/index/banner1.png" style={{width:'100%'}} alt=""/></div>
                             </Slider>
                         </div>
 

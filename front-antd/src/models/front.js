@@ -37,13 +37,12 @@ export default {
     effects: {
         *queryIndex({payload},{call,put,select}){
             yield put({type:'update',payload:{blogslist:[]}})
-            const res=yield call(request,{url:config.api.frontIndex,params:{limit:2}})
+            const res=yield call(request,{url:config.api.frontIndex,params:{limit:4}})
             if(res.status===200){
                 yield put({
                         type: 'update',
                         payload: {
                             blogslist: res.data.blogs.blogs,
-                            video: res.data.video
                         }
                     })
             }
