@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::group(['domain' => 'admin.docwhite.cn'], function () {
+Route::group(['domain' => 'admin.docwhite.cn','middleware' => ['web']], function () {
  /*   Route::get('/login', 'Api\PassportController@loginform');*/
     /*密码授权模式登录 API*/
     Route::post('/login', 'Api\PassportController@login');
