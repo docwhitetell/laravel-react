@@ -201,7 +201,6 @@ export default {
                 }
                 default:
             }
-
         },
         'drawerShowHide'(state){
             return {

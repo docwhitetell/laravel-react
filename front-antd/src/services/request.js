@@ -8,7 +8,6 @@ export async function request(data) {
         'X-Requested-With': 'XMLHttpRequest',
         'Authorization':'Bearer '+Cookies('access_token')
     }
-
     return axios({
         url: data.url,
         method: data.method?data.method:'get',

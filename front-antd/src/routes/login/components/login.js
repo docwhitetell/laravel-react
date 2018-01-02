@@ -17,6 +17,8 @@ const LoginForm = ({dispatch,classes}) => {
         remember: false,
         domain: 'localhost:8000'
     }
+    const csrf_token=document.getElementsByTagName('meta')['csrf-token'].getAttribute('content')
+    console.log(csrf_token)
     const handleInputOnchange = (e) => {
         const inputType = e.target.getAttribute('name')
         switch (inputType) {
@@ -45,6 +47,13 @@ const LoginForm = ({dispatch,classes}) => {
             <Card className={classes.loginWrapper}>
                 <h1 style={{fontWeight:300,color:'#ffffff',fontSize:'24px'}}>Login</h1>
                 <form onSubmit={handleSubmit}>
+                    <TextField
+                        margin="dense"
+                        id="csrf_token"
+                        name="csrf_token"
+                        value={csrf_token}
+                        type="hidden"
+                    />
                     <TextField
                         className={classes.formfield}
                         InputClassName={classes.textfieldInput}

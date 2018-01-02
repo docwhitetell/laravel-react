@@ -28,8 +28,9 @@ class BlogController extends Controller
         $blog->description=$data['description'];
         $blog->content=$data['content'];
         if($blog->save()){
+            //文章用户关联，创建用户操作日志
             $request->user()->blogs()->attach($blog->id);
-            $this->createLog('add user blog',$request->user(),$blog->id,'Notes');
+            $this->createLog('add user blog',$request->user(),$blog->id,'Blogs');
         }
         return response()->json(['success',true],200);
     }

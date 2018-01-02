@@ -18,12 +18,15 @@ class FrontController extends Controller
     /* CommonFunc 封装有一系列通用功能函数 */
     use CommonFunc;
     /*前台控制器*/
+
+    //首页数据API
     public function FrontIndex(Request $request){
         $data['blogs']=$this->FrontBlogs($request);
         //$data['video']=$this->GetVideos($request);
         return $data;
     }
 
+    /*博客首页API */
     public function FrontData($beginTime=null){
         /* 1.strtotime 2.date */
         /*获取当前day的unix时间戳*/
@@ -59,20 +62,10 @@ class FrontController extends Controller
             $result=$limit?
                 Blogs::orderBy('created_at','desc')->where('classes',$classes)->limit($limit)->get():
                 Blogs::orderBy('created_at','desc')->where('classes',$classes)->get();
-         /*   if($limit){
-                $result=Blogs::orderBy('created_at','desc')->where('classes',$classes)->limit($limit)->get();
-            }else{
-                $result=Blogs::orderBy('created_at','desc')->where('classes',$classes)->get();
-            }*/
         }else{
             $result=$limit?
                 Blogs::orderBy('created_at','desc')->limit($limit)->get():
                 Blogs::orderBy('created_at','desc')->get();
-            /*if($limit){
-                $result=Blogs::orderBy('created_at','desc')->limit($limit)->get();
-            }else{
-                $result=Blogs::orderBy('created_at','desc')->get();
-            }*/
         }
         $data['blogs']=$result;
         $result=null;
