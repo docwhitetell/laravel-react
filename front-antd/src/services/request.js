@@ -13,7 +13,7 @@ export async function request(data) {
     return axios({
         url: data.url,
         method: data.method?data.method:'get',
-        headers:data.withtoken?authenticHeaders:{},
+        headers:data.withtoken?authenticHeaders:{'X-CSRF-TOKEN':csrf_token},
         data: data.data?data.data:null,
         params:data.params?data.params:null
     }).then(res=>{

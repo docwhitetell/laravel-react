@@ -19,7 +19,7 @@ class AccessControlAllowOrigin
     {
         $response = $next($request);
         $response->header('Access-Control-Allow-Origin', '*');
-        $response->header('Access-Control-Allow-Headers', 'Origin, Content-Type, Cookie, Accept,X-XSRF-TOKEN,X-Requested-With,Authorization,Cache-Control');
+        $response->header('Access-Control-Allow-Headers', 'Origin, Content-Type, Cookie, Accept,X-CSRF-TOKEN,X-Requested-With,Authorization,Cache-Control');
         $response->header('Access-Control-Allow-Methods', 'GET, POST, PATCH, PUT, OPTIONS,X-CSRF-TOKEN');
         $response->header('Access-Control-Allow-Credentials', 'true');
         $response->header('Cache-Control', 'true');
