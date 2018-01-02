@@ -16,7 +16,7 @@ const LoginForm = ({dispatch,classes}) => {
         email: "",
         password: "",
         remember: false,
-        csrf_token:csrf_token,
+        _token:csrf_token,
         domain: 'localhost:8000'
     }
 

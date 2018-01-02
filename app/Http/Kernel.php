@@ -43,7 +43,6 @@ class Kernel extends HttpKernel
             'throttle:60,1',
             'bindings',
             'cors',
-            'csrf',
         ],
     ];
 //https://github.com/docwhitetell/laravel-react.git
@@ -61,7 +60,7 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'csrf'=>\App\Http\Middleware\VerifyCsrfToken::class,
+
         'scopes' => \Laravel\Passport\Http\Middleware\CheckScopes::class,
         'scope' => \Laravel\Passport\Http\Middleware\CheckForAnyScope::class,
         //cross site
