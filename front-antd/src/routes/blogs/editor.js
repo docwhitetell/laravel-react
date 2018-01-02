@@ -23,6 +23,7 @@ import { Upload, message} from 'antd';
 import Cookies from 'js-cookie'
 
 import config from '../../utils/config'
+import {filter} from '../../services/filter'
 import styles from './styles'
 //{blogs,dispatch,classes}
 class noteEditor extends React.Component{
@@ -74,12 +75,12 @@ class noteEditor extends React.Component{
         if(blogs.current!==null) {
             dispatch({
                 type:'blogs/update',
-                payload:{[name]:e.target.value}
+                payload:{[name]:filter(e.target.value)}
             })
         }else{
             dispatch({
                 type:'blogs/update',
-                payload:{[name]:e.target.value}
+                payload:{[name]:filter(e.target.value)}
             })
         }
     }

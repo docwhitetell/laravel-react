@@ -8,7 +8,7 @@ import TextField from 'material-ui/TextField';
 import Checkbox from 'material-ui/Checkbox';
 import styles from './styles'
 import {message} from 'antd'
-
+import {filter} from '../../../services/filter'
 
 const LoginForm = ({dispatch,classes}) => {
     const csrf_token=document.getElementsByTagName('meta')['csrf-token'].getAttribute('content')
@@ -24,10 +24,12 @@ const LoginForm = ({dispatch,classes}) => {
         const inputType = e.target.getAttribute('name')
         switch (inputType) {
             case 'email':
-                state.email = e.target.value
+                //XSS过滤
+                state.email = filter(e.target.value)
                 break
             case 'password':
-                state.password = e.target.value
+                //XSS过滤
+                state.password = filter(e.target.value)
                 break
             case 'remember':
                 state.remember = !state.remember
