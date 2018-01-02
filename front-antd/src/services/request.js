@@ -3,9 +3,11 @@ import config from '../utils/config'
 import Cookies from 'js-cookie'
 
 export async function request(data) {
+    const csrf_token=document.getElementsByTagName('meta')['csrf-token'].getAttribute('content')
     const  authenticHeaders={
         'Accept':'application/json',
         'X-Requested-With': 'XMLHttpRequest',
+        'X-CSRF-TOKEN':csrf_token,
         'Authorization':'Bearer '+Cookies('access_token')
     }
     return axios({
