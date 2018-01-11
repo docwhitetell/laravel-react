@@ -10,7 +10,14 @@ use Illuminate\Http\Request;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+/*Route::group(['domain' => 'jianli.docwhite.cn'], function () {
+    Route::get('/slide', function () {
+        return view('resume.slide');
+    });
+    Route::get('/scroll', function () {
+        return view('resume.scroll');
+    });
+});*/
 Route::group(['domain' => 'admin.docwhite.cn'], function () {
     Auth::routes();
     Route::get('/home', 'HomeController@index')->name('home');
