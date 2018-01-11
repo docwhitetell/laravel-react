@@ -105,13 +105,13 @@ class ResponsiveDrawer extends React.Component{
             return (
                 <MuiThemeProvider theme={app.theme}>
                     <div className={classes.root}>
-                        <Loading loading={app.pageloading} fixed/>
+                        <Loading loading={loading.global} fixed/>
                         <FrontNav/>
                         <main style={{minHeight:'100vh'}}>
                             {children}
                         </main>
 
-                        {pathname!='/login' && <FrontFooter/>}
+                        {(pathname!='/login') && <FrontFooter/>}
                     </div>
                 </MuiThemeProvider>
             )

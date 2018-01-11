@@ -40,14 +40,18 @@ const Header=({app,classes,dispatch})=>{
                 </div>
                 <div className={classes.nav}>
                     <ul className={classes.navLists}>
-                        <li className={classes.navItem}><a href="/" className={classes.navItemName}>Home</a>
+                        <li className={classes.navItem}><Link to="/" className={classes.navItemName}>Home</Link>
                         </li>
-                        <li className={classes.navItem}><a href="/blogs" className={classes.navItemName}>Blogs</a>
+                        <li className={classes.navItem}><Link to="/blogs" className={classes.navItemName}>Blogs</Link>
                         </li>
                     </ul>
                 </div>
             </Hidden>
-            <Drawer open={app.frontOpen} onRequestClose={handleDrawerToggle}>
+            <Drawer open={app.frontOpen}
+                    onClose={handleDrawerToggle}
+                    ModalProps={{
+                keepMounted: true, // Better open performance on mobile.
+            }}>
                 <div
                     tabIndex={0}
                     role="button"
@@ -64,21 +68,21 @@ const Header=({app,classes,dispatch})=>{
                     </div>
                     <Divider/>
                     <List style={{width:250}}>
-                        <a href="/" className={classes.drawerListLink}>
+                        <Link to="/" className={classes.drawerListLink}>
                             <ListItem button className={classes.drawerListItem}>
                                Home
                             </ListItem>
-                        </a>
-                        <a href="/blogs" className={classes.drawerListLink}>
+                        </Link>
+                        <Link to="/blogs" className={classes.drawerListLink}>
                             <ListItem button className={classes.drawerListItem}>
                                My Blogs
                             </ListItem>
-                        </a>
-                        <a href="/login" className={classes.drawerListLogin}>
+                        </Link>
+                        <Link to="/login" className={classes.drawerListLogin}>
                             <ListItem button className={classes.drawerListItem}>
                                 <Button raised  color="accent">Sign In</Button>
                             </ListItem>
-                        </a>
+                        </Link>
                     </List>
                 </div>
             </Drawer>

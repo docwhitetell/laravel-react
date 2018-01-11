@@ -17,7 +17,7 @@ function RouterConfig({ history ,app}) {
         {
             path:'/',
             models:()=>[import('./models/front')],
-            component:()=>import('./routes/front/welcome')
+            component:()=>import('./routes/front/paper')
         },
         {
             path:'/blogs',
