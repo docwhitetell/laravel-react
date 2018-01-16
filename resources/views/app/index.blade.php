@@ -8,7 +8,7 @@
   <meta name="Keywords" content="{{$seo['Keywords']??'个人博客,博客列表,技术分享,Doctor White,React,Laravel,Ubuntu,Nginx,LNMP,LANMP'}}">
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
-  <link rel="shortcut icon" href="{{asset('/public/favicon.ico')}}">
+  <link rel="shortcut icon" href="{{asset('/favicon.ico')}}">
   <link rel="stylesheet" href="{{asset('/app/index.css')}}" />
 
 
