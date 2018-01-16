@@ -10,21 +10,12 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <link rel="shortcut icon" href="{{asset('/app/favicon.ico')}}">
   <link rel="stylesheet" href="{{asset('/app/index.css')}}" />
-  <link rel="stylesheet" href="{{asset('/app/filepicker.css')}}" />
+
 
 <body>
 <div id="root">
 
 </div>
-
-{{--
-<script src="{{asset('/js/clipboard.min.js')}}"></script>
-
-<script>
-    new Clipboard('.copy-button')
-</script>
-
---}}
 
 <script type="text/javascript" src="{{asset('/app/index.js')}}"></script>
 </body>
