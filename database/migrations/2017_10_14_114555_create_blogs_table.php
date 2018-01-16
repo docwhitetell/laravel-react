@@ -20,7 +20,7 @@ class CreateBlogsTable extends Migration
             $table->string('classes')->nullable()->comment('类型');
             $table->string('poster')->nullable();
             $table->string('description')->nullable();
-            $table->text('content')->nullable();
+            $table->mediumText('content')->nullable();
             $table->timestamps();
         });
     }

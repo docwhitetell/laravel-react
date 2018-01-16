@@ -41,7 +41,7 @@ class FrontController extends Controller
 
         foreach ($query as $val){
             if(!in_array($val->classes,$classes)){
-                $blogs['class_'.$val->classes]=Blogs::where('classes',$val->classes)->get();
+                $blogs['class_'.$val->classes]=Blogs::where('classes',$val->classes)->select(['id','title','description','poster','classes'])->get();
                 array_push($classes,$val->classes);
             }
         }
@@ -60,12 +60,12 @@ class FrontController extends Controller
         $classes=$request->get('classes')?$request->get('classes'):null;
         if($classes){
             $result=$limit?
-                Blogs::orderBy('created_at','desc')->where('classes',$classes)->limit($limit)->get():
-                Blogs::orderBy('created_at','desc')->where('classes',$classes)->get();
+                Blogs::orderBy('created_at','desc')->where('classes',$classes)->limit($limit)->select(['id','title','description','poster'])->get():
+                Blogs::orderBy('created_at','desc')->where('classes',$classes)->select(['id','title','description','poster'])->get();
         }else{
             $result=$limit?
-                Blogs::orderBy('created_at','desc')->limit($limit)->get():
-                Blogs::orderBy('created_at','desc')->get();
+                Blogs::orderBy('created_at','desc')->limit($limit)->select(['id','title','description','poster'])->get():
+                Blogs::orderBy('created_at','desc')->select(['id','title','description','poster'])->get();
         }
         $data['blogs']=$result;
         $result=null;
