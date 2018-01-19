@@ -5,7 +5,7 @@
 以 Laravel 制作后端API，使用 React 渲染。<br/>
 ###目录结构 
 <br/>
-front-antd文件夹为前端资源文件<br/>
+前端代码源文件迁移至 ：<a href="https://github.com/docwhitetell/blog-app">https://github.com/docwhitetell/blog-app</a> <br/>
 
 ```bash
 ├── /dist/           # 项目输出目录
