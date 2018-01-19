@@ -4154,12 +4154,12 @@ header .ant-menu___ZN8wj:hover li{
     opacity: .75;
     color: black;
 }
-.cardRow___RTtgY{
+.cardRow___2ASJm{
   /*  margin: 20px auto;*/
     margin: 20px auto;
     width: 96%;
 }
-.card___h659h{
+.card___2_Aok{
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -4169,7 +4169,7 @@ header .ant-menu___ZN8wj:hover li{
     -webkit-box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.04), 0px 2px 2px 0px rgba(0, 0, 0, 0.04), 0px 3px 1px -2px rgba(0, 0, 0, 0.04);
             box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.04), 0px 2px 2px 0px rgba(0, 0, 0, 0.04), 0px 3px 1px -2px rgba(0, 0, 0, 0.04);
 }
-.card___h659h:hover{
+.card___2_Aok:hover{
     cursor: hand;
     -webkit-transition: all 0.4s ease-in-out;
     -o-transition: all 0.4s ease-in-out;
@@ -4180,22 +4180,22 @@ header .ant-menu___ZN8wj:hover li{
         -ms-transform: scale(1.02,1.02);
             transform: scale(1.02,1.02);
 }
-.icon___x5gNJ{
+.icon___13ZMF{
     text-align: center;
     line-height: 120px;
     font-size:54px;
 }
-.icontext___1U542{
+.icontext___1zC9q{
     color: #616161;
     font-size:24px;
 }
-.cardLeft___2iOxS{
+.cardLeft___1Qk9X{
    -webkit-box-flex:2;
        -ms-flex:2;
            flex:2;
     height: 120px;
 }
-.cardRight___idVhc{
+.cardRight___1jZ67{
     -webkit-box-flex:3;
         -ms-flex:3;
             flex:3;
@@ -4211,62 +4211,62 @@ header .ant-menu___ZN8wj:hover li{
         -ms-flex-pack:center;
             justify-content:center;
 }
-.crTitle___3D-gB{
+.crTitle___1joah{
     color: #424242;
     font-size: 28px;
 }
-.crNum___1c2WZ{
+.crNum___2ggm7{
     color: #616161;
     font-size: 16px;
 }
-.chartItem___12Lrj{
+.chartItem___32uLq{
     margin-bottom: 10px;
 }
 
-.dataCard___3nWkl{
+.dataCard___3Q_0s{
     padding: 20px 10px 20px 10px;
 }
-.dataCardHeader___gEL4b{
+.dataCardHeader___10rmn{
 
 }
-.cardHeaderInfo___1KKAQ{
+.cardHeaderInfo___3YamX{
     float:right;
     padding-right: 10px;
 }
-.CardTitle___12oLu{
+.CardTitle___2alg-{
     height: 28px;
     font-size: 14px;
     color:#757575 ;
     font-weight: 300;
 }
-.CardMain___UWi8T{
+.CardMain___E7g1w{
 
 }
-.leftData___3NKJ9{
+.leftData___7ANrN{
     font-size: 14px;
     font-weight: 400;
     display: inline-block;
     width: 50%;
 }
-.rightData___31slU{
+.rightData___1NmVF{
     font-size: 14px;
     font-weight: 400;
     display: inline-block;
     width: 50%;
 
 }
-.salesRank___3ji77{
+.salesRank___Luclk{
     margin-top:10px;
 }
 @media (max-width: 600px) {
-    .salesRank___3ji77{
+    .salesRank___Luclk{
         padding: 0 40px;
     }
 }
-.salesRankItem___1wLI5{
+.salesRankItem___3io5M{
     margin-top: 12px;
 }
-.salesItemLeftTop___38KRD{
+.salesItemLeftTop___XD4uS{
     display:inline-block;
     background:#263238;
     border-radius:50%;
@@ -4276,7 +4276,7 @@ header .ant-menu___ZN8wj:hover li{
     line-height:24px;
     font-size:16px
 }
-.salesItemLeft___27Kk3{
+.salesItemLeft___20CVA{
     display:inline-block;
     background:#B0BEC5;
     border-radius:50%;
@@ -4286,16 +4286,16 @@ header .ant-menu___ZN8wj:hover li{
     line-height:24px;
     font-size:16px
 }
-.salesItemMid___2Cvs1{
+.salesItemMid___2_byj{
     margin:0 20px
 }
-.salesItemRight___2CtrE{
+.salesItemRight___1A8M6{
     float:right;
     margin-right:20px;
     line-height:24px;
 }
 
-.cardHeader___3PQMo{
+.cardHeader___wsTLV{
     height: 56px;
     line-height: 56px ;
     padding: 0 20px;
