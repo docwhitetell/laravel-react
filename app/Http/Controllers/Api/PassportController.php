@@ -23,11 +23,12 @@ class PassportController extends Controller
             $this->cleanExpiresAccessToken();
             $this->cleanExpiresRefreshToken();
             $passwordClient=Client::find(2);
-            if($request->email=='example@react.com'){
-               $scopes='';
+            /*if($request->email=='example@react.com'){
+               $scopes='*';
             }else{
                 $scopes='*';
-            }
+            }*/
+            $scopes='*';
             $response = $http->post(env('APP_URL').'/oauth/token', [
                 'form_params' => [
                     'grant_type' => 'password',
