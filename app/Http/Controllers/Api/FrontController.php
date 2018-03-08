@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use DateTime;
 
 use App\Http\Controllers\Api\CommonController as CommonFunc;
+use PhpParser\Node\Expr\Cast\Object_;
 
 
 class FrontController extends Controller
@@ -22,6 +23,7 @@ class FrontController extends Controller
     //首页数据API
     public function FrontIndex(Request $request){
         $data['blogs']=$this->FrontBlogs($request);
+        $data['record']=$this->FrontData();
         //$data['video']=$this->GetVideos($request);
         return $data;
     }
@@ -37,18 +39,46 @@ class FrontController extends Controller
         $deadTimestamp =$this->TimeTransfer( ($nowDate - 7 * 24 * 60 * 60));
         /*数据查询域*/
         $query=Blogs::where('created_at','>',$beginTime?$beginTime:$deadTimestamp)->orderBy('created_at','desc')->get();
-        $classes=[];
+        $classes=['undefined'];
 
-        foreach ($query as $val){
+        //发布日期统计
+        $dateCount=[];
+        $classCount=[];
+        $all = Blogs::all();
+        foreach ($all as $val){
+            array_push($dateCount,$val->created_at->format('Y-m-d'));
             if(!in_array($val->classes,$classes)){
-                $blogs['class_'.$val->classes]=Blogs::where('classes',$val->classes)->select(['id','title','description','poster','classes','created_at'])->get();
-                array_push($classes,$val->classes);
+                if (!is_null($val->classes)){
+                    $clsBlogs=Blogs::where('classes',$val->classes)->select(['id','title','classes','created_at'])->get();
+                    //$blogs['class_'.$val->classes]=$clsBlogs;
+                    array_push($classes,$val->classes);
+                }else{
+                    //$blogs['class_undefined']=Blogs::where('classes',$val->classes)->select(['id','title','classes','created_at'])->get();
+                }
             }
         }
+
+        foreach($classes as $cls){
+            if($cls!='undefined'){
+                $classobj['name']=$cls;
+                $classobj['value']=Blogs::where('classes',$cls)->get()->count();
+                array_push($classCount,$classobj);
+            }else{
+                $classobj['name']='NEC';
+                $classobj['value']=Blogs::where('classes',null)->get()->count();
+                array_push($classCount,$classobj);
+            }
+        }
+
+        sort($dateCount);//升序排序
+
         $blogs['total']=Blogs::all()->count();
         $blogs['lastSevenDayPublish']=$query->count();
         //$blogs['latestPublishTime']=$query->first()->created_at;
         $blogs['classes']=$classes;
+
+        $blogs['dateCount']= $dateCount;
+        $blogs['classCount']= $classCount;
         $query=null;
         return $blogs;
     }
