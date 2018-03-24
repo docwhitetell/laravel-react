@@ -14,7 +14,7 @@ Route::group(['middleware' => ['cors'],'domain'=>'admin.docwhite.cn'], function 
     /*博客文章详情 api*/
     Route::get('/blogs/{id}', 'Api\FrontController@FrontBlogsDetail');
 
-
+//dahudhada
 
 
 });
