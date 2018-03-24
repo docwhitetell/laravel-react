@@ -15,6 +15,9 @@ Route::group(['middleware' => ['cors'],'domain'=>'admin.docwhite.cn'], function 
     Route::get('/blogs/{id}', 'Api\FrontController@FrontBlogsDetail');
 
 
+
+    // test
+
 });
 
 
