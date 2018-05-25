@@ -120,7 +120,11 @@ class FrontController extends Controller
      * */
     public function RapFormData(Request $request){
         // dd($request->json('formData'));
-        $data = User::all();
-        return $data;
+        $result = [];
+        $data = User::orderBy('created_at','desc')->select('name')->get();
+        foreach ($data as $user){
+            array_push($result,$user->name);
+        }
+        return $result;
     }
 }
