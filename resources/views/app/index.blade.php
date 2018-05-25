@@ -10,13 +10,17 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <link rel="shortcut icon" href="{{asset('/favicon.ico')}}">
   <link rel="stylesheet" href="{{asset('/app/index.css')}}" />
+{{--  <link rel="stylesheet" href="{{asset('/rap/index.css')}}" />--}}
 
-
-<body>
+<body style="position:relative">
 <div id="root">
-
 </div>
 
+{{--<div id="rap" style="position:absolute;width: 800px;height:600px; top:50%;left: 50%; transform: translate(-50%,-50%);z-index: 30000">
+
+</div>--}}
 <script type="text/javascript" src="{{asset('/app/index.js')}}"></script>
+{{--<script type="text/javascript" src="{{asset('/rap/index.js')}}"></script>--}}
+
 </body>
 </html>
