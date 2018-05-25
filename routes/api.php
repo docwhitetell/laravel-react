@@ -20,6 +20,8 @@ Route::group(['domain' => 'admin.docwhite.cn'], function () {
     Route::post('/refresh', 'Api\PassportController@refresh');
     /*注册 API*/
     Route::post('/register', 'Api\RegisterController@register');
+
+    Route::get("/user/list",'Api\FrontController@RapFormData');
 });
 
 

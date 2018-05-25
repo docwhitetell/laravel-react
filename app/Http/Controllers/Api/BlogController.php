@@ -34,6 +34,7 @@ class BlogController extends Controller
         }
         return response()->json(['success',true],200);
     }
+
     public function userblogs(Request $request){
         return $request->user()->blogs()->orderBy('created_at','desc')->select(['id','title','description','poster','classes','created_at'])->get();
     }

@@ -113,4 +113,14 @@ class FrontController extends Controller
         }
     }
     /*前台控制器*/
+
+
+    /*
+     * Rap 嵌入测试
+     * */
+    public function RapFormData(Request $request){
+        // dd($request->json('formData'));
+        $data = User::all();
+        return $data;
+    }
 }
