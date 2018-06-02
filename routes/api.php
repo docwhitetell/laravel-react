@@ -22,6 +22,8 @@ Route::group(['domain' => 'admin.docwhite.cn'], function () {
     Route::post('/register', 'Api\RegisterController@register');
 
     Route::get("/user/list",'Api\FrontController@RapFormData');
+    Route::get("/searchSelect",'Api\FrontController@RapSearchSelect');
+    Route::get("/selectChild",'Api\FrontController@RapSelectWithChildren');
 });
 
 

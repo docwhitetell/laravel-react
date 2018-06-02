@@ -127,4 +127,40 @@ class FrontController extends Controller
         }
         return $result;
     }
+    public function RapSearchSelect(Request $request){
+        // dd($request->json('formData'));
+        $result = [];
+        $data = User::orderBy('created_at','desc')->get();
+        foreach ($data as $user){
+            // dd($user);
+            $res['label'] = $user->name;
+            $res['value'] = $user->id;
+            array_push($result,$res);
+        }
+        return $result;
+    }
+    public function RapSelectWithChildren(Request $request){
+        // dd($request->json('formData'));
+        $result = [];
+        $data = User::orderBy('created_at','desc')->limit(20)->get();
+        foreach ($data as $user){
+            // dd($user);
+            $res['label'] = $user->name;
+            $res['value'] = $user->id;
+            $res['children'] = [];
+            foreach ($data as $s){
+                $child['label'] = $s->name;
+                $child['value'] = $s->id;
+                $child['children'] = [];
+                foreach ($data as $gs){
+                    $grandSon['label'] = $gs->name;
+                    $grandSon['value'] = $gs->id;
+                    array_push($child['children'],$grandSon);
+                }
+                array_push($res['children'],$child);
+            }
+            array_push($result,$res);
+        }
+        return $result;
+    }
 }
