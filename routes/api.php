@@ -22,11 +22,10 @@ Route::group(['domain' => 'admin.docwhite.cn'], function () {
     Route::post('/register', 'Api\RegisterController@register');
 
     Route::get("/user/list",'Api\FrontController@RapFormData');
-    Route::get("/searchSelect",'Api\FrontController@RapSearchSelect');
     Route::get("/selectChild",'Api\FrontController@RapSelectWithChildren');
 });
 
-
+Route::get("/searchSelect",'Api\FrontController@RapSearchSelect');
 
 Route::group(['middleware' => ['auth:api','cors'],'domain'=>'admin.docwhite.cn'], function () {
     /* 以下路由访问需要带token */

@@ -170,6 +170,7 @@ return [
         /*Passport Oauth2.0*/
         Laravel\Passport\PassportServiceProvider::class,
         Jenssegers\Agent\AgentServiceProvider::class,
+        SwooleTW\Http\LaravelServiceProvider::class,
         /*
          * Application Service Providers...
          */
